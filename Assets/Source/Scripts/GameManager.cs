@@ -7,7 +7,7 @@ namespace Source.Scripts
     {
         private void Start()
         {
-            Debug.Log("Game start!");
+            Debug.Log("Hello world!");
         }
     }
 }
