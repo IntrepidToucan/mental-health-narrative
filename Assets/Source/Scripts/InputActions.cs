@@ -43,7 +43,7 @@ namespace Source.Scripts
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""84124fa0-34e0-47dc-a6c8-765020eb18d5"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
