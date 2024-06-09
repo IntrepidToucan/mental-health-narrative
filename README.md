@@ -4,7 +4,7 @@ This README describes the technical details behind the game.
 
 ## Player Input
 
-We use the new Unity **Input System** to handle player input.
+We use the new Unity **Input System** (version **1.8.2**) to handle player input.
 
 * **Manual:** https://docs.unity3d.com/Packages/com.unity.inputsystem@1.8/manual/index.html
 * **Workflow Overview:** https://docs.unity3d.com/Packages/com.unity.inputsystem@1.8/manual/Workflow-Actions.html
