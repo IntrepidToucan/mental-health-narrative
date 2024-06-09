@@ -25,7 +25,7 @@ and click the "Add version 1.8.2 by name" link to download the latest version.
 #### Cannot delete actions in Input System 1.8.2
 
 If you right-click an action in the Input System actions editor and no context menu appears (i.e., you can't delete actions),
-you can edit the project-wide actions asset directly in code by editing the `InputSystem_Actions.inputactions` file.
+you can edit the project-wide actions asset directly in code by editing the `InputSystem_Actions.inputactions` file (inside `/Assets/Settings`).
 
 ## Player
 
