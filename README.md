@@ -11,11 +11,11 @@ We use the new Unity **Input System** to handle player input.
 
 View or edit the project-wide actions: `Edit > Project Settings > Input System Package`
 
-### Gotchas
+### Troubleshooting
 
-#### Actions editor GUI bug in Input System 1.7.0
+#### Broken actions editor "Path" dropdown in Input System 1.7.0
 
-There's a bug in version 1.7.0 of the Input System that breaks the actions editor interface
+There's a bug in version 1.7.0 of the Input System that breaks the actions editor GUI
 (see https://forum.unity.com/threads/unable-to-use-input-system-panel.1450204/ for context).
 
 The Unity Package Manager seems to only show version 1.7.0.
