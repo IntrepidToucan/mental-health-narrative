@@ -13,12 +13,19 @@ View or edit the project-wide actions: `Edit > Project Settings > Input System P
 
 ### Gotchas
 
-There's a bug in version 1.7.0 of the Input System that breaks the action map GUI
+#### Actions editor GUI bug in Input System 1.7.0
+
+There's a bug in version 1.7.0 of the Input System that breaks the actions editor interface
 (see https://forum.unity.com/threads/unable-to-use-input-system-panel.1450204/ for context).
 
 The Unity Package Manager seems to only show version 1.7.0.
 Go to https://docs.unity3d.com/Packages/com.unity.inputsystem@1.8/changelog/CHANGELOG.html#182---2024-04-29
 and click the "Add version 1.8.2 by name" link to download the latest version.
+
+#### Cannot delete actions in Input System 1.8.2
+
+If you right-click an action in the Input System actions editor and no context menu appears (i.e., you can't delete actions),
+you can edit the project-wide actions asset directly in code by editing the `InputSystem_Actions.inputactions` file.
 
 ## Player
 
