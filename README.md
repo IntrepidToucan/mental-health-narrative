@@ -32,4 +32,11 @@ Using kinematic equations gives us more precise control over character movement 
 
 The raycasting and collision detection logic is in the **`PlayerMovementController`** script on the `Player` prefab.
 To learn more about our implementation, see https://www.youtube.com/playlist?list=PLFt_AvWsXl0f0hqURlhyIoAabKPgRsqjz
-and https://youtu.be/hG9SzQxaCm8?feature=shared.
+and https://youtu.be/hG9SzQxaCm8.
+
+#### Troubleshooting
+
+##### The character isn't colliding with an obstacle
+
+Our raycasting logic detects collisions using a layer called `Obstacles`.
+If you want the character to collide with something, make sure that the obstacle's layer is set to `Obstacles`.
