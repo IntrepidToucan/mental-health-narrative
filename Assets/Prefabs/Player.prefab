@@ -172,6 +172,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5e254fee7bbf8949a9a043876a5fa18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 4
+  accelerationTimeGrounded: 0.1
+  accelerationTimeAirborne: 0.2
+  jumpHeight: 1
+  distanceToJumpApex: 1.8
+  fallingGravityScale: 2
 --- !u!114 &8505786801600300760
 MonoBehaviour:
   m_ObjectHideFlags: 0
