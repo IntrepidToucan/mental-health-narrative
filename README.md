@@ -27,7 +27,8 @@ you can edit the project-wide actions asset directly in code by editing the `Inp
 ### Player Movement
 
 We implement player movement (walking/running, jumping, etc.) using raycasting and kinematics.
-Using kinematic equations gives us more precise control over character movement than rigid body physics does.
+Using kinematic equations gives us more precise control over character movement than rigid body physics does
+(for more context, see https://www.reddit.com/r/Unity2D/comments/4cfszl/comment/d1hs389/).
 
 The raycasting and collision detection logic is in the **`PlayerMovementController`** script on the `Player` prefab.
 To learn more about our implementation, see https://www.youtube.com/playlist?list=PLFt_AvWsXl0f0hqURlhyIoAabKPgRsqjz
