@@ -55,6 +55,7 @@ public class PlayerInputHandler : MonoBehaviour
         _velocity.x = Mathf.SmoothDamp(_velocity.x, moveValue.x * moveSpeed, ref _velocityXSmoothing,
             _movementController.Collisions.Below ? accelerationTimeGrounded : accelerationTimeAirborne);
         _velocity.y += gravity * Time.deltaTime;
+        
         _movementController.Move(_velocity * Time.deltaTime);
     }
 }
