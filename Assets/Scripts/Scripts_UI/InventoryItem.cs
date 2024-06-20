@@ -12,8 +12,7 @@ public class InventoryItem : MonoBehaviour
     [SerializeField] private TMP_Text quantityTxt;
     [SerializeField] private Image borderImage;
 
-    public event Action<InventoryItem> OnItemClicked, 
-        OnItemDroppedOn, OnItemBeginDrag, OnItemEndDrag, OnRightMouseBtnClick;
+    public event Action<InventoryItem> OnItemClicked, OnItemDroppedOn, OnItemBeginDrag, OnItemEndDrag, OnRightMouseBtnClick;
 
     private bool empty = true;
 
@@ -25,7 +24,7 @@ public class InventoryItem : MonoBehaviour
 
     public void ResetData()
     {
-        itemImage.gameObject.SetActive(false);
+        this.itemImage.gameObject.SetActive(false);
         empty = true;
     }
 
@@ -36,9 +35,9 @@ public class InventoryItem : MonoBehaviour
 
     public void SetData(Sprite sprite, int quantity)
     {
-        itemImage.gameObject.SetActive(true);
-        itemImage.sprite = sprite;
-        quantityTxt.text = quantity.ToString();
+        this.itemImage.gameObject.SetActive(true);
+        this.itemImage.sprite = sprite;
+        this.quantityTxt.text = quantity.ToString();
         empty = false;
     }
 
@@ -67,7 +66,7 @@ public class InventoryItem : MonoBehaviour
 
     public void OnPointerClick(BaseEventData data)
     {
-       PointerEventData pointerData = (PointerEventData)data;
+        PointerEventData pointerData = (PointerEventData)data;
         if (pointerData.button == PointerEventData.InputButton.Right)
         {
             OnRightMouseBtnClick?.Invoke(this);

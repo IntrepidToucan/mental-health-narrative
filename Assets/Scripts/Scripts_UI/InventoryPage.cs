@@ -1,17 +1,30 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class InventoryPage : MonoBehaviour
 {
-    // Start is called before the first frame update
+  
     [SerializeField] private InventoryItem itemPrefab;
 
-    [SerializeField] private RectTransform contentPanel; 
+    [SerializeField] private RectTransform contentPanel;
 
-    List<InventoryItem>ListofUIItems = new List<InventoryItem>();
+    [SerializeField] private InventoryDescription itemDescription;
+
+    public Sprite image;
+    public int quantity;
+    public string title, description;
+
+    List<InventoryItem>listofUIItems = new List<InventoryItem>();
 
 
+    private void Awake()
+    {
+        Hide();
+        itemDescription.ResetDescription();
+    }
 
     public void InitializeInventoryUI(int inventorysize)
     {
@@ -21,14 +34,52 @@ public class InventoryPage : MonoBehaviour
 
             InventoryItem uiItem = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
             uiItem.transform.SetParent(contentPanel);
-            ListofUIItems.Add(uiItem);
+            listofUIItems.Add(uiItem);
+            uiItem.OnItemClicked += HandleItemSelection;
+            uiItem.OnItemBeginDrag += HandleBeginDrag;
+            uiItem.OnItemDroppedOn += HandleSwap;
+            uiItem.OnItemEndDrag += HandleEndDrag;
+            uiItem.OnRightMouseBtnClick += HandleShowItemActions;
+
         }
+
+    }
+
+    private void HandleShowItemActions(InventoryItem obj)
+    {
+
+    }  
+
+    private void HandleEndDrag(InventoryItem obj)
+    {
+
+    }
+
+    private void HandleSwap (InventoryItem obj)
+    {
+
+    }
+
+    private void HandleBeginDrag(InventoryItem obj)
+    {
+
+    }
+
+    private void HandleItemSelection(InventoryItem obj)
+    {
+
+        Debug.Log(obj.name);
+        itemDescription.SetDescription(image, title, description);
+        listofUIItems[0].Select();
 
     }
 
     public void Show()
     {
         gameObject.SetActive(true);
+        itemDescription.ResetDescription();
+
+        listofUIItems[0].SetData(image, quantity);
     }
 
     public void Hide()
