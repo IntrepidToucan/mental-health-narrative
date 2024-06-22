@@ -1,0 +1,5 @@
+#root {
+    justify-content: flex-end;
+    margin: 0;
+    padding: 20px;
+}

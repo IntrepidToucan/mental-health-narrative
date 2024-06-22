@@ -1,0 +1,8 @@
+#root {
+    background-color: black;
+    color: white;
+    font-size: 40px;
+    margin-top: 24px;
+    padding: 12px;
+    -unity-text-align: middle-left;
+}
