@@ -13,7 +13,7 @@ namespace Characters.NPCs
         
         public void Interact(Player.Player player)
         {
-            player.DialogueController.StartDialogue(new Story(inkAsset.text));
+            player.DialogueController.StartDialogue(this, new Story(inkAsset.text));
         }
         
         private void Awake()

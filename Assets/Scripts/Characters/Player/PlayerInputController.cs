@@ -3,10 +3,12 @@ using UnityEngine.InputSystem;
 
 namespace Characters.Player
 {
+    [RequireComponent(typeof(PlayerInput))]
     [RequireComponent(typeof(MovementController))]
     [RequireComponent(typeof(PlayerInteractionController))]
     public class PlayerInputController : MonoBehaviour
     {
+        private PlayerInput _playerInput;
         private MovementController _movementController;
         private PlayerInteractionController _interactionController;
     
@@ -16,17 +18,18 @@ namespace Characters.Player
 
         private void Awake()
         {
+            _playerInput = GetComponent<PlayerInput>();
             _movementController = GetComponent<MovementController>();
             _interactionController = GetComponent<PlayerInteractionController>();
         }
 
         private void Start()
         {
-            _moveAction = InputSystem.actions.FindAction("Move");
-            _jumpAction = InputSystem.actions.FindAction("Jump");
-            _interactAction = InputSystem.actions.FindAction("Interact");
+            _moveAction = _playerInput.actions.FindAction("Move");
+            _jumpAction = _playerInput.actions.FindAction("Jump");
+            _interactAction = _playerInput.actions.FindAction("Interact");
 
-            _interactAction.started += context =>
+            _interactAction.performed += context =>
             {
                 _interactionController.TryInteract();
             };

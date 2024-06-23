@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Dialogue/DialogueBox.uss?fileID=7433441132597879392&amp;guid=e8f1693d160fa734fba75f8dd63da0cf&amp;type=3#DialogueBox" />
+    <ui:VisualElement name="dialogue-box">
+        <ui:VisualElement name="dialogue-text-container">
+            <ui:Label parse-escape-sequences="true" display-tooltip-when-elided="true" name="dialogue-text" tabindex="-1" />
+        </ui:VisualElement>
+        <ui:VisualElement name="dialogue-image" style="background-image: url(&quot;project://database/Assets/Art/Prototype/foliagePack_002.png?fileID=2800000&amp;guid=dc44b17fecc98a5438d4aaaab8aa9582&amp;type=3#foliagePack_002&quot;); border-top-width: 10px; border-right-width: 10px; border-bottom-width: 10px; border-left-width: 10px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255);" />
+    </ui:VisualElement>
+</ui:UXML>

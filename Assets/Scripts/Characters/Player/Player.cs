@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Characters.Player
 {
+    [RequireComponent(typeof(PlayerInput))]
     [RequireComponent(typeof(PlayerStatsController))]
     [RequireComponent(typeof(PlayerInputController))]
     [RequireComponent(typeof(PlayerInteractionController))]

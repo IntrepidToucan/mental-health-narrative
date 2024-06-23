@@ -1,0 +1,33 @@
+#dialogue-overlay {
+    flex-grow: 1;
+    justify-content: space-between;
+    padding: 40px 40px 24px 24px;
+}
+
+#dialogue-container {
+    align-self: flex-end;
+    width: 60%;
+}
+
+#dialogue-choices-container {
+    width: 40%;
+}
+
+#continue-dialogue-button {
+    /* Set a background color for ease of debugging (set the button's opacity to 1) */
+    background-color: red;
+    border-width: 0;
+    height: 10px;
+    margin: 0;
+    opacity: 0;
+    padding: 0;
+    width: 10px;
+}
+
+#continue-dialogue-button:focus {
+    background-color: yellow;
+}
+
+#continue-dialogue-button:active {
+    background-color: green;
+}

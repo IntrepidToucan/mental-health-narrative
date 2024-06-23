@@ -1,8 +1,30 @@
-#root {
+#dialogue-choice-box {
     background-color: black;
+    border-width: 0;
     color: white;
-    font-size: 40px;
-    margin-top: 24px;
-    padding: 12px;
+    font-size: 36px;
+    margin: 24px 0 0;
+    opacity: 0;
+    padding: 20px 32px;
+    transition-duration: 0.75s;
+    transition-property: opacity;
+    transition-timing-function: ease-in-out;
+    white-space: normal;
     -unity-text-align: middle-left;
+}
+
+#dialogue-choice-box:focus {
+    background-color: #333333;
+}
+
+#dialogue-choice-box:active {
+    background-color: #444444;
+}
+
+#dialogue-choice-box:disabled {
+    color: #999999;
+}
+
+#dialogue-choice-box.visible {
+    opacity: 1;
 }
