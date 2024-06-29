@@ -1,11 +1,10 @@
 using Interaction;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Characters.Player
 {
-    [RequireComponent(typeof(PlayerInput))]
-    [RequireComponent(typeof(MovementController))]
+    [RequireComponent(typeof(BoxCollider2D))]
+    [RequireComponent(typeof(Player))]
     public class PlayerInteractionController : MonoBehaviour
     {
         [Header("Debug")]
@@ -21,11 +20,8 @@ namespace Characters.Player
         private const float SkinWidth = 0.015f;
         private const int RayCount = 4;
 
-        private Camera _camera;
         private BoxCollider2D _collider;
-        private MovementController _movementController;
         private Player _player;
-        private PlayerInput _playerInput;
         
         private IInteractable _interactable;
         private GameObject _interactionPrompt;
@@ -37,27 +33,24 @@ namespace Characters.Player
 
         private void Awake()
         {
-            _camera = Camera.main;
             _collider = GetComponent<BoxCollider2D>();
-            _movementController = GetComponent<MovementController>();
             _player = GetComponent<Player>();
-            _playerInput = GetComponent<PlayerInput>();
         }
 
         private void Update()
         {
             _interactable = null;
 
-            if (_playerInput.currentActionMap.name == "Player")
+            if (_player.PlayerInput.currentActionMap.name == "Player")
             {
                 var colliderBounds = _collider.bounds;
                 colliderBounds.Expand(SkinWidth * -2);
         
-                var origin =  _movementController.DirectionX < Mathf.Epsilon ?
+                var origin =  _player.MovementController.DirectionX < Mathf.Epsilon ?
                     new Vector2(colliderBounds.min.x, colliderBounds.min.y) :
                     new Vector2(colliderBounds.max.x, colliderBounds.min.y);
 
-                var rayDirection = Vector2.right * _movementController.DirectionX;
+                var rayDirection = Vector2.right * _player.MovementController.DirectionX;
                 var adjustedRayLength = rayLength + SkinWidth;
                 var raySpacing = colliderBounds.size.y / (RayCount - 1);
                 var layerMask = LayerMask.GetMask("Interaction");
@@ -99,13 +92,10 @@ namespace Characters.Player
                     _interactionPrompt.transform.position = targetPosition;
                 }
             }
-            else
+            else if (_interactionPrompt is not null)
             {
-                if (_interactionPrompt is not null)
-                {
-                    Destroy(_interactionPrompt);
-                    _interactionPrompt = null;
-                }
+                Destroy(_interactionPrompt);
+                _interactionPrompt = null;
             }
         }
     }

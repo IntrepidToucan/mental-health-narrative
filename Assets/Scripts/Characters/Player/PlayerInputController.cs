@@ -3,35 +3,29 @@ using UnityEngine.InputSystem;
 
 namespace Characters.Player
 {
-    [RequireComponent(typeof(PlayerInput))]
-    [RequireComponent(typeof(MovementController))]
-    [RequireComponent(typeof(PlayerInteractionController))]
+    [RequireComponent(typeof(Player))]
     public class PlayerInputController : MonoBehaviour
     {
-        private PlayerInput _playerInput;
-        private MovementController _movementController;
-        private PlayerInteractionController _interactionController;
-    
+        private Player _player;
+        
         private InputAction _moveAction;
         private InputAction _jumpAction;
         private InputAction _interactAction;
 
         private void Awake()
         {
-            _playerInput = GetComponent<PlayerInput>();
-            _movementController = GetComponent<MovementController>();
-            _interactionController = GetComponent<PlayerInteractionController>();
+            _player = GetComponent<Player>();
         }
 
         private void Start()
         {
-            _moveAction = _playerInput.actions.FindAction("Move");
-            _jumpAction = _playerInput.actions.FindAction("Jump");
-            _interactAction = _playerInput.actions.FindAction("Interact");
+            _moveAction = _player.PlayerInput.actions.FindAction("Move");
+            _jumpAction = _player.PlayerInput.actions.FindAction("Jump");
+            _interactAction = _player.PlayerInput.actions.FindAction("Interact");
 
             _interactAction.performed += context =>
             {
-                _interactionController.TryInteract();
+                _player.InteractionController.TryInteract();
             };
         }
 
@@ -39,7 +33,7 @@ namespace Characters.Player
         {
             var moveValue = _moveAction.ReadValue<Vector2>();
             
-            _movementController.Move(moveValue.x, _jumpAction.IsPressed());
+            _player.MovementController.Move(moveValue.x, _jumpAction.IsPressed());
         }
     }
 }

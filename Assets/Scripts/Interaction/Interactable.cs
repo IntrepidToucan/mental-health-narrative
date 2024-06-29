@@ -5,7 +5,7 @@ namespace Interaction
 {
     public interface IInteractable
     {
-        GameObject gameObject { get ; } 
+        GameObject gameObject { get; } 
         
         void Interact(Player player);
     }

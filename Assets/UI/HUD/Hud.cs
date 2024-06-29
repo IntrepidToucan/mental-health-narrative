@@ -27,7 +27,7 @@ namespace UI.HUD
          */
         private void Start()
         {
-            _progressBar.value = _player.StatsController.Wellness;
+            // _progressBar.value = _player.StatsController.Wellness;
         }
     }
 }

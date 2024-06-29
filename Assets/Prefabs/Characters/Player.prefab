@@ -83,6 +83,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2561479091687588043, guid: 8ccf51bbb57610e488a9870397e9f80d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5795326582164201615}
+    - targetCorrespondingSourceObject: {fileID: 2561479091687588043, guid: 8ccf51bbb57610e488a9870397e9f80d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7816663932644309645}
+    - targetCorrespondingSourceObject: {fileID: 2561479091687588043, guid: 8ccf51bbb57610e488a9870397e9f80d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 470619339441436766}
+    - targetCorrespondingSourceObject: {fileID: 2561479091687588043, guid: 8ccf51bbb57610e488a9870397e9f80d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8118458423928343227}
   m_SourcePrefab: {fileID: 100100000, guid: 8ccf51bbb57610e488a9870397e9f80d, type: 3}
 --- !u!1 &2679449623188391974 stripped
 GameObject:
@@ -161,7 +170,6 @@ MonoBehaviour:
   visibilityDelay_DialogueImage: 0.1
   visibilityDelay_DialogueChoice: 0.2
   debugInk: 0
-  dialogueOverlayPrefab: {fileID: 5978938078497168575, guid: 95f6881ccb8c20c40aa6ed26b7331f39, type: 3}
 --- !u!114 &5795326582164201615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,3 +200,41 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &7816663932644309645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2679449623188391974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a873c366bcb96c84285581d9ea2e2a02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &470619339441436766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2679449623188391974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c50e69d0ffa7c024e92cfc5217ca204c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8118458423928343227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2679449623188391974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83a7ad7e489a7bd48b14a47e1c129e1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueOverlayPrefab: {fileID: 5978938078497168575, guid: 95f6881ccb8c20c40aa6ed26b7331f39, type: 3}
+  hudPrefab: {fileID: 0}

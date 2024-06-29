@@ -13,8 +13,7 @@
     width: 40%;
 }
 
-#continue-dialogue-button {
-    /* Set a background color for ease of debugging (set the button's opacity to 1) */
+#advance-dialogue-button {
     background-color: red;
     border-width: 0;
     height: 10px;
@@ -24,10 +23,10 @@
     width: 10px;
 }
 
-#continue-dialogue-button:focus {
+#advance-dialogue-button:focus {
     background-color: yellow;
 }
 
-#continue-dialogue-button:active {
+#advance-dialogue-button:active {
     background-color: green;
 }

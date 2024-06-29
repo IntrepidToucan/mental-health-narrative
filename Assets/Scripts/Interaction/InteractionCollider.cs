@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Interaction
@@ -12,27 +11,27 @@ namespace Interaction
         
         private void Awake()
         {
-            var layerMask = LayerMask.NameToLayer("Interaction");
+            var layer = LayerMask.NameToLayer("Interaction");
 
-            if (gameObject.layer != layerMask)
+            if (gameObject.layer != layer)
             {
                 Debug.LogError("Layer not set");
-                gameObject.layer = layerMask;
+                gameObject.layer = layer;
             }
 
+            var ownCollider = GetComponent<BoxCollider2D>();
             var parentCollider = transform.parent.GetComponentInParent<BoxCollider2D>();
-            var colliderComp = GetComponent<BoxCollider2D>();
             
-            if (!colliderComp.isTrigger)
+            if (!ownCollider.isTrigger)
             {
                 Debug.LogError("Interaction collider should be a trigger");
-                colliderComp.isTrigger = true;
+                ownCollider.isTrigger = true;
             }
 
-            var colliderSize = colliderComp.size;
+            var colliderSize = ownCollider.size;
             colliderSize.x = parentCollider.size.x * sizeMultiplierX;
             colliderSize.y = parentCollider.size.y * sizeMultiplierY;
-            colliderComp.size = colliderSize;
+            ownCollider.size = colliderSize;
         }
     }
 }
