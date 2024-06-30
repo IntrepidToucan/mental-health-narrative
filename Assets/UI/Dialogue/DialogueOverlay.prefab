@@ -61,7 +61,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8b278d0abb5a9448ad8368eab86bf8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultVisibilityDelay: 0.5
-  defaultVisibilityDelay_DialogueImage: 0.1
   dialogueBoxUxml: {fileID: 9197481963319205126, guid: a8dbd7192edd57049a0648ff2e74307c, type: 3}
   dialogueChoiceUxml: {fileID: 9197481963319205126, guid: d98e5ee39fb1c1f418b99e4b88108b41, type: 3}

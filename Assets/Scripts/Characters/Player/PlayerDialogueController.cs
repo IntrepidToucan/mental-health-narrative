@@ -32,19 +32,23 @@ namespace Characters.Player
         }
 
         private Player _player;
+        
         private Story _inkStory;
         private Npc _npc;
         private AdvanceableState _advanceableState = AdvanceableState.CanNotAdvance;
 
         public void StartDialogue(Npc npc, Story inkStory)
         {
-            _player.PlayerInput.SwitchCurrentActionMap("UI");
+            // NOTE: We purposely disable input here instead of switching action maps (e.g., "Player" --> "UI").
+            // Switching action maps seems to cause a bug in Unity's UI Toolkit
+            // that prevents events from triggering on the HUD when it's redisplayed after the dialogue flow is over.
+            _player.PlayerInput.currentActionMap.Disable();
             
             _inkStory = inkStory;
             _npc = npc;
             _advanceableState = AdvanceableState.CanNotAdvance;
 
-            _player.UiController.CreateDialogueOverlay(_player);
+            _player.UiController.CreateDialogueOverlay(_npc);
             
             StartCoroutine(ShowDialogueBox());
         }
@@ -157,7 +161,7 @@ namespace Characters.Player
             _inkStory = null;
             _npc = null;
             
-            _player.PlayerInput.SwitchCurrentActionMap("Player");
+            _player.PlayerInput.currentActionMap.Enable();
         }
     }
 }

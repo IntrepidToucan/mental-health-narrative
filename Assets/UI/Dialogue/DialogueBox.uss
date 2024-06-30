@@ -22,7 +22,7 @@
     flex-grow: 1;
     min-height: 240px;
     opacity: 0;
-    padding: 16px 48px;
+    padding: 16px 64px;
     transition-duration: 0.75s;
     transition-property: opacity;
     transition-timing-function: ease-in-out; 
@@ -36,7 +36,7 @@
     -unity-text-align: middle-left;
     color: white;
     flex-grow: 1;
-    font-size: 40px;
+    font-size: 46px;
     margin: 0;
     opacity: 0;
     padding: 0;

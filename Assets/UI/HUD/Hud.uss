@@ -1,0 +1,31 @@
+#hud {
+    flex-grow: 1;
+    padding: 30px 20px;
+}
+
+#menu-buttons-container {
+    flex-direction: row;
+}
+
+.button {
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+    height: 70px;
+    margin: 0 24px 0 0;
+    padding: 0;
+    width: 70px;
+}
+
+.button:focus {
+    -unity-background-image-tint-color: rgb(204, 204, 204);
+}
+
+.button:hover {
+    -unity-background-image-tint-color: rgb(204, 204, 204);
+}
+
+.button:active {
+    -unity-background-image-tint-color: rgb(170, 170, 170);
+}

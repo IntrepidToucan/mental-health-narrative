@@ -24,6 +24,10 @@ PrefabInstance:
       propertyPath: inkAsset
       value: 
       objectReference: {fileID: 4900000, guid: f20bfdad0c828bf4c84785e01140af9f, type: 3}
+    - target: {fileID: 2700772882549818970, guid: a2d45900dc1bddf43b3303b8e80b25f6, type: 3}
+      propertyPath: fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 74f3019c52de7f6429f77aff03b9742a, type: 2}
     - target: {fileID: 3960631278056377888, guid: a2d45900dc1bddf43b3303b8e80b25f6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -1,11 +1,12 @@
 #dialogue-choice-box {
-    background-color: black;
-    border-width: 0;
-    color: white;
-    font-size: 36px;
+    background-color: #000;
+    border-color: #eee;
+    border-width: 4px;
+    color: #fff;
+    font-size: 34px;
     margin: 24px 0 0;
     opacity: 0;
-    padding: 20px 32px;
+    padding: 26px 32px;
     transition-duration: 0.75s;
     transition-property: opacity;
     transition-timing-function: ease-in-out;
@@ -14,15 +15,15 @@
 }
 
 #dialogue-choice-box:focus {
-    background-color: #333333;
+    background-color: rgb(51, 51, 51);
 }
 
 #dialogue-choice-box:active {
-    background-color: #444444;
+    background-color: rgb(68, 68, 68);
 }
 
 #dialogue-choice-box:disabled {
-    color: #999999;
+    color: rgb(153, 153, 153);
 }
 
 #dialogue-choice-box.visible {

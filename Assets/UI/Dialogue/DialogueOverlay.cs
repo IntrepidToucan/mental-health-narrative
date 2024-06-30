@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Characters.NPCs;
 using Characters.Player;
 using Ink.Runtime;
 using UnityEngine;
@@ -14,50 +15,41 @@ namespace UI.Dialogue
         [SerializeField] private VisualTreeAsset dialogueBoxUxml;
         [SerializeField] private VisualTreeAsset dialogueChoiceUxml;
 
-        private const string VisibilityClass = "visible";
-        
+        private const string VisibleClass = "visible";
+
         private Player _player;
+        private Npc _npc;
+        private UIDocument _uiDoc;
         
-        private VisualElement _choicesContainer;
+        private VisualElement _dialogueChoicesContainer;
         private VisualElement _dialogueContainer;
 
-        private Button _advanceButton;
+        private Button _advanceDialogueButton;
         private VisualElement _dialogueImage;
         private Label _dialogueText;
         private VisualElement _dialogueTextContainer;
         
         public bool IsDialogueImageHidden(float opacityThreshold = 0f) => IsElementHidden(_dialogueImage, opacityThreshold);
         public bool IsDialogueImageVisible(float opacityThreshold = 1f) => IsElementVisible(_dialogueImage, opacityThreshold);
-        public void HideDialogueImage() => _dialogueImage.RemoveFromClassList(VisibilityClass);
-        public void ShowDialogueImage() => _dialogueImage.AddToClassList(VisibilityClass);
+        public void HideDialogueImage() => _dialogueImage.RemoveFromClassList(VisibleClass);
+        public void ShowDialogueImage() => _dialogueImage.AddToClassList(VisibleClass);
         
         public bool IsDialogueTextContainerHidden(float opacityThreshold = 0f) => IsElementHidden(_dialogueTextContainer, opacityThreshold);
         public bool IsDialogueTextContainerVisible(float opacityThreshold = 1f) => IsElementVisible(_dialogueTextContainer, opacityThreshold);
-        public void HideDialogueTextContainer() => _dialogueTextContainer.RemoveFromClassList(VisibilityClass);
-        public void ShowDialogueTextContainer() => _dialogueTextContainer.AddToClassList(VisibilityClass);
+        public void HideDialogueTextContainer() => _dialogueTextContainer.RemoveFromClassList(VisibleClass);
+        public void ShowDialogueTextContainer() => _dialogueTextContainer.AddToClassList(VisibleClass);
         
         public bool IsDialogueTextHidden(float opacityThreshold = 0f) => IsElementHidden(_dialogueText, opacityThreshold);
         public bool IsDialogueTextVisible(float opacityThreshold = 1f) => IsElementVisible(_dialogueText, opacityThreshold);
-        public void HideDialogueText() =>_dialogueText.RemoveFromClassList(VisibilityClass);
-        public void ShowDialogueText() => _dialogueText.AddToClassList(VisibilityClass);
+        public void HideDialogueText() =>_dialogueText.RemoveFromClassList(VisibleClass);
+        public void ShowDialogueText() => _dialogueText.AddToClassList(VisibleClass);
         
-        public void Init(Player player)
+        public void SetParams(Player player, Npc npc)
         {
             _player = player;
-            
-            var uiDoc = GetComponent<UIDocument>();
-            uiDoc.rootVisualElement.RegisterCallback<ClickEvent>(HandleOverlayClick);
-            uiDoc.rootVisualElement.RegisterCallback<KeyDownEvent>(HandleOverlayKeyDown);
-            
-            _advanceButton = uiDoc.rootVisualElement.Q<Button>("advance-dialogue-button");
-            _advanceButton.RegisterCallback<KeyDownEvent>(HandleAdvanceDialogueButtonKeyDown);
-            
-            _dialogueContainer.Clear();
-            _dialogueContainer.Add(dialogueBoxUxml.Instantiate());
-            
-            _dialogueText = _dialogueContainer.Q<Label>("dialogue-text");
-            _dialogueTextContainer = _dialogueContainer.Q("dialogue-text-container");
-            _dialogueImage = _dialogueContainer.Q("dialogue-image");
+            _npc = npc;
+
+            TrySetDialogueFont();
         }
 
         public void SetDialogue(string text)
@@ -67,11 +59,11 @@ namespace UI.Dialogue
 
         public void SetDialogueChoices(List<Choice> choices)
         {
-            _choicesContainer.Clear();
+            _dialogueChoicesContainer.Clear();
 
             if (choices.Count <= 0)
             {
-                _advanceButton.Focus();
+                _advanceDialogueButton.Focus();
                 return;
             }
 
@@ -81,30 +73,31 @@ namespace UI.Dialogue
                 
                 var button = dialogueChoice.Q<Button>("dialogue-choice-box");
                 button.text = choice.text;
+                button.RegisterCallback<MouseOverEvent>(FocusDialogueChoice);
                 button.RegisterCallback<ClickEvent, Choice>(SelectDialogueChoice, choice);
                 button.RegisterCallback<KeyDownEvent, Choice>(SelectDialogueChoice, choice);
                 button.SetEnabled(false);
 
-                _choicesContainer.Add(dialogueChoice);
+                _dialogueChoicesContainer.Add(dialogueChoice);
             }
         }
         
         public bool AreDialogueChoicesHidden(float opacityThreshold = 0f)
         {
-            if (_choicesContainer.ClassListContains(VisibilityClass)) return false;
+            if (_dialogueChoicesContainer.ClassListContains(VisibleClass)) return false;
 
-            var choiceBoxes = _choicesContainer.Query(className: "dialogue-choice-box").ToList();
+            var choiceBoxes = _dialogueChoicesContainer.Query(className: "dialogue-choice-box").ToList();
 
             if (choiceBoxes.Count <= 0) return true;
 
             return choiceBoxes.Sum(element => element.resolvedStyle.opacity) / choiceBoxes.Count <= opacityThreshold + Mathf.Epsilon;
         }
         
-        public bool AreDialogueChoicesVisible(float opacityThreshold = 0f)
+        public bool AreDialogueChoicesVisible(float opacityThreshold = 1f)
         {
-            if (!_choicesContainer.ClassListContains(VisibilityClass)) return false;
+            if (!_dialogueChoicesContainer.ClassListContains(VisibleClass)) return false;
 
-            var choiceBoxes = _choicesContainer.Query(className: "dialogue-choice-box").ToList();
+            var choiceBoxes = _dialogueChoicesContainer.Query(className: "dialogue-choice-box").ToList();
 
             if (choiceBoxes.Count <= 0) return false;
 
@@ -113,30 +106,29 @@ namespace UI.Dialogue
         
         public IEnumerator HideDialogueChoicesWithDelay(float delay = 0f)
         {
-            _choicesContainer.RemoveFromClassList(VisibilityClass);
+            _dialogueChoicesContainer.RemoveFromClassList(VisibleClass);
 
             var i = 0;
             
-            foreach (var element in _choicesContainer.Query(className: "dialogue-choice-box").ToList())
+            foreach (var element in _dialogueChoicesContainer.Query(className: "dialogue-choice-box").ToList())
             {
                 if (i > 0 && delay > Mathf.Epsilon)
                 {
                     yield return new WaitForSeconds(delay);
                 }
 
-                element.RemoveFromClassList(VisibilityClass);
-                element.SetEnabled(false);
+                element.RemoveFromClassList(VisibleClass);
                 i++;
             }
         }
         
         public IEnumerator ShowDialogueChoicesWithDelay(float delay = 0f)
         {
-            _choicesContainer.AddToClassList(VisibilityClass);
+            _dialogueChoicesContainer.AddToClassList(VisibleClass);
             
             var i = 0;
             
-            foreach (var element in _choicesContainer.Query(className: "dialogue-choice-box").ToList())
+            foreach (var element in _dialogueChoicesContainer.Query(className: "dialogue-choice-box").ToList())
             {
                 element.SetEnabled(true);
 
@@ -148,38 +140,61 @@ namespace UI.Dialogue
                     yield return new WaitForSeconds(delay);
                 }
 
-                element.AddToClassList(VisibilityClass);
+                element.AddToClassList(VisibleClass);
                 i++;
             }
         }
         
-        private static bool IsContinueKeyPress(KeyDownEvent evt)
-        {
-            return evt.keyCode is KeyCode.Space or KeyCode.Return;
-        }
+        private static bool IsContinueKeyPress(KeyDownEvent evt) => evt.keyCode is KeyCode.Space or KeyCode.Return;
         
         private static bool IsElementHidden(VisualElement element, float opacityThreshold)
         {
-            return !element.ClassListContains(VisibilityClass) && element.resolvedStyle.opacity <= opacityThreshold + Mathf.Epsilon;
+            return !element.ClassListContains(VisibleClass) && element.resolvedStyle.opacity <= opacityThreshold + Mathf.Epsilon;
         }
 
         private static bool IsElementVisible(VisualElement element, float opacityThreshold)
         {
             // For some reason, `resolvedStyle.opacity` returns `1` when the UI is first created
             // even though the element doesn't have the `visible` class, so always check for the class first.
-            return element.ClassListContains(VisibilityClass) && element.resolvedStyle.opacity >= opacityThreshold + Mathf.Epsilon;
+            return element.ClassListContains(VisibleClass) && element.resolvedStyle.opacity >= opacityThreshold + Mathf.Epsilon;
         }
-        
+
+        private void Awake()
+        {
+            _uiDoc = GetComponent<UIDocument>();
+        }
+
         private void OnEnable()
         {
-            var uiDoc = GetComponent<UIDocument>();
-            _choicesContainer = uiDoc.rootVisualElement.Q("dialogue-choices-container");
-            _dialogueContainer = uiDoc.rootVisualElement.Q("dialogue-container");
+            _uiDoc.rootVisualElement.RegisterCallback<ClickEvent>(HandleOverlayClick);
+            _uiDoc.rootVisualElement.RegisterCallback<KeyDownEvent>(HandleOverlayKeyDown);
+
+            _dialogueContainer = _uiDoc.rootVisualElement.Q("dialogue-container");
+            _dialogueChoicesContainer = _uiDoc.rootVisualElement.Q("dialogue-choices-container");
+            
+            _advanceDialogueButton = _uiDoc.rootVisualElement.Q<Button>("advance-dialogue-button");
+            _advanceDialogueButton.RegisterCallback<KeyDownEvent>(HandleAdvanceDialogueButtonKeyDown);
+
+            _dialogueContainer.Clear();
+            _dialogueContainer.Add(dialogueBoxUxml.Instantiate());
+            
+            _dialogueImage = _dialogueContainer.Q("dialogue-image");
+            _dialogueTextContainer = _dialogueContainer.Q("dialogue-text-container");
+            _dialogueText = _dialogueContainer.Q<Label>("dialogue-text");
+
+            TrySetDialogueFont();
+        }
+
+        private void TrySetDialogueFont()
+        {
+            if (_npc is null || _dialogueText is null) return;
+            
+            _dialogueText.style.unityFontDefinition = new StyleFontDefinition(FontDefinition.FromSDFFont(_npc.Font));
         }
         
         private void HandleOverlayClick(ClickEvent evt)
         {
-            if (evt.target is Button && evt.target != _advanceButton) return;
+            if (evt.target is Button && evt.target != _advanceDialogueButton) return;
             
             _player.DialogueController.TryAdvanceDialogue();
         }
@@ -196,6 +211,11 @@ namespace UI.Dialogue
             if (!IsContinueKeyPress(evt)) return;
             
             _player.DialogueController.TryAdvanceDialogue();
+        }
+
+        private static void FocusDialogueChoice(MouseOverEvent evt)
+        {
+            if (evt.target is Button button) button.Focus();
         }
         
         private void SelectDialogueChoice(ClickEvent evt, Choice choice)

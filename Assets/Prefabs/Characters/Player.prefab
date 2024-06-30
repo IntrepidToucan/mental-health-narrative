@@ -164,11 +164,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e4a6cbbe10cd544394230219e513c92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  opacityThreshold_DialogueImage: 0.2
-  opacityThreshold_DialogueTextContainer: 0.8
-  opacityThreshold_DialogueText: 1
-  visibilityDelay_DialogueImage: 0.1
+  advancementOpacity_DialogueChoice: 0.5
+  advancementOpacity_DialogueText: 0.5
   visibilityDelay_DialogueChoice: 0.2
+  visibilityDelay_DialogueImage: 0.1
+  opacityThreshold_DialogueImage: 0.2
+  opacityThreshold_DialogueText: 1
+  opacityThreshold_DialogueTextContainer: 0.8
   debugInk: 0
 --- !u!114 &5795326582164201615
 MonoBehaviour:
@@ -237,4 +239,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueOverlayPrefab: {fileID: 5978938078497168575, guid: 95f6881ccb8c20c40aa6ed26b7331f39, type: 3}
-  hudPrefab: {fileID: 0}
+  hudPrefab: {fileID: 5999629207024168831, guid: 8a783d9592c2c6945a537bd83ad65a3f, type: 3}

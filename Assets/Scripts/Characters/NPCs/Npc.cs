@@ -1,13 +1,20 @@
 using Ink.Runtime;
 using Interaction;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
+using TextAsset = UnityEngine.TextAsset;
 
 namespace Characters.NPCs
 {
     public class Npc : Character, IInteractable
     {
+        [Header("Art")]
+        [SerializeField] private FontAsset fontAsset;
+        
         [Header("Ink")]
         [SerializeField, Tooltip("The compiled Ink JSON file")] private TextAsset inkAsset;
+
+        public FontAsset Font => fontAsset;
         
         public void Interact(Player.Player player)
         {
