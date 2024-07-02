@@ -4,6 +4,7 @@
 }
 
 #dialogue-image {
+    background-color: #000;
     flex-shrink: 0;
     height: 240px;
     opacity: 0;

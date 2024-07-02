@@ -15,7 +15,12 @@ namespace Characters.NPCs
         [SerializeField, Tooltip("The compiled Ink JSON file")] private TextAsset inkAsset;
 
         public FontAsset Font => fontAsset;
-        
+
+        public IInteractable.InteractionData GetInteractionData(Player.Player player)
+        {
+            return new IInteractable.InteractionData("Talk");
+        }
+
         public void Interact(Player.Player player)
         {
             player.DialogueController.StartDialogue(this, new Story(inkAsset.text));
@@ -31,6 +36,15 @@ namespace Characters.NPCs
             {
                 Debug.LogError("Layer not set");
                 gameObject.layer = layer;
+            }
+            
+            var spriteRenderer = GetComponent<SpriteRenderer>();
+            var sortingLayer = SortingLayer.NameToID("NonPlayerObjects");
+
+            if (spriteRenderer.sortingLayerID != sortingLayer)
+            {
+                Debug.LogError("Sorting layer not set");
+                spriteRenderer.sortingLayerID = sortingLayer;
             }
             
             MovementController.ValidateCollisionMask(

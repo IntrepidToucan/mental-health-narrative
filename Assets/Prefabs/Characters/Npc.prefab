@@ -122,6 +122,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7587147244759553154, guid: 8ccf51bbb57610e488a9870397e9f80d, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587147244759553154, guid: 8ccf51bbb57610e488a9870397e9f80d, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 711311509
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 384578040159463144, guid: 8ccf51bbb57610e488a9870397e9f80d, type: 3}
     m_RemovedGameObjects: []
@@ -156,3 +164,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42fc8d3e7c816554e9fc4fce7e11ff4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fontAsset: {fileID: 0}
+  inkAsset: {fileID: 0}

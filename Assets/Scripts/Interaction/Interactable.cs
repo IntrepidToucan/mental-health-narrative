@@ -5,8 +5,19 @@ namespace Interaction
 {
     public interface IInteractable
     {
-        GameObject gameObject { get; } 
+        public struct InteractionData
+        {
+            public InteractionData(string prompt)
+            {
+                InteractionPrompt = prompt;
+            }
+            
+            public string InteractionPrompt;
+        }
         
+        GameObject gameObject { get; }
+
+        InteractionData GetInteractionData(Player player);
         void Interact(Player player);
     }
 }

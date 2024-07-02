@@ -1,1 +1,1 @@
-﻿{"inkVersion":21,"root":[[["done",{"#f":5,"#n":"g-0"}],null],"done",{"#f":1}],"listDefs":{}}
+﻿{"inkVersion":21,"root":[[{"->":"intro"},["done",{"#f":5,"#n":"g-0"}],null],"done",{"intro":[["^Hi, I'm Mandy.","\n","ev","str","^Pleasure to meet you, Mandy.","/str","/ev",{"*":".^.c-0","flg":20},"ev","str","^How do you do?","/str","/ev",{"*":".^.c-1","flg":20},{"c-0":["^ ",{"->":"goodbye"},"\n",{"#f":5}],"c-1":["^ ",{"->":"goodbye"},"\n",{"#f":5}]}],{"#f":1}],"goodbye":["^Well, goodbye then!","\n","end",{"#f":1}],"#f":1}],"listDefs":{}}

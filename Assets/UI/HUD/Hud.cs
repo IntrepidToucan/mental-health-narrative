@@ -21,6 +21,8 @@ namespace UI.HUD
 
         private void Awake()
         {
+            DontDestroyOnLoad(transform.gameObject);
+            
             _uiDoc = GetComponent<UIDocument>();
         }
 
