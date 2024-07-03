@@ -7,12 +7,13 @@ namespace Characters.Player
     public class PlayerInputController : MonoBehaviour
     {
         private Player _player;
-        
+
         private InputAction _moveAction;
         private InputAction _jumpAction;
         private InputAction _interactAction;
         private InputAction _openLogBookAction;
         private InputAction _pauseGameAction;
+        private InputAction _inventoryAction;
 
         private void Awake()
         {
@@ -26,27 +27,30 @@ namespace Characters.Player
             _interactAction = _player.PlayerInput.actions.FindAction("Interact");
             _openLogBookAction = _player.PlayerInput.actions.FindAction("OpenLogBook");
             _pauseGameAction = _player.PlayerInput.actions.FindAction("PauseGame");
+            _inventoryAction = _player.PlayerInput.actions.FindAction("Inventory"); // Added for inventory
 
             _interactAction.performed += context =>
             {
                 _player.InteractionController.TryInteract();
             };
-            
+
             _openLogBookAction.performed += context =>
             {
                 Debug.Log("open log book");
             };
-            
+
             _pauseGameAction.performed += context =>
             {
                 Debug.Log("pause game");
             };
+
+            _inventoryAction.performed += _player.InventoryController.ToggleInventory;  // Added for inventory
         }
 
         private void Update()
         {
             var moveValue = _moveAction.ReadValue<Vector2>();
-            
+
             _player.MovementController.Move(moveValue.x, _jumpAction.IsPressed());
         }
     }

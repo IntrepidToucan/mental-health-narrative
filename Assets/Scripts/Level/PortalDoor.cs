@@ -20,4 +20,10 @@ public class PortalDoor : MonoBehaviour, IInteractable
             Debug.LogError("Paired door not assigned.");
         }
     }
+
+    // Implement the GetInteractionData method from the IInteractable interface
+    public IInteractable.InteractionData GetInteractionData(Player player)
+    {
+        return new IInteractable.InteractionData("Use the portal door");
+    }
 }

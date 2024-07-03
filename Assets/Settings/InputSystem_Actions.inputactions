@@ -554,7 +554,7 @@
                     "name": "Submit",
                     "type": "Button",
                     "id": "f09e96ab-5e99-4b58-8d88-b6f66d50a55f",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -563,7 +563,7 @@
                     "name": "Cancel",
                     "type": "Button",
                     "id": "f6313eba-854b-4f43-9d66-33abaca90567",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -636,6 +636,15 @@
                     "type": "Button",
                     "id": "5b3c06d0-3216-4790-a543-06c49df585e5",
                     "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MousePosition",
+                    "type": "PassThrough",
+                    "id": "48e92761-8aa4-452f-a172-0f8735cbeb47",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -1068,6 +1077,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f0f62920-6040-4333-ab73-a5edb42270db",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "MousePosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

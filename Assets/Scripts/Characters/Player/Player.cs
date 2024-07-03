@@ -11,13 +11,15 @@ namespace Characters.Player
     [RequireComponent(typeof(PlayerScriptController))]
     [RequireComponent(typeof(PlayerStatsController))]
     [RequireComponent(typeof(PlayerUiController))]
+    [RequireComponent(typeof(InventoryController))]
     public class Player : Character
     {
         public PlayerDialogueController DialogueController { get; private set; }
         public PlayerInteractionController InteractionController { get; private set; }
         public PlayerInput PlayerInput { get; private set; }
         public PlayerUiController UiController { get; private set; }
-        
+        public InventoryController InventoryController { get; private set; }  // Added reference
+
         protected override void Awake()
         {
             base.Awake();
@@ -40,7 +42,8 @@ namespace Characters.Player
             InteractionController = GetComponent<PlayerInteractionController>();
             PlayerInput = GetComponent<PlayerInput>();
             UiController = GetComponent<PlayerUiController>();
-            
+            InventoryController = GetComponent<InventoryController>();  // Initialize reference
+
             var layer= LayerMask.NameToLayer("Player");
 
             if (gameObject.layer != layer)

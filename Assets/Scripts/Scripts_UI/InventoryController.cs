@@ -15,7 +15,14 @@ public class InventoryController : MonoBehaviour
         inventoryUI.InitializeInventoryUI(inventorySize);
 
         // Find and bind the inventory action
-        _inventoryAction = InputSystem.actions.FindAction("Inventory");
+        var playerInput = GetComponent<PlayerInput>();
+        if (playerInput == null)
+        {
+            Debug.LogError("PlayerInput component not found on the GameObject.");
+            return;
+        }
+
+        _inventoryAction = playerInput.actions["Inventory"];
 
         if (_inventoryAction == null)
         {
@@ -35,9 +42,10 @@ public class InventoryController : MonoBehaviour
         }
     }
 
-    private void ToggleInventory(InputAction.CallbackContext context)
+    public void ToggleInventory(InputAction.CallbackContext context)
     {
-        if (!inventoryUI.isActiveAndEnabled)
+        Debug.Log($"Inventory active before toggle: {inventoryUI.gameObject.activeSelf}");
+        if (!inventoryUI.gameObject.activeSelf)
         {
             inventoryUI.Show();
         }
@@ -45,5 +53,7 @@ public class InventoryController : MonoBehaviour
         {
             inventoryUI.Hide();
         }
+        Debug.Log($"Inventory active after toggle: {inventoryUI.gameObject.activeSelf}");
     }
+
 }

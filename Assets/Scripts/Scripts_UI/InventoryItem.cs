@@ -24,6 +24,7 @@ public class InventoryItem : MonoBehaviour
 
     public void ResetData()
     {
+        Debug.Log("Resetting data");
         this.itemImage.gameObject.SetActive(false);
         empty = true;
     }
@@ -35,6 +36,7 @@ public class InventoryItem : MonoBehaviour
 
     public void SetData(Sprite sprite, int quantity)
     {
+        Debug.Log("Setting data");
         this.itemImage.gameObject.SetActive(true);
         this.itemImage.sprite = sprite;
         this.quantityTxt.text = quantity.ToString();
@@ -51,29 +53,37 @@ public class InventoryItem : MonoBehaviour
         if (empty)
             return;
 
+        Debug.Log("Begin Drag");
         OnItemBeginDrag?.Invoke(this);
     }
 
     public void OnDrop()
     {
+        Debug.Log("Drop");
         OnItemDroppedOn?.Invoke(this);
     }
 
     public void OnEndDrag()
     {
+        Debug.Log("End Drag");
         OnItemEndDrag?.Invoke(this);
     }
 
     public void OnPointerClick(BaseEventData data)
     {
         PointerEventData pointerData = (PointerEventData)data;
+        Debug.Log($"Pointer Clicked: {pointerData.button}");
         if (pointerData.button == PointerEventData.InputButton.Right)
         {
+            Debug.Log("Right Mouse Button Click");
             OnRightMouseBtnClick?.Invoke(this);
         }
         else
         {
+            Debug.Log("Left Mouse Button Click");
             OnItemClicked?.Invoke(this);
         }
     }
 }
+
+
