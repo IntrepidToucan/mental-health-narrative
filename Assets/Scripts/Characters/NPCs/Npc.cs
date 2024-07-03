@@ -1,39 +1,59 @@
 using Ink.Runtime;
 using Interaction;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
+using TextAsset = UnityEngine.TextAsset;
 
 namespace Characters.NPCs
 {
     public class Npc : Character, IInteractable
     {
+        [Header("Art")]
+        [SerializeField] private FontAsset fontAsset;
+        
         [Header("Ink")]
         [SerializeField, Tooltip("The compiled Ink JSON file")] private TextAsset inkAsset;
-        
-        private MovementController _movementController;
-        
+
+        public FontAsset Font => fontAsset;
+
+        public IInteractable.InteractionData GetInteractionData(Player.Player player)
+        {
+            return new IInteractable.InteractionData("Talk");
+        }
+
         public void Interact(Player.Player player)
         {
-            player.DialogueController.StartDialogue(new Story(inkAsset.text));
+            player.DialogueController.StartDialogue(this, new Story(inkAsset.text));
         }
         
-        private void Awake()
+        protected override void Awake()
         {
-            var layerMask = LayerMask.NameToLayer("NPCs");
+            base.Awake();
+            
+            var layer = LayerMask.NameToLayer("NPCs");
 
-            if (gameObject.layer != layerMask)
+            if (gameObject.layer != layer)
             {
                 Debug.LogError("Layer not set");
-                gameObject.layer = layerMask;
+                gameObject.layer = layer;
             }
             
-            _movementController = GetComponent<MovementController>();
-            _movementController.ValidateCollisionMask(
+            var spriteRenderer = GetComponent<SpriteRenderer>();
+            var sortingLayer = SortingLayer.NameToID("NonPlayerObjects");
+
+            if (spriteRenderer.sortingLayerID != sortingLayer)
+            {
+                Debug.LogError("Sorting layer not set");
+                spriteRenderer.sortingLayerID = sortingLayer;
+            }
+            
+            MovementController.ValidateCollisionMask(
                 LayerMask.GetMask("Obstacles", "Player"));
         }
 
         private void Update()
         {
-            _movementController.Move(0, false);
+            MovementController.Move(0, false);
         }
     }
 }

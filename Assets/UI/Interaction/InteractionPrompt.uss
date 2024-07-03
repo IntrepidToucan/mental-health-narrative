@@ -1,9 +1,0 @@
-#root {
-    padding: 16px;
-    position: absolute;
-}
-
-#label {
-    color: rgb(255, 255, 255);
-    font-size: 60px;
-}

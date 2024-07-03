@@ -1,4 +1,4 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/Dialogue/DialogueChoiceBox.uss?fileID=7433441132597879392&amp;guid=5b2be8e6f5581344085b3906fcdd505a&amp;type=3#DialogueChoiceBox" />
-    <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" name="root" />
+    <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="dialogue-choice-box" class="dialogue-choice-box" style="-unity-font-definition: resource(&apos;Fonts &amp; Materials/Raleway/RalewayFont&apos;);" />
 </ui:UXML>

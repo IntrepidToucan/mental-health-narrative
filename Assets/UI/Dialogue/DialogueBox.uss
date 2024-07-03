@@ -1,0 +1,52 @@
+#dialogue-box {
+    align-items: flex-start;
+    flex-direction: row;
+}
+
+#dialogue-image {
+    background-color: #000;
+    flex-shrink: 0;
+    height: 240px;
+    opacity: 0;
+    transition-duration: 0.75s;
+    transition-property: opacity;
+    transition-timing-function: ease-in-out;
+    width: 240px;
+}
+
+#dialogue-image.visible {
+    opacity: 1;
+}
+
+#dialogue-text-container {
+    background-color: black;
+    flex-grow: 1;
+    min-height: 240px;
+    opacity: 0;
+    padding: 16px 64px;
+    transition-duration: 0.75s;
+    transition-property: opacity;
+    transition-timing-function: ease-in-out; 
+}
+
+#dialogue-text-container.visible {
+    opacity: 1;
+}
+
+#dialogue-text {
+    -unity-text-align: middle-left;
+    color: white;
+    flex-grow: 1;
+    font-size: 46px;
+    margin: 0;
+    opacity: 0;
+    padding: 0;
+    transition-duration: 0.75s;
+    transition-property: opacity;
+    transition-timing-function: ease-in-out;
+    white-space: normal;
+}
+
+#dialogue-text.visible {
+    opacity: 1;
+}

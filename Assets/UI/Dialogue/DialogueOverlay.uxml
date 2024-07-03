@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Dialogue/DialogueOverlay.uss?fileID=7433441132597879392&amp;guid=a6804a8062bbcb94ea7dd285c090c016&amp;type=3#DialogueOverlay" />
+    <ui:VisualElement name="dialogue-overlay">
+        <ui:VisualElement name="dialogue-container" />
+        <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="advance-dialogue-button" tabindex="-1" />
+        <ui:VisualElement name="dialogue-choices-container" />
+    </ui:VisualElement>
+</ui:UXML>

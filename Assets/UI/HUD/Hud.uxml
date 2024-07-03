@@ -1,5 +1,9 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement style="flex-grow: 1; flex-shrink: 1; align-items: flex-start; justify-content: flex-start; margin-top: 0; padding-top: 3%; padding-right: 3%; padding-bottom: 3%; padding-left: 3%;">
-        <ui:ProgressBar value="0" name="wellness-bar" style="flex-basis: auto; flex-direction: column; flex-grow: 0; width: 25%; min-width: auto; max-width: none; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; height: 5%;" />
+    <Style src="project://database/Assets/UI/HUD/Hud.uss?fileID=7433441132597879392&amp;guid=167c0c08121d954428ae53c631c19e3f&amp;type=3#Hud" />
+    <ui:VisualElement name="hud">
+        <ui:VisualElement name="menu-buttons-container">
+            <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" tabindex="-1" focusable="false" name="pause-menu-button" class="button" style="background-image: url(&quot;project://database/Assets/Art/UI/gear.png?fileID=2800000&amp;guid=6eb235d7fd5ff6b47a8a89390bdcef82&amp;type=3#gear&quot;);" />
+            <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" tabindex="-1" focusable="false" name="log-book-button" class="button" style="background-image: url(&quot;project://database/Assets/Art/UI/genericItem_white_035.png?fileID=2800000&amp;guid=c5424c75d70273941bd175d5c1754041&amp;type=3#genericItem_white_035&quot;);" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

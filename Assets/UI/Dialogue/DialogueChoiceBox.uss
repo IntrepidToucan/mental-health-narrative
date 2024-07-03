@@ -1,8 +1,31 @@
-#root {
-    background-color: black;
-    color: white;
-    font-size: 40px;
-    margin-top: 24px;
-    padding: 12px;
+#dialogue-choice-box {
+    background-color: #000;
+    border-color: #eee;
+    border-width: 4px;
+    color: #fff;
+    font-size: 34px;
+    margin: 24px 0 0;
+    opacity: 0;
+    padding: 26px 32px;
+    transition-duration: 0.75s;
+    transition-property: opacity;
+    transition-timing-function: ease-in-out;
+    white-space: normal;
     -unity-text-align: middle-left;
+}
+
+#dialogue-choice-box:focus {
+    background-color: rgb(51, 51, 51);
+}
+
+#dialogue-choice-box:active {
+    background-color: rgb(68, 68, 68);
+}
+
+#dialogue-choice-box:disabled {
+    color: rgb(153, 153, 153);
+}
+
+#dialogue-choice-box.visible {
+    opacity: 1;
 }

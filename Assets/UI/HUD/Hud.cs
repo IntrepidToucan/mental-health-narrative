@@ -6,28 +6,49 @@ namespace UI.HUD
 {
     public class Hud : MonoBehaviour
     {
-        private ProgressBar _progressBar;
-        
         private Player _player;
+        private UIDocument _uiDoc;
+
+        private VisualElement _rootContainer;
         
-        private void OnEnable()
+        private Button _logBookButton;
+        private Button _pauseMenuButton;
+
+        public void SetParams(Player player)
         {
-            var uiDoc = GetComponent<UIDocument>();
-
-            _progressBar = uiDoc.rootVisualElement.Q<ProgressBar>("wellness-bar");
-
-            _player = FindAnyObjectByType<Player>();
+            _player = player;
         }
 
-        /**
-         * According to the Unity docs (https://docs.unity3d.com/Manual/ExecutionOrder.html):
-         *   "[Y]ou can’t rely on one object’s Awake being called before another object’s OnEnable.
-         *   Any work that depends on Awake having been called
-         *   for all objects in the scene should be done in Start."
-         */
-        private void Start()
+        private void Awake()
         {
-            _progressBar.value = _player.StatsController.Wellness;
+            DontDestroyOnLoad(transform.gameObject);
+            
+            _uiDoc = GetComponent<UIDocument>();
+        }
+
+        private void OnEnable()
+        {
+            _rootContainer = _uiDoc.rootVisualElement.Q("hud");
+            
+            _logBookButton = _rootContainer.Q<Button>("log-book-button");
+            _logBookButton.RegisterCallback<ClickEvent>(OpenLogBook);
+            _logBookButton.focusable = false;
+            _logBookButton.tabIndex = -1;
+            
+            _pauseMenuButton = _rootContainer.Q<Button>("pause-menu-button");
+            _pauseMenuButton.RegisterCallback<ClickEvent>(OpenPauseMenu);
+            _pauseMenuButton.focusable = false;
+            _pauseMenuButton.tabIndex = -1;
+        }
+
+        private void OpenLogBook(ClickEvent evt)
+        {
+            Debug.Log("open log book");
+        }
+        
+        private void OpenPauseMenu(ClickEvent evt)
+        {
+            Debug.Log("open pause menu");
         }
     }
 }
