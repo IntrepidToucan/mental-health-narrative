@@ -9,8 +9,6 @@ public class BreakableEnvironment : MonoBehaviour
     // Reference to the platform's Rigidbody2D
     private Rigidbody2D rb;
 
-    private bool isPlayerOnPlatform; // Flag to track if player is on the platform
-
     void Start()
     {
         // Get the Rigidbody2D component
@@ -27,45 +25,25 @@ public class BreakableEnvironment : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Collision with player detected");
+            // Get the Rigidbody2D of the player
+            Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
 
-            // Check if the player is landing on the platform
-            if (collision.relativeVelocity.y <= 0) // Player is moving downwards
+            if (playerRb != null)
             {
-                Debug.Log("Player landed on the platform");
-
-                // Increment jump count
-                jumpCount++;
-
-                // Trigger break platform logic if jump count exceeds max jumps
-                if (jumpCount >= maxJumps)
+                // Check if the player is moving downward
+                if (playerRb.velocity.y <= 0)
                 {
-                    BreakPlatform();
+                    Debug.Log("Player landed on the platform");
+
+                    // Increment jump count
+                    jumpCount++;
+
+                    // Trigger break platform logic if jump count exceeds max jumps
+                    if (jumpCount >= maxJumps)
+                    {
+                        BreakPlatform();
+                    }
                 }
-            }
-        }
-    }
-
-    void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            isPlayerOnPlatform = false;
-        }
-    }
-
-    void Update()
-    {
-        // Check for jump input (you may replace "Jump" with your actual jump input key)
-        if (isPlayerOnPlatform && Input.GetButtonDown("Jump"))
-        {
-            // Increment jump count
-            jumpCount++;
-
-            // Trigger break platform logic if jump count exceeds max jumps
-            if (jumpCount >= maxJumps)
-            {
-                BreakPlatform();
             }
         }
     }

@@ -1,24 +1,25 @@
+using Characters.Player;
+using Interaction;
 using UnityEngine;
 
-public class ItemPickup : MonoBehaviour
+public class ItemPickup : MonoBehaviour, IInteractable
 {
-    public Item itemData; // Drag your Scriptable Object here in the inspector
+    public Item itemData; // ScriptableObject reference for the item details
 
-    private void OnTriggerEnter(Collider other)
+    public void Interact(Player player)
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            PickUp();
-        }
+        // Assuming the player has an 'Inventory' component where items can be added
+        Inventory.Instance.AddItem(itemData);
+        Debug.Log($"Item picked up: {itemData.itemName}");
+
+        // Destroy the item GameObject after it is picked up
+        Destroy(gameObject);
     }
 
-    void PickUp()
+    // This method returns interaction prompt data
+    public IInteractable.InteractionData GetInteractionData(Player player)
     {
-        // Add the item to the player's inventory
-        Inventory.Instance.AddItem(itemData);
-        // Optionally play a sound or animation
-
-        // Destroy the pickup object to simulate the item being picked up
-        Destroy(gameObject);
+        // Return a new instance of InteractionData with the prompt message
+        return new IInteractable.InteractionData($"Press 'E' to pick up {itemData.itemName}.");
     }
 }
