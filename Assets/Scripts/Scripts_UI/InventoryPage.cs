@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 public class InventoryPage : MonoBehaviour
@@ -10,11 +11,13 @@ public class InventoryPage : MonoBehaviour
     [SerializeField] private InventoryDescription itemDescription;
     [SerializeField] private MouseFollower mouseFollower;
 
-    public Sprite image;
+    public Sprite image, image2;
     public int quantity;
     public string title, description;
 
     private List<InventoryItem> listofUIItems = new List<InventoryItem>();
+
+    private int currentlyDraggedItemIndex = -1;
 
     private void Awake()
     {
@@ -41,36 +44,51 @@ public class InventoryPage : MonoBehaviour
         }
     }
 
-    private void HandleShowItemActions(InventoryItem obj)
+    private void HandleShowItemActions(InventoryItem inventoryItemUI)
     {
-        Debug.Log($"HandleShowItemActions called on {obj.name}");
+        Debug.Log($"HandleShowItemActions called on {inventoryItemUI.name}");
         // Implement item actions (e.g., use, equip, drop)
     }
 
-    private void HandleEndDrag(InventoryItem obj)
+    private void HandleEndDrag(InventoryItem inventoryItemUI)
     {
-        Debug.Log($"HandleEndDrag called on {obj.name}");
+
         mouseFollower.Toggle(false);
     }
 
-    private void HandleSwap(InventoryItem obj)
+    private void HandleSwap(InventoryItem inventoryItemUI)
     {
-        Debug.Log($"HandleSwap called on {obj.name}");
-        // Implement item swap logic
+        int index = listofUIItems.IndexOf(inventoryItemUI);
+        if (index == -1)
+        {
+            mouseFollower.Toggle(false);
+            currentlyDraggedItemIndex = -1;
+            return;
+
+        }
+        listofUIItems[currentlyDraggedItemIndex].SetData(index == 0 ? image : image2, quantity);
+        listofUIItems[index].SetData(currentlyDraggedItemIndex == 0 ? image : image2, quantity);
+        mouseFollower.Toggle(false);
+        currentlyDraggedItemIndex = -1;
     }
 
-    private void HandleBeginDrag(InventoryItem obj)
+    private void HandleBeginDrag(InventoryItem inventoryItemUI)
     {
-        Debug.Log($"HandleBeginDrag called on {obj.name}");
+        int index = listofUIItems.IndexOf(inventoryItemUI);
+        if (index == -1)
+            return;
+
+        currentlyDraggedItemIndex = index;
+
         mouseFollower.Toggle(true);
-        mouseFollower.SetData(image, quantity);
+        mouseFollower.SetData(index == 0 ? image : image2 , quantity);
     }
 
-    private void HandleItemSelection(InventoryItem obj)
+    private void HandleItemSelection(InventoryItem inventoryItemUI)
     {
-        Debug.Log($"Item selected: {obj.name}");
+        Debug.Log($"Item selected: {inventoryItemUI.name}");
         itemDescription.SetDescription(image, title, description);
-        obj.Select();
+        inventoryItemUI.Select();
     }
 
     public void Show()
@@ -78,10 +96,9 @@ public class InventoryPage : MonoBehaviour
         Debug.Log("Showing Inventory");
         gameObject.SetActive(true);
         itemDescription.ResetDescription();
-        if (listofUIItems.Count > 0)
-        {
-            listofUIItems[0].SetData(image, quantity);
-        }
+        
+        listofUIItems[0].SetData(image, quantity);
+        listofUIItems[1].SetData(image, quantity);
     }
 
     public void Hide()

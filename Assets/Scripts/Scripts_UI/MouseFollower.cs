@@ -57,18 +57,13 @@ public class MouseFollower : MonoBehaviour
 
     private void Update()
     {
-        if (_mousePositionAction != null)
-        {
-            Vector2 mousePosition = _mousePositionAction.ReadValue<Vector2>();
-            Vector2 position;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)canvas.transform, mousePosition, canvas.worldCamera, out position);
-            transform.position = canvas.transform.TransformPoint(position);
-            Debug.Log($"Mouse position updated to: {transform.position}");
-        }
-        else
-        {
-            Debug.LogWarning("Mouse position action is not initialized.");
-        }
+
+          Vector2 mousePosition = _mousePositionAction.ReadValue<Vector2>();
+          RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)canvas.transform, mousePosition, canvas.worldCamera, out mousePosition);
+          transform.position = canvas.transform.TransformPoint(mousePosition);
+          Debug.Log($"Mouse position updated to: {transform.position}");
+
+
     }
 
     public void Toggle(bool val)

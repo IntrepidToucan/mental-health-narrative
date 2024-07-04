@@ -39,7 +39,7 @@ public class InventoryItem : MonoBehaviour
         Debug.Log("Setting data");
         this.itemImage.gameObject.SetActive(true);
         this.itemImage.sprite = sprite;
-        this.quantityTxt.text = quantity.ToString();
+        this.quantityTxt.text = quantity + "";
         empty = false;
     }
 
