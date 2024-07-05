@@ -3639,7 +3639,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.71, y: -7.7900004, z: -10}
+  m_LocalPosition: {x: 5, y: 1.96, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7110,7 +7110,7 @@ Transform:
   m_GameObject: {fileID: 927038759}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.71, y: -7.7900004, z: -10}
+  m_LocalPosition: {x: 5, y: 1.96, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7497,7 +7497,6 @@ GameObject:
   - component: {fileID: 979158824}
   - component: {fileID: 979158822}
   - component: {fileID: 979158821}
-  - component: {fileID: 979158826}
   m_Layer: 7
   m_Name: BigWallBreak
   m_TagString: Ground
@@ -7706,18 +7705,6 @@ SpriteShapeRenderer:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 1.0000001, y: 1.0000001, z: 0}
   m_SpriteSortPoint: 0
---- !u!114 &979158826
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 979158819}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d080d1f194586ec41a8469829d31db7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1136830330
 GameObject:
   m_ObjectHideFlags: 0
@@ -8581,6 +8568,7 @@ GameObject:
   - component: {fileID: 1198346561}
   - component: {fileID: 1198346560}
   - component: {fileID: 1198346559}
+  - component: {fileID: 1198346562}
   - component: {fileID: 1198346558}
   m_Layer: 9
   m_Name: RandKey2
@@ -8714,6 +8702,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1198346562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198346557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4906ca43f6e147d429058fdb7d34f941, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemPickup: {fileID: 1198346559}
+  wallToDisappear: {fileID: 979158819}
 --- !u!1 &1260807162
 GameObject:
   m_ObjectHideFlags: 0
@@ -12868,7 +12870,7 @@ GameObject:
   - component: {fileID: 1787888896}
   - component: {fileID: 1787888895}
   m_Layer: 7
-  m_Name: BigWallBreak (1)
+  m_Name: BigWallPiece
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16881,11 +16883,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5418286701985022308, guid: b56f1e942fb3fe44fb02ef4fb5146e15, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.71
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5418286701985022308, guid: b56f1e942fb3fe44fb02ef4fb5146e15, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.18
+      value: 0.57
       objectReference: {fileID: 0}
     - target: {fileID: 5418286701985022308, guid: b56f1e942fb3fe44fb02ef4fb5146e15, type: 3}
       propertyPath: m_LocalPosition.z
