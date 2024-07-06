@@ -34,7 +34,7 @@ namespace Managers
 
         protected override void Awake()
         {
-            persistAcrossScenes = true;
+            PersistAcrossScenes = true;
             
             base.Awake();
             
@@ -46,7 +46,7 @@ namespace Managers
 
         private void TryDestroyDialogueOverlay()
         {
-            if (DialogueOverlay is null) return;
+            if (DialogueOverlay == null) return;
             
             Destroy(DialogueOverlay.gameObject);
             DialogueOverlay = null;

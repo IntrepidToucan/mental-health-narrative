@@ -22,5 +22,18 @@ namespace Interaction
             colliderSize.y = parentCollider.size.y * sizeMultiplierY;
             ownCollider.size = colliderSize;
         }
+
+        private void Start()
+        {
+            if (transform.parent.GetComponent<BoxCollider2D>() == null)
+            {
+                Debug.LogError("Interaction collider parent must have a box collider");
+            }
+            
+            if (transform.parent.GetComponent<Rigidbody2D>() == null)
+            {
+                Debug.LogError("Interaction collider parent must have a rigid body");
+            }
+        }
     }
 }

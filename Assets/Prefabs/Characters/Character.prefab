@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7587147244759553154}
   - component: {fileID: 2620620961605271586}
   - component: {fileID: 9018745506915532898}
-  - component: {fileID: 384578040159463144}
   - component: {fileID: 1560775067362620576}
   m_Layer: 0
   m_Name: Character
@@ -160,18 +159,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &384578040159463144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2561479091687588043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdc7c14ba7dd76042954ec4221c29acc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1560775067362620576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,3 +177,9 @@ MonoBehaviour:
     m_Bits: 0
   horizontalRayCount: 4
   verticalRayCount: 4
+  moveSpeed: 4
+  accelerationTimeGrounded: 0.1
+  accelerationTimeAirborne: 0.2
+  jumpHeight: 1
+  distanceToJumpApex: 1.8
+  fallingGravityScale: 2

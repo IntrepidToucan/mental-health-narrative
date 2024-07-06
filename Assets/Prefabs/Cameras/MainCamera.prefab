@@ -185,4 +185,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e082cf751736deb4faeef36299ecac0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  persistAcrossScenes: 0
+  playerFollowCameraPrefab: {fileID: 7998281809796451835, guid: d484d51281e5f0d4983bf183671ba969, type: 3}

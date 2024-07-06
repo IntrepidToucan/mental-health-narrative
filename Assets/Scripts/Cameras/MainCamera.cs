@@ -10,10 +10,15 @@ namespace Cameras
     {
         protected override void Awake()
         {
-            persistAcrossScenes = true;
+            PersistAcrossScenes = true;
             
             base.Awake();
+        }
 
+        protected override void InitializeSingleton()
+        {
+            base.InitializeSingleton();
+            
             GetComponent<Camera>().orthographic = true;
         }
     }

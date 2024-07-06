@@ -774,7 +774,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13544c5e109c0e24a95cddcd970494e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetSceneName: Scenes/InBetweenAreas/Hallway
 --- !u!212 &1303252091
 SpriteRenderer:
   m_ObjectHideFlags: 0

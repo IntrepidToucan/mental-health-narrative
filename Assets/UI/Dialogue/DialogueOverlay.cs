@@ -185,7 +185,7 @@ namespace UI.Dialogue
 
         private void TrySetDialogueFont()
         {
-            if (_npc is null || _dialogueText is null) return;
+            if (_npc == null || _dialogueText == null) return;
             
             _dialogueText.style.unityFontDefinition = new StyleFontDefinition(FontDefinition.FromSDFFont(_npc.Font));
         }

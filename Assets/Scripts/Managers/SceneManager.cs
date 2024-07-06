@@ -6,19 +6,40 @@ namespace Managers
 {
     public class SceneManager : Singleton<SceneManager>
     {
-        [Header("UI")]
+        [Header("Prefabs")]
+        [SerializeField] private GameObject eventSystemPrefab;
+        [SerializeField] private GameObject playerFollowCameraPrefab;
+        [SerializeField] private GameObject playerPrefab;
         [SerializeField] private GameObject sceneFaderPrefab;
+        [SerializeField] private GameObject uiManagerPrefab;
 
         private SceneFader _sceneFader;
+
+        public static void LoadScene(string sceneName)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
+        }
         
         protected override void Awake()
         {
-            persistAcrossScenes = true;
+            PersistAcrossScenes = true;
             
             base.Awake();
+        }
+
+        protected override void InitializeSingleton()
+        {
+            base.InitializeSingleton();
+
+            Instantiate(eventSystemPrefab, gameObject.transform);
+            Instantiate(uiManagerPrefab);
+            
+            var playerStart = GameObject.Find("PlayerStart");
+            Instantiate(playerPrefab, playerStart.transform.position, playerStart.transform.rotation);
+            Instantiate(playerFollowCameraPrefab);
 
             _sceneFader = Instantiate(sceneFaderPrefab, gameObject.transform).GetComponent<SceneFader>();
-            
+
             // We need a delay before updating the UI element classes,
             // or else the transition animation won't work.
             StartCoroutine(FadeInWithDelay());

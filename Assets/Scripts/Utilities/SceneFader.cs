@@ -19,6 +19,9 @@ namespace Utilities
         private void OnEnable()
         {
             _rootElement = _uiDoc.rootVisualElement.Q("root");
+            // This UI element is in front of everything else,
+            // so prevent it from intercepting mouse events.
+            _rootElement.pickingMode = PickingMode.Ignore;
         }
 
         public void FadeIn()

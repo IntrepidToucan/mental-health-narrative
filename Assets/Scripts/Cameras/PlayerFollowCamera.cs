@@ -6,16 +6,21 @@ using Utilities;
 namespace Cameras
 {
     [RequireComponent(typeof(CinemachineVirtualCamera))]
-    public class VirtualCamera : Singleton<VirtualCamera>
+    public class PlayerFollowCamera : Singleton<PlayerFollowCamera>
     {
         public CinemachineVirtualCamera CineVirtualCamera { get; private set; }
         
         protected override void Awake()
         {
-            persistAcrossScenes = true;
+            PersistAcrossScenes = true;
             
             base.Awake();
+        }
 
+        protected override void InitializeSingleton()
+        {
+            base.InitializeSingleton();
+            
             CineVirtualCamera = GetComponent<CinemachineVirtualCamera>();
             CineVirtualCamera.m_Lens.OrthographicSize = 5.4f;
             CineVirtualCamera.m_Lens.NearClipPlane = 0f;

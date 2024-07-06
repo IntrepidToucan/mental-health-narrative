@@ -41,9 +41,8 @@ namespace Characters.Player
 
         private void Update()
         {
-            var moveValue = _moveAction.ReadValue<Vector2>();
-
-            Player.Instance.MovementController.Move(moveValue.x, _jumpAction.IsPressed());
+            Player.Instance.MovementController.Move(
+                _moveAction.ReadValue<Vector2>().x, _jumpAction.IsPressed());
         }
     }
 }

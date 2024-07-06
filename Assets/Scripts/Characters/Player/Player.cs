@@ -24,20 +24,24 @@ namespace Characters.Player
 
         protected override void Awake()
         {
-            persistAcrossScenes = true;
+            PersistAcrossScenes = true;
             
             base.Awake();
+        }
+
+        protected override void InitializeSingleton()
+        {
+            base.InitializeSingleton();
             
             gameObject.layer = LayerMask.NameToLayer("Player");
             GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Player");
             GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
 
-            PlayerInput = GetComponent<PlayerInput>();
-            
             MovementController = GetComponent<MovementController>();
             MovementController.ValidateCollisionMask(
                 LayerMask.GetMask("NPCs", "Obstacles"));
             
+            PlayerInput = GetComponent<PlayerInput>();
             DialogueController = GetComponent<PlayerDialogueController>();
             InteractionController = GetComponent<PlayerInteractionController>();
             InventoryController = GetComponent<InventoryController>();  // Initialize reference

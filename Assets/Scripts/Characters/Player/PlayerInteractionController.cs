@@ -32,6 +32,8 @@ namespace Characters.Player
         private void Awake()
         {
             _collider = GetComponent<BoxCollider2D>();
+            _interactable = null;
+            _interactionPrompt = null;
         }
 
         private void Update()
@@ -64,7 +66,7 @@ namespace Characters.Player
                     }
 
                     if (!hit) continue;
-
+                    
                     if (hit.transform.gameObject.GetComponent(typeof(IInteractable)) is IInteractable interactable)
                     {
                         _interactable = interactable;
@@ -74,14 +76,14 @@ namespace Characters.Player
                 }
             }
 
-            if (_interactable is not null)
+            if (_interactable != null)
             {
                 var interactableCollider = _interactable.gameObject.GetComponent<BoxCollider2D>();
                 var interactableTransform = _interactable.gameObject.transform;
                 var targetPosition = new Vector3(interactableTransform.position.x,
                     interactableCollider.bounds.max.y + interactionPromptMarginY, interactableTransform.position.z);
-                    
-                if (_interactionPrompt is null)
+
+                if (_interactionPrompt == null)
                 {
                     _interactionPrompt = Instantiate(interactionPromptPrefab,
                         targetPosition, Quaternion.identity, interactableTransform);
@@ -91,7 +93,7 @@ namespace Characters.Player
                     _interactionPrompt.transform.position = targetPosition;
                 }
             }
-            else if (_interactionPrompt is not null)
+            else if (_interactionPrompt != null)
             {
                 Destroy(_interactionPrompt);
                 _interactionPrompt = null;

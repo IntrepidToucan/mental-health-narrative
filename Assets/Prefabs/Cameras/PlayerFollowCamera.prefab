@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 1181439371813345851}
   - component: {fileID: 8673537270833970885}
   m_Layer: 0
-  m_Name: VirtualCamera
+  m_Name: PlayerFollowCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

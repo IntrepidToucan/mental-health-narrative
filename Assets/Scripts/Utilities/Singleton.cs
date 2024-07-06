@@ -4,7 +4,9 @@ namespace Utilities
 {
     public class Singleton<T> : MonoBehaviour where T : Singleton<T>
     {
-        [SerializeField] protected bool persistAcrossScenes;
+        protected static bool PersistAcrossScenes;
+        
+        private static bool _isSingletonInitialized;
         
         public static T Instance { get; private set; }
 
@@ -18,8 +20,15 @@ namespace Utilities
             {
                 Instance = (T)this;
                 
-                if (persistAcrossScenes) DontDestroyOnLoad(gameObject);
+                if (PersistAcrossScenes) DontDestroyOnLoad(gameObject);
             }
+
+            if (_isSingletonInitialized) return;
+
+            InitializeSingleton();
+            _isSingletonInitialized = true;
         }
+
+        protected virtual void InitializeSingleton() {}
     }
 }
