@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using Interaction;
 using UnityEngine;
 
@@ -26,7 +28,7 @@ namespace Characters.Player
 
         public void TryInteract()
         {
-            _interactable?.Interact(Player.Instance);
+            _interactable?.Interact();
         }
 
         private void Awake()
@@ -54,20 +56,37 @@ namespace Characters.Player
                 var raySpacing = colliderBounds.size.y / (RayCount - 1);
                 var layerMask = LayerMask.GetMask("Interaction");
                 
-                // Skip the first and last rays.
-                for (var i = 1; i < RayCount - 1; i++)
+                for (var i = 0; i < RayCount; i++)
                 {
                     var rayStart = origin + Vector2.up * (raySpacing * i);
-                    var hit = Physics2D.Raycast(rayStart, rayDirection, adjustedRayLength, layerMask);
+                    var hits = Physics2D.RaycastAll(rayStart, rayDirection, adjustedRayLength, layerMask)
+                        .Where(hit =>
+                        {
+                            var interactableComp = hit.transform.gameObject.GetComponent<IInteractable>();
 
+                            return interactableComp != null && interactableComp.CanInteract();
+                        }).ToArray();
+                    
                     if (debugRaycastDuration > Mathf.Epsilon)
                     {
                         Debug.DrawRay(rayStart, rayDirection * adjustedRayLength, Color.cyan, debugRaycastDuration);
                     }
 
-                    if (!hit) continue;
+                    if (hits.Length <= 0) continue;
                     
-                    if (hit.transform.gameObject.GetComponent(typeof(IInteractable)) is IInteractable interactable)
+                    var rayStart3 = (Vector3)rayStart;
+                    
+                    Array.Sort(hits, (a, b) =>
+                    {
+                        var sqrDistanceA = (a.transform.position - rayStart3).sqrMagnitude;
+                        var sqrDistanceB = (b.transform.position - rayStart3).sqrMagnitude;
+
+                        if (Mathf.Approximately(sqrDistanceA, sqrDistanceB)) return 0;
+                        if (sqrDistanceA > sqrDistanceB) return 1;
+                        return -1;
+                    });
+                    
+                    if (hits[0].transform.gameObject.GetComponent(typeof(IInteractable)) is IInteractable interactable)
                     {
                         _interactable = interactable;
                     }

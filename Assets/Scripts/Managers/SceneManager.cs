@@ -1,4 +1,5 @@
 using System.Collections;
+using Characters.Player;
 using UnityEngine;
 using Utilities;
 
@@ -6,6 +7,9 @@ namespace Managers
 {
     public class SceneManager : Singleton<SceneManager>
     {
+        [Header("Params")]
+        [SerializeField] private float loadSceneFadeInDelay = 0.1f;
+        
         [Header("Prefabs")]
         [SerializeField] private GameObject eventSystemPrefab;
         [SerializeField] private GameObject playerFollowCameraPrefab;
@@ -15,9 +19,11 @@ namespace Managers
 
         private SceneFader _sceneFader;
 
-        public static void LoadScene(string sceneName)
+        public void LoadScene(string sceneName)
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
+            Player.Instance.PlayerInput.currentActionMap.Disable();
+            
+            StartCoroutine(LoadSceneWithFadeOut(sceneName));
         }
         
         protected override void Awake()
@@ -42,27 +48,33 @@ namespace Managers
 
             // We need a delay before updating the UI element classes,
             // or else the transition animation won't work.
-            StartCoroutine(FadeInWithDelay());
+            StartCoroutine(FadeInAfterDelay());
         }
 
         private void Start()
         {
-            UnityEngine.SceneManagement.SceneManager.activeSceneChanged += (arg0, scene) =>
-            {
-                _sceneFader.FadeOut();
-            };
-            
             UnityEngine.SceneManagement.SceneManager.sceneLoaded += (arg0, mode) =>
             {
-                _sceneFader.FadeIn();
+                Player.Instance.PlayerInput.currentActionMap.Enable();
+                
+                StartCoroutine(FadeInAfterDelay(loadSceneFadeInDelay));
             };
         }
 
-        private IEnumerator FadeInWithDelay()
+        private IEnumerator FadeInAfterDelay(float delay = 0.1f)
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(delay);
             
             _sceneFader.FadeIn();
+        }
+
+        private IEnumerator LoadSceneWithFadeOut(string sceneName)
+        {
+            _sceneFader.FadeOut();
+
+            yield return new WaitUntil(() => _sceneFader.IsFadedOut());
+
+            UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
         }
     }
 }

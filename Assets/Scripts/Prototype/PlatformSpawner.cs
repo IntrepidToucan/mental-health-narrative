@@ -1,4 +1,3 @@
-using Characters.Player;
 using Interaction;
 using UnityEngine;
 
@@ -9,7 +8,7 @@ public class PlatformSpawner : MonoBehaviour, IInteractable
     public Transform spawnLocation; // The location to spawn the platform
     public bool requiresItem = true; // Can be toggled in the Unity Editor
 
-    public void Interact(Player player)
+    public void Interact()
     {
         if (requiresItem && !Inventory.Instance.HasItem(requiredItem))
         {
@@ -28,8 +27,13 @@ public class PlatformSpawner : MonoBehaviour, IInteractable
             Debug.LogError("Platform prefab or spawn location not assigned.");
         }
     }
+    
+    public bool CanInteract()
+    {
+        return true;
+    }
 
-    public IInteractable.InteractionData GetInteractionData(Player player)
+    public IInteractable.InteractionData? GetInteractionData()
     {
         if (requiresItem && !Inventory.Instance.HasItem(requiredItem))
         {

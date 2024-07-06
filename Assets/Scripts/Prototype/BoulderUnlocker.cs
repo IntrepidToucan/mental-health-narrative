@@ -1,4 +1,3 @@
-using Characters.Player;
 using Interaction;
 using UnityEngine;
 
@@ -20,7 +19,7 @@ public class BoulderUnlocker : MonoBehaviour, IInteractable
         }
     }
 
-    public void Interact(Player player)
+    public void Interact()
     {
         if (isUnlocked)
         {
@@ -48,7 +47,12 @@ public class BoulderUnlocker : MonoBehaviour, IInteractable
         }
     }
 
-    public IInteractable.InteractionData GetInteractionData(Player player)
+    public bool CanInteract()
+    {
+        return true;
+    }
+
+    public IInteractable.InteractionData? GetInteractionData()
     {
         if (requiresItem && !Inventory.Instance.HasItem(requiredItem))
         {

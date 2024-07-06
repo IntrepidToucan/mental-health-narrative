@@ -1,4 +1,3 @@
-using Characters.Player;
 using UnityEngine;
 
 namespace Interaction
@@ -17,7 +16,8 @@ namespace Interaction
         
         GameObject gameObject { get; }
 
-        InteractionData GetInteractionData(Player player);
-        void Interact(Player player);
+        bool CanInteract();
+        InteractionData? GetInteractionData();
+        void Interact();
     }
 }

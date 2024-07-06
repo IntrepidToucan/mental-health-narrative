@@ -19,15 +19,22 @@ namespace Characters.NPCs
         public FontAsset Font => fontAsset;
         
         public MovementController MovementController { get; private set; }
-
-        public IInteractable.InteractionData GetInteractionData(Player.Player player)
+        
+        public bool CanInteract()
         {
+            return true;
+        }
+
+        public IInteractable.InteractionData? GetInteractionData()
+        {
+            if (!CanInteract()) return null;
+            
             return new IInteractable.InteractionData("Talk");
         }
 
-        public void Interact(Player.Player player)
+        public void Interact()
         {
-            player.DialogueController.StartDialogue(this, new Story(inkAsset.text));
+            Player.Player.Instance.DialogueController.StartDialogue(this, new Story(inkAsset.text));
         }
         
         private void Awake()

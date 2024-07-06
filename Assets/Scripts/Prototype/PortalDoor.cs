@@ -7,7 +7,7 @@ public class PortalDoor : MonoBehaviour, IInteractable
     public string requiredItem; // Item required to use the portal
     public PortalDoor pairedDoor; // Reference to the paired door
     public bool requiresItem = true; // Can be toggled in the Unity Editor
-    public void Interact(Player player)
+    public void Interact()
     {
         if (requiresItem && !Inventory.Instance.HasItem(requiredItem))
         {
@@ -17,7 +17,7 @@ public class PortalDoor : MonoBehaviour, IInteractable
 
         if (pairedDoor != null)
         {
-            player.transform.position = pairedDoor.transform.position;
+            Player.Instance.transform.position = pairedDoor.transform.position;
             Debug.Log("Player teleported to the paired door.");
         }
         else
@@ -25,8 +25,13 @@ public class PortalDoor : MonoBehaviour, IInteractable
             Debug.LogError("Paired door not assigned.");
         }
     }
+    
+    public bool CanInteract()
+    {
+        return true;
+    }
 
-    public IInteractable.InteractionData GetInteractionData(Player player)
+    public IInteractable.InteractionData? GetInteractionData()
     {
         if (!Inventory.Instance.HasItem(requiredItem))
         {

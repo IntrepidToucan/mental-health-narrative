@@ -28,18 +28,24 @@ namespace UI.Dialogue
         private Label _dialogueText;
         private VisualElement _dialogueTextContainer;
         
-        public bool IsDialogueImageHidden(float opacityThreshold = 0f) => IsElementHidden(_dialogueImage, opacityThreshold);
-        public bool IsDialogueImageVisible(float opacityThreshold = 1f) => IsElementVisible(_dialogueImage, opacityThreshold);
+        public bool IsDialogueImageHidden(float opacityThreshold = 0f) =>
+            IsElementHidden(_dialogueImage, opacityThreshold);
+        public bool IsDialogueImageVisible(float opacityThreshold = 1f) =>
+            IsElementVisible(_dialogueImage, opacityThreshold);
         public void HideDialogueImage() => _dialogueImage.RemoveFromClassList(VisibleClass);
         public void ShowDialogueImage() => _dialogueImage.AddToClassList(VisibleClass);
         
-        public bool IsDialogueTextContainerHidden(float opacityThreshold = 0f) => IsElementHidden(_dialogueTextContainer, opacityThreshold);
-        public bool IsDialogueTextContainerVisible(float opacityThreshold = 1f) => IsElementVisible(_dialogueTextContainer, opacityThreshold);
+        public bool IsDialogueTextContainerHidden(float opacityThreshold = 0f) =>
+            IsElementHidden(_dialogueTextContainer, opacityThreshold);
+        public bool IsDialogueTextContainerVisible(float opacityThreshold = 1f) =>
+            IsElementVisible(_dialogueTextContainer, opacityThreshold);
         public void HideDialogueTextContainer() => _dialogueTextContainer.RemoveFromClassList(VisibleClass);
         public void ShowDialogueTextContainer() => _dialogueTextContainer.AddToClassList(VisibleClass);
         
-        public bool IsDialogueTextHidden(float opacityThreshold = 0f) => IsElementHidden(_dialogueText, opacityThreshold);
-        public bool IsDialogueTextVisible(float opacityThreshold = 1f) => IsElementVisible(_dialogueText, opacityThreshold);
+        public bool IsDialogueTextHidden(float opacityThreshold = 0f) =>
+            IsElementHidden(_dialogueText, opacityThreshold);
+        public bool IsDialogueTextVisible(float opacityThreshold = 1f) =>
+            IsElementVisible(_dialogueText, opacityThreshold);
         public void HideDialogueText() =>_dialogueText.RemoveFromClassList(VisibleClass);
         public void ShowDialogueText() => _dialogueText.AddToClassList(VisibleClass);
         
@@ -88,7 +94,8 @@ namespace UI.Dialogue
 
             if (choiceBoxes.Count <= 0) return true;
 
-            return choiceBoxes.Sum(element => element.resolvedStyle.opacity) / choiceBoxes.Count <= opacityThreshold + Mathf.Epsilon;
+            return choiceBoxes.Sum(element => element.resolvedStyle.opacity) / choiceBoxes.Count <=
+                   opacityThreshold + Mathf.Epsilon;
         }
         
         public bool AreDialogueChoicesVisible(float opacityThreshold = 1f)
@@ -99,7 +106,8 @@ namespace UI.Dialogue
 
             if (choiceBoxes.Count <= 0) return false;
 
-            return choiceBoxes.Sum(element => element.resolvedStyle.opacity) / choiceBoxes.Count >= opacityThreshold + Mathf.Epsilon;
+            return choiceBoxes.Sum(element => element.resolvedStyle.opacity) / choiceBoxes.Count >=
+                   opacityThreshold + Mathf.Epsilon;
         }
         
         public IEnumerator HideDialogueChoicesWithDelay(float delay = 0f)
@@ -147,14 +155,16 @@ namespace UI.Dialogue
         
         private static bool IsElementHidden(VisualElement element, float opacityThreshold)
         {
-            return !element.ClassListContains(VisibleClass) && element.resolvedStyle.opacity <= opacityThreshold + Mathf.Epsilon;
+            return !element.ClassListContains(VisibleClass) &&
+                   element.resolvedStyle.opacity <= opacityThreshold + Mathf.Epsilon;
         }
 
         private static bool IsElementVisible(VisualElement element, float opacityThreshold)
         {
             // For some reason, `resolvedStyle.opacity` returns `1` when the UI is first created
             // even though the element doesn't have the `visible` class, so always check for the class first.
-            return element.ClassListContains(VisibleClass) && element.resolvedStyle.opacity >= opacityThreshold + Mathf.Epsilon;
+            return element.ClassListContains(VisibleClass) &&
+                   element.resolvedStyle.opacity >= opacityThreshold + Mathf.Epsilon;
         }
 
         private void Awake()
