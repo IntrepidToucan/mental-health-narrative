@@ -11,23 +11,12 @@ namespace Interaction
         
         private void Awake()
         {
-            var layer = LayerMask.NameToLayer("Interaction");
-
-            if (gameObject.layer != layer)
-            {
-                Debug.LogError("Layer not set");
-                gameObject.layer = layer;
-            }
-
-            var ownCollider = GetComponent<BoxCollider2D>();
-            var parentCollider = transform.parent.GetComponentInParent<BoxCollider2D>();
+            gameObject.layer = LayerMask.NameToLayer("Interaction");
             
-            if (!ownCollider.isTrigger)
-            {
-                Debug.LogError("Interaction collider should be a trigger");
-                ownCollider.isTrigger = true;
-            }
-
+            var ownCollider = GetComponent<BoxCollider2D>();
+            ownCollider.isTrigger = true;
+            
+            var parentCollider = transform.parent.GetComponent<BoxCollider2D>();
             var colliderSize = ownCollider.size;
             colliderSize.x = parentCollider.size.x * sizeMultiplierX;
             colliderSize.y = parentCollider.size.y * sizeMultiplierY;

@@ -9,10 +9,10 @@ namespace Interaction
         {
             public InteractionData(string prompt)
             {
-                InteractionPrompt = prompt;
+                Prompt = prompt;
             }
             
-            public string InteractionPrompt;
+            public string Prompt;
         }
         
         GameObject gameObject { get; }

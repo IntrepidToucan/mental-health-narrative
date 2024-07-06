@@ -17,7 +17,6 @@ namespace UI.Dialogue
 
         private const string VisibleClass = "visible";
 
-        private Player _player;
         private Npc _npc;
         private UIDocument _uiDoc;
         
@@ -44,9 +43,8 @@ namespace UI.Dialogue
         public void HideDialogueText() =>_dialogueText.RemoveFromClassList(VisibleClass);
         public void ShowDialogueText() => _dialogueText.AddToClassList(VisibleClass);
         
-        public void SetParams(Player player, Npc npc)
+        public void SetParams(Npc npc)
         {
-            _player = player;
             _npc = npc;
 
             TrySetDialogueFont();
@@ -196,21 +194,21 @@ namespace UI.Dialogue
         {
             if (evt.target is Button && evt.target != _advanceDialogueButton) return;
             
-            _player.DialogueController.TryAdvanceDialogue();
+            Player.Instance.DialogueController.TryAdvanceDialogue();
         }
         
-        private void HandleOverlayKeyDown(KeyDownEvent evt)
+        private static void HandleOverlayKeyDown(KeyDownEvent evt)
         {
             if (!IsContinueKeyPress(evt) || evt.target is Button) return;
             
-            _player.DialogueController.TryAdvanceDialogue();
+            Player.Instance.DialogueController.TryAdvanceDialogue();
         }
 
-        private void HandleAdvanceDialogueButtonKeyDown(KeyDownEvent evt)
+        private static void HandleAdvanceDialogueButtonKeyDown(KeyDownEvent evt)
         {
             if (!IsContinueKeyPress(evt)) return;
             
-            _player.DialogueController.TryAdvanceDialogue();
+            Player.Instance.DialogueController.TryAdvanceDialogue();
         }
 
         private static void FocusDialogueChoice(MouseOverEvent evt)
@@ -218,16 +216,16 @@ namespace UI.Dialogue
             if (evt.target is Button button) button.Focus();
         }
         
-        private void SelectDialogueChoice(ClickEvent evt, Choice choice)
+        private static void SelectDialogueChoice(ClickEvent evt, Choice choice)
         {
-            _player.DialogueController.TrySelectDialogueChoice(choice);
+            Player.Instance.DialogueController.TrySelectDialogueChoice(choice);
         }
         
-        private void SelectDialogueChoice(KeyDownEvent evt, Choice choice)
+        private static void SelectDialogueChoice(KeyDownEvent evt, Choice choice)
         {
             if (!IsContinueKeyPress(evt)) return;
             
-            _player.DialogueController.TrySelectDialogueChoice(choice);
+            Player.Instance.DialogueController.TrySelectDialogueChoice(choice);
         }
     }
 }

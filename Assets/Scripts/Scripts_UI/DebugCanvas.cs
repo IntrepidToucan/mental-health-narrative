@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using EventSystem = Utilities.EventSystem;
 
 public class DebugCanvas : MonoBehaviour
 {

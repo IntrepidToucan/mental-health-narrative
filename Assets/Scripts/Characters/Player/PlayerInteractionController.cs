@@ -4,7 +4,6 @@ using UnityEngine;
 namespace Characters.Player
 {
     [RequireComponent(typeof(BoxCollider2D))]
-    [RequireComponent(typeof(Player))]
     public class PlayerInteractionController : MonoBehaviour
     {
         [Header("Debug")]
@@ -21,36 +20,34 @@ namespace Characters.Player
         private const int RayCount = 4;
 
         private BoxCollider2D _collider;
-        private Player _player;
         
         private IInteractable _interactable;
         private GameObject _interactionPrompt;
 
         public void TryInteract()
         {
-            _interactable?.Interact(_player);
+            _interactable?.Interact(Player.Instance);
         }
 
         private void Awake()
         {
             _collider = GetComponent<BoxCollider2D>();
-            _player = GetComponent<Player>();
         }
 
         private void Update()
         {
             _interactable = null;
 
-            if (_player.PlayerInput.currentActionMap.enabled)
+            if (Player.Instance.PlayerInput.currentActionMap.enabled)
             {
                 var colliderBounds = _collider.bounds;
                 colliderBounds.Expand(SkinWidth * -2);
         
-                var origin =  _player.MovementController.DirectionX < Mathf.Epsilon ?
+                var origin =  Player.Instance.MovementController.DirectionX < Mathf.Epsilon ?
                     new Vector2(colliderBounds.min.x, colliderBounds.min.y) :
                     new Vector2(colliderBounds.max.x, colliderBounds.min.y);
 
-                var rayDirection = Vector2.right * _player.MovementController.DirectionX;
+                var rayDirection = Vector2.right * Player.Instance.MovementController.DirectionX;
                 var adjustedRayLength = rayLength + SkinWidth;
                 var raySpacing = colliderBounds.size.y / (RayCount - 1);
                 var layerMask = LayerMask.GetMask("Interaction");
@@ -77,15 +74,17 @@ namespace Characters.Player
                 }
             }
 
-            if (_interactable != null)
+            if (_interactable is not null)
             {
-                var bounds = _interactable.gameObject.GetComponent<BoxCollider2D>().bounds;
-                var position = _interactable.gameObject.transform.position;
-                var targetPosition = new Vector3(position.x, bounds.max.y + interactionPromptMarginY, position.z);
+                var interactableCollider = _interactable.gameObject.GetComponent<BoxCollider2D>();
+                var interactableTransform = _interactable.gameObject.transform;
+                var targetPosition = new Vector3(interactableTransform.position.x,
+                    interactableCollider.bounds.max.y + interactionPromptMarginY, interactableTransform.position.z);
                     
                 if (_interactionPrompt is null)
                 {
-                    _interactionPrompt = Instantiate(interactionPromptPrefab, targetPosition, Quaternion.identity);
+                    _interactionPrompt = Instantiate(interactionPromptPrefab,
+                        targetPosition, Quaternion.identity, interactableTransform);
                 }
                 else
                 {

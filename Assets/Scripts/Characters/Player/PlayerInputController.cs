@@ -3,11 +3,8 @@ using UnityEngine.InputSystem;
 
 namespace Characters.Player
 {
-    [RequireComponent(typeof(Player))]
     public class PlayerInputController : MonoBehaviour
     {
-        private Player _player;
-
         private InputAction _moveAction;
         private InputAction _jumpAction;
         private InputAction _interactAction;
@@ -15,23 +12,18 @@ namespace Characters.Player
         private InputAction _pauseGameAction;
         private InputAction _inventoryAction;
 
-        private void Awake()
-        {
-            _player = GetComponent<Player>();
-        }
-
         private void Start()
         {
-            _moveAction = _player.PlayerInput.actions.FindAction("Move");
-            _jumpAction = _player.PlayerInput.actions.FindAction("Jump");
-            _interactAction = _player.PlayerInput.actions.FindAction("Interact");
-            _openLogBookAction = _player.PlayerInput.actions.FindAction("OpenLogBook");
-            _pauseGameAction = _player.PlayerInput.actions.FindAction("PauseGame");
-            _inventoryAction = _player.PlayerInput.actions.FindAction("Inventory"); // Added for inventory
+            _moveAction = Player.Instance.PlayerInput.actions.FindAction("Move");
+            _jumpAction = Player.Instance.PlayerInput.actions.FindAction("Jump");
+            _interactAction = Player.Instance.PlayerInput.actions.FindAction("Interact");
+            _openLogBookAction = Player.Instance.PlayerInput.actions.FindAction("OpenLogBook");
+            _pauseGameAction = Player.Instance.PlayerInput.actions.FindAction("PauseGame");
+            _inventoryAction = Player.Instance.PlayerInput.actions.FindAction("Inventory"); // Added for inventory
 
             _interactAction.performed += context =>
             {
-                _player.InteractionController.TryInteract();
+                Player.Instance.InteractionController.TryInteract();
             };
 
             _openLogBookAction.performed += context =>
@@ -44,14 +36,14 @@ namespace Characters.Player
                 Debug.Log("pause game");
             };
 
-            _inventoryAction.performed += _player.InventoryController.ToggleInventory;  // Added for inventory
+            _inventoryAction.performed += Player.Instance.InventoryController.ToggleInventory;  // Added for inventory
         }
 
         private void Update()
         {
             var moveValue = _moveAction.ReadValue<Vector2>();
 
-            _player.MovementController.Move(moveValue.x, _jumpAction.IsPressed());
+            Player.Instance.MovementController.Move(moveValue.x, _jumpAction.IsPressed());
         }
     }
 }

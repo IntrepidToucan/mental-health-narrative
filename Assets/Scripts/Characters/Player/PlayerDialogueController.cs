@@ -1,11 +1,11 @@
 using System.Collections;
 using Characters.NPCs;
 using Ink.Runtime;
+using Managers;
 using UnityEngine;
 
 namespace Characters.Player
 {
-    [RequireComponent(typeof(Player))]
     public class PlayerDialogueController : MonoBehaviour
     {
         [Header("Animation/Advancement")]
@@ -31,8 +31,6 @@ namespace Characters.Player
             CanSelectDialogueChoice
         }
 
-        private Player _player;
-        
         private Story _inkStory;
         private Npc _npc;
         private AdvanceableState _advanceableState = AdvanceableState.CanNotAdvance;
@@ -42,13 +40,13 @@ namespace Characters.Player
             // NOTE: We purposely disable input here instead of switching action maps (e.g., "Player" --> "UI").
             // Switching action maps seems to cause a bug in Unity's UI Toolkit
             // that prevents events from triggering on the HUD when it's redisplayed after the dialogue flow is over.
-            _player.PlayerInput.currentActionMap.Disable();
+            Player.Instance.PlayerInput.currentActionMap.Disable();
             
             _inkStory = inkStory;
             _npc = npc;
             _advanceableState = AdvanceableState.CanNotAdvance;
 
-            _player.UiController.CreateDialogueOverlay(_npc);
+            UiManager.Instance.ShowDialogueOverlay(_npc);
             
             StartCoroutine(ShowDialogueBox());
         }
@@ -73,24 +71,19 @@ namespace Characters.Player
             StartCoroutine(TransitionToNextDialogue());
         }
 
-        private void Awake()
-        {
-            _player = GetComponent<Player>();
-        }
-
         private IEnumerator ShowDialogueBox()
         {
             // We need to delay before showing the dialogue image.
             // If we add the visibility class immediately, the animation transition won't work.
             yield return new WaitForSeconds(visibilityDelay_DialogueImage);
             
-            _player.UiController.DialogueOverlay.ShowDialogueImage();
+            UiManager.Instance.DialogueOverlay.ShowDialogueImage();
             
-            yield return new WaitUntil(() => _player.UiController.DialogueOverlay.IsDialogueImageVisible(opacityThreshold_DialogueImage));
+            yield return new WaitUntil(() => UiManager.Instance.DialogueOverlay.IsDialogueImageVisible(opacityThreshold_DialogueImage));
             
-            _player.UiController.DialogueOverlay.ShowDialogueTextContainer();
+            UiManager.Instance.DialogueOverlay.ShowDialogueTextContainer();
             
-            yield return new WaitUntil(() => _player.UiController.DialogueOverlay.IsDialogueTextContainerVisible(opacityThreshold_DialogueTextContainer));
+            yield return new WaitUntil(() => UiManager.Instance.DialogueOverlay.IsDialogueTextContainerVisible(opacityThreshold_DialogueTextContainer));
             
             StartCoroutine(ShowNextDialogue());
         }
@@ -104,33 +97,33 @@ namespace Characters.Player
 
             if (!_inkStory.canContinue)
             {
-                yield return new WaitUntil(() => _player.UiController.DialogueOverlay.IsDialogueTextContainerVisible());
+                yield return new WaitUntil(() => UiManager.Instance.DialogueOverlay.IsDialogueTextContainerVisible());
                 
                 StartCoroutine(EndDialogue());
                 
                 yield break;
             }
             
-            _player.UiController.DialogueOverlay.SetDialogue(_inkStory.Continue());
-            _player.UiController.DialogueOverlay.ShowDialogueText();
-            _player.UiController.DialogueOverlay.SetDialogueChoices(_inkStory.currentChoices);
+            UiManager.Instance.DialogueOverlay.SetDialogue(_inkStory.Continue());
+            UiManager.Instance.DialogueOverlay.ShowDialogueText();
+            UiManager.Instance.DialogueOverlay.SetDialogueChoices(_inkStory.currentChoices);
 
             if (_inkStory.currentChoices.Count > 0)
             {
                 // We need to `yield` before starting the "show dialogue choices" coroutine.
                 // If we don't include the delay that comes with the `yield`,
                 // the transition animation for the first dialogue choice won't work.
-                yield return new WaitUntil(() => _player.UiController.DialogueOverlay.IsDialogueTextVisible(opacityThreshold_DialogueText));
+                yield return new WaitUntil(() => UiManager.Instance.DialogueOverlay.IsDialogueTextVisible(opacityThreshold_DialogueText));
 
-                StartCoroutine(_player.UiController.DialogueOverlay.ShowDialogueChoicesWithDelay(visibilityDelay_DialogueChoice));
+                StartCoroutine(UiManager.Instance.DialogueOverlay.ShowDialogueChoicesWithDelay(visibilityDelay_DialogueChoice));
                 
-                yield return new WaitUntil(() => _player.UiController.DialogueOverlay.AreDialogueChoicesVisible(advancementOpacity_DialogueChoice));
+                yield return new WaitUntil(() => UiManager.Instance.DialogueOverlay.AreDialogueChoicesVisible(advancementOpacity_DialogueChoice));
                 
                 _advanceableState = AdvanceableState.CanSelectDialogueChoice;
             }
             else
             {
-                yield return new WaitUntil(() => _player.UiController.DialogueOverlay.IsDialogueTextVisible(advancementOpacity_DialogueText));
+                yield return new WaitUntil(() => UiManager.Instance.DialogueOverlay.IsDialogueTextVisible(advancementOpacity_DialogueText));
                 
                 _advanceableState = AdvanceableState.CanAdvanceDialogue;
             }
@@ -138,30 +131,30 @@ namespace Characters.Player
 
         private IEnumerator TransitionToNextDialogue()
         {
-            _player.UiController.DialogueOverlay.HideDialogueText();
+            UiManager.Instance.DialogueOverlay.HideDialogueText();
             
-            StartCoroutine(_player.UiController.DialogueOverlay.HideDialogueChoicesWithDelay(visibilityDelay_DialogueChoice));
+            StartCoroutine(UiManager.Instance.DialogueOverlay.HideDialogueChoicesWithDelay(visibilityDelay_DialogueChoice));
             
-            yield return new WaitUntil(() => _player.UiController.DialogueOverlay.IsDialogueTextHidden());
-            yield return new WaitUntil(() => _player.UiController.DialogueOverlay.AreDialogueChoicesHidden());
+            yield return new WaitUntil(() => UiManager.Instance.DialogueOverlay.IsDialogueTextHidden());
+            yield return new WaitUntil(() => UiManager.Instance.DialogueOverlay.AreDialogueChoicesHidden());
 
             StartCoroutine(ShowNextDialogue());
         }
 
         private IEnumerator EndDialogue()
         {
-            _player.UiController.DialogueOverlay.HideDialogueTextContainer();
-            _player.UiController.DialogueOverlay.HideDialogueImage();
+            UiManager.Instance.DialogueOverlay.HideDialogueTextContainer();
+            UiManager.Instance.DialogueOverlay.HideDialogueImage();
             
-            yield return new WaitUntil(() => _player.UiController.DialogueOverlay.IsDialogueTextContainerHidden());
-            yield return new WaitUntil(() => _player.UiController.DialogueOverlay.IsDialogueImageHidden());
+            yield return new WaitUntil(() => UiManager.Instance.DialogueOverlay.IsDialogueTextContainerHidden());
+            yield return new WaitUntil(() => UiManager.Instance.DialogueOverlay.IsDialogueImageHidden());
             
-            _player.UiController.DestroyDialogueOverlay();
+            UiManager.Instance.HideDialogueOverlay();
             
             _inkStory = null;
             _npc = null;
             
-            _player.PlayerInput.currentActionMap.Enable();
+            Player.Instance.PlayerInput.currentActionMap.Enable();
         }
     }
 }

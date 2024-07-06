@@ -20,6 +20,18 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.36131057
       objectReference: {fileID: 0}
+    - target: {fileID: 1528236968743811545, guid: a2d45900dc1bddf43b3303b8e80b25f6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1528236968743811545, guid: a2d45900dc1bddf43b3303b8e80b25f6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1528236968743811545, guid: a2d45900dc1bddf43b3303b8e80b25f6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2700772882549818970, guid: a2d45900dc1bddf43b3303b8e80b25f6, type: 3}
       propertyPath: inkAsset
       value: 
