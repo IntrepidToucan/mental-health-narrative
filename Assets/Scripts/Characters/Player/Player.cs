@@ -13,7 +13,7 @@ namespace Characters.Player
     [RequireComponent(typeof(PlayerInputController))]
     [RequireComponent(typeof(PlayerInteractionController))]
     [RequireComponent(typeof(InventoryController))]
-    public class Player : Singleton<Player>
+    public class Player : PersistedSingleton<Player>
     {
         public PlayerInput PlayerInput { get; private set; }
         
@@ -21,13 +21,6 @@ namespace Characters.Player
         public PlayerDialogueController DialogueController { get; private set; }
         public PlayerInteractionController InteractionController { get; private set; }
         public InventoryController InventoryController { get; private set; }  // Added reference
-
-        protected override void Awake()
-        {
-            PersistAcrossScenes = true;
-            
-            base.Awake();
-        }
 
         protected override void InitializeSingleton()
         {
@@ -38,8 +31,7 @@ namespace Characters.Player
             GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
 
             MovementController = GetComponent<MovementController>();
-            MovementController.ValidateCollisionMask(
-                LayerMask.GetMask("NPCs", "Obstacles"));
+            MovementController.SetCollisionMask(LayerMask.GetMask("Obstacles"));
             
             PlayerInput = GetComponent<PlayerInput>();
             DialogueController = GetComponent<PlayerDialogueController>();

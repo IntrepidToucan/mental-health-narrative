@@ -6,11 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Prototype/ProtoHallway.unity
+    guid: d857be944a2fba0438e89e9bcb35ebdd
+  - enabled: 1
     path: Assets/Scenes/Rooms/ErolRoom.unity
     guid: 548c6c152a8ef854681b711cc35b5429
   - enabled: 1
     path: Assets/Scenes/Rooms/MandyRoom.unity
     guid: 1fb944acf6648f44db9cd148f9799ec9
+  - enabled: 1
+    path: Assets/Scenes/Prototype/ProtoPlatformingArea.unity
+    guid: 26e786f7b8e63a045a8844181bcbb7b5
   - enabled: 1
     path: Assets/Scenes/AnnaScene.unity
     guid: 7592af84f683c294faf0559938a0f8df

@@ -44,7 +44,7 @@ namespace Characters.NPCs
             GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
 
             MovementController = GetComponent<MovementController>();
-            MovementController.ValidateCollisionMask(LayerMask.GetMask("Obstacles", "Player"));
+            MovementController.SetCollisionMask(LayerMask.GetMask("Obstacles"));
         }
 
         private void Update()

@@ -6,7 +6,7 @@ using Utilities;
 
 namespace Managers
 {
-    public class UiManager : Singleton<UiManager>
+    public class UiManager : PersistedSingleton<UiManager>
     {
         [Header("Prefabs")]
         [SerializeField] private GameObject dialogueOverlayPrefab;
@@ -34,8 +34,6 @@ namespace Managers
 
         protected override void Awake()
         {
-            PersistAcrossScenes = true;
-            
             base.Awake();
             
             _hud = Instantiate(hudPrefab, gameObject.transform).GetComponent<Hud>();

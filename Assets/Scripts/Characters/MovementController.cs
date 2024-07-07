@@ -61,11 +61,8 @@ namespace Characters
 
         public float DirectionX { get; private set; } = 1;
 
-        public void ValidateCollisionMask(LayerMask layerMask)
+        public void SetCollisionMask(LayerMask layerMask)
         {
-            if (collisionMask == layerMask) return; 
-        
-            Debug.LogError("Incorrect collision mask");
             collisionMask = layerMask;
         }
 
