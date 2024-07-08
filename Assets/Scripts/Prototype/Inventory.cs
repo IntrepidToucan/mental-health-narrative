@@ -37,4 +37,20 @@ public class Inventory : MonoBehaviour
     {
         return items.Exists(item => item.itemName == itemName);
     }
+
+    // Method to remove items from the inventory
+    public void RemoveItem(string itemName)
+    {
+        Item item = items.Find(i => i.itemName == itemName);
+        if (item != null)
+        {
+            items.Remove(item);
+            OnInventoryUpdated?.Invoke();
+            Debug.Log($"Removed {item.itemName} from inventory");
+        }
+        else
+        {
+            Debug.LogError($"Item {itemName} not found in inventory");
+        }
+    }
 }

@@ -4,7 +4,8 @@ public class BreakableEnvironment : MonoBehaviour
 {
     private int jumpCount = 0; // Counter for jumps
     public int maxJumps = 2;   // Number of jumps before breaking
-    public float platDespawn = 2f;
+    public float platDespawn = 2f; // Time before platform despawns
+    public bool shouldDespawn = true; // Bool to control despawn logic
 
     // Reference to the platform's Rigidbody2D
     private Rigidbody2D rb;
@@ -53,8 +54,13 @@ public class BreakableEnvironment : MonoBehaviour
         // Set the platform to break or perform any other logic
         Debug.Log("Platform breaking logic");
 
-        // Example: Change Rigidbody to Dynamic and destroy the platform
+        // Change Rigidbody to Dynamic
         rb.bodyType = RigidbodyType2D.Dynamic;
-        Destroy(gameObject, platDespawn); // Destroy platform after 2 seconds (adjust as needed)
+
+        // Despawn platform if shouldDespawn is true
+        if (shouldDespawn)
+        {
+            Destroy(gameObject, platDespawn); // Destroy platform after the specified time
+        }
     }
 }
