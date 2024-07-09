@@ -44,8 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50214e518b93c3445a6c90abe15ac74b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadSceneFadeInDelay: 0.1
   eventSystemPrefab: {fileID: 8359068410635134939, guid: 6fe3f9ba14cc9f14fa171a082a208c3b, type: 3}
+  inventoryPrefab: {fileID: 3758256124082410167, guid: ef6245117822671459336554fc1458a7, type: 3}
   playerFollowCameraPrefab: {fileID: 7998281809796451835, guid: d484d51281e5f0d4983bf183671ba969, type: 3}
-  playerPrefab: {fileID: 2679449623188391974, guid: b56f1e942fb3fe44fb02ef4fb5146e15, type: 3}
+  playerPrefab: {fileID: 8989679898361094672, guid: 5c079d96cd6fc08418c4a9eb938541b2, type: 3}
   sceneFaderPrefab: {fileID: 2340765856690881551, guid: b3a880534453ba04ca229cb09da1fb84, type: 3}
   uiManagerPrefab: {fileID: 8843820940456543295, guid: 84c18e2cb6873be46bbb62e40524eb1c, type: 3}

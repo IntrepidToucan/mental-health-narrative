@@ -16,6 +16,7 @@ namespace Managers
         
         [Header("Prefabs")]
         [SerializeField] private GameObject eventSystemPrefab;
+        [SerializeField] private GameObject inventoryPrefab;
         [SerializeField] private GameObject playerFollowCameraPrefab;
         [SerializeField] private GameObject playerPrefab;
         [SerializeField] private GameObject sceneFaderPrefab;
@@ -39,6 +40,7 @@ namespace Managers
 
             Instantiate(eventSystemPrefab, gameObject.transform);
             Instantiate(uiManagerPrefab);
+            Instantiate(inventoryPrefab);
 
             var playerStart = GetPlayerStart();
             

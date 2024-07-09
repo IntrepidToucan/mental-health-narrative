@@ -25,7 +25,8 @@ namespace Characters.Player
         protected override void InitializeSingleton()
         {
             base.InitializeSingleton();
-            
+
+            gameObject.tag = "Player";
             gameObject.layer = LayerMask.NameToLayer("Player");
             GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Player");
             GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;

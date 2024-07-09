@@ -6,7 +6,7 @@ namespace Interaction
     public class InteractionCollider : MonoBehaviour
     {
         [Header("Params")]
-        [SerializeField] private float sizeMultiplierX = 2f;
+        [SerializeField] private float sizeMultiplierX = 1f;
         [SerializeField] private float sizeMultiplierY = 1f;
         
         private void Awake()
