@@ -1,3 +1,4 @@
+// Corrected script
 using UnityEngine;
 
 public class BreakableEnvironment : MonoBehaviour
