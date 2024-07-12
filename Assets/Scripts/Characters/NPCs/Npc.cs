@@ -34,7 +34,9 @@ namespace Characters.NPCs
 
         public void Interact()
         {
-            Player.Player.Instance.DialogueController.StartDialogue(this, new Story(inkAsset.text));
+            if (!CanInteract()) return;
+            
+            Player.Player.Instance.DialogueController.StartDialogue(this, new InkScript(inkAsset));
         }
         
         private void Awake()

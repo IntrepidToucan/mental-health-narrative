@@ -1,6 +1,7 @@
 using System.Collections;
 using Characters.NPCs;
 using Ink.Runtime;
+using Interaction;
 using Managers;
 using UnityEngine;
 
@@ -31,18 +32,18 @@ namespace Characters.Player
             CanSelectDialogueChoice
         }
 
-        private Story _inkStory;
+        private InkScript _inkScript;
         private Npc _npc;
         private AdvanceableState _advanceableState = AdvanceableState.CanNotAdvance;
 
-        public void StartDialogue(Npc npc, Story inkStory)
+        public void StartDialogue(Npc npc, InkScript inkScript)
         {
             // NOTE: We purposely disable input here instead of switching action maps (e.g., "Player" --> "UI").
             // Switching action maps seems to cause a bug in Unity's UI Toolkit
             // that prevents events from triggering on the HUD when it's redisplayed after the dialogue flow is over.
             Player.Instance.PlayerInput.currentActionMap.Disable();
             
-            _inkStory = inkStory;
+            _inkScript = inkScript;
             _npc = npc;
             _advanceableState = AdvanceableState.CanNotAdvance;
 
@@ -66,7 +67,7 @@ namespace Characters.Player
 
             _advanceableState = AdvanceableState.CanNotAdvance;
             
-            _inkStory.ChooseChoiceIndex(choice.index);
+            _inkScript.Story.ChooseChoiceIndex(choice.index);
 
             StartCoroutine(TransitionToNextDialogue());
         }
@@ -92,10 +93,10 @@ namespace Characters.Player
         {
             if (debugInk)
             {
-                Debug.Log($"Ink canContinue? {_inkStory.canContinue}, {_inkStory.currentChoices.Count} choices, currentText: {_inkStory.currentText}");
+                Debug.Log($"Ink canContinue? {_inkScript.Story.canContinue}, {_inkScript.Story.currentChoices.Count} choices, currentText: {_inkScript.Story.currentText}");
             }
 
-            if (!_inkStory.canContinue)
+            if (!_inkScript.Story.canContinue)
             {
                 yield return new WaitUntil(() => UiManager.Instance.DialogueOverlay.IsDialogueTextContainerVisible());
                 
@@ -104,11 +105,11 @@ namespace Characters.Player
                 yield break;
             }
             
-            UiManager.Instance.DialogueOverlay.SetDialogue(_inkStory.Continue());
+            UiManager.Instance.DialogueOverlay.SetDialogue(_inkScript.Story.Continue());
             UiManager.Instance.DialogueOverlay.ShowDialogueText();
-            UiManager.Instance.DialogueOverlay.SetDialogueChoices(_inkStory.currentChoices);
+            UiManager.Instance.DialogueOverlay.SetDialogueChoices(_inkScript.Story.currentChoices);
 
-            if (_inkStory.currentChoices.Count > 0)
+            if (_inkScript.Story.currentChoices.Count > 0)
             {
                 // We need to `yield` before starting the "show dialogue choices" coroutine.
                 // If we don't include the delay that comes with the `yield`,
@@ -151,7 +152,7 @@ namespace Characters.Player
             
             UiManager.Instance.HideDialogueOverlay();
             
-            _inkStory = null;
+            _inkScript = null;
             _npc = null;
             
             Player.Instance.PlayerInput.currentActionMap.Enable();

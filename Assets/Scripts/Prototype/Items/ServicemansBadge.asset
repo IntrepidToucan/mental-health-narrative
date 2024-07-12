@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b1fc97984cd98045aac33e2329d8d55, type: 3}
-  m_Name: RandKey2
+  m_Name: ServicemansBadge
   m_EditorClassIdentifier: 
-  itemId: RandKey2
-  itemName: RandKey2
+  itemId: servicemans_badge
+  itemName: "Serviceman\u2019s Badge"
   itemIcon: {fileID: 0}
   description: 
