@@ -3,7 +3,7 @@
     <ui:VisualElement name="hud">
         <ui:VisualElement name="menu-buttons-container">
             <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" tabindex="-1" focusable="false" name="pause-menu-button" class="button" style="background-image: url(&quot;project://database/Assets/Art/UI/gear.png?fileID=2800000&amp;guid=6eb235d7fd5ff6b47a8a89390bdcef82&amp;type=3#gear&quot;);" />
-            <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" tabindex="-1" focusable="false" name="log-book-button" class="button" style="background-image: url(&quot;project://database/Assets/Art/UI/genericItem_white_035.png?fileID=2800000&amp;guid=c5424c75d70273941bd175d5c1754041&amp;type=3#genericItem_white_035&quot;);" />
+            <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" tabindex="-1" focusable="false" name="log-book-button" class="button" style="background-image: url(&quot;project://database/Assets/Art/UI/genericItem_white_033.png?fileID=2800000&amp;guid=28c0522c2fda7a745a92b139c528d736&amp;type=3#genericItem_white_033&quot;);" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

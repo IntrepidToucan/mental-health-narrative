@@ -1,3 +1,4 @@
+using Managers;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -27,14 +28,8 @@ namespace UI.HUD
             _pauseMenuButton.tabIndex = -1;
         }
 
-        private void OpenLogBook(ClickEvent evt)
-        {
-            Debug.Log("open log book");
-        }
-        
-        private void OpenPauseMenu(ClickEvent evt)
-        {
-            Debug.Log("open pause menu");
-        }
+        private static void OpenLogBook(ClickEvent evt) =>
+            UiManager.Instance.OpenPauseMenu(UiManager.PauseMenuTab.LogBook);
+        private static void OpenPauseMenu(ClickEvent evt) => UiManager.Instance.OpenPauseMenu();
     }
 }

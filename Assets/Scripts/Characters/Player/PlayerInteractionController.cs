@@ -42,7 +42,8 @@ namespace Characters.Player
         {
             _interactable = null;
 
-            if (Player.Instance.PlayerInput.currentActionMap.enabled)
+            if (Player.Instance.PlayerInput.currentActionMap.enabled &&
+                Player.Instance.PlayerInput.currentActionMap.name == "Player")
             {
                 var colliderBounds = _collider.bounds;
                 colliderBounds.Expand(SkinWidth * -2);

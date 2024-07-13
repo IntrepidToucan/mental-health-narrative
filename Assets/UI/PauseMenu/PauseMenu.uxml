@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/PauseMenu/PauseMenu.uss?fileID=7433441132597879392&amp;guid=bcdb5ebd75bc9db4bb6582eacd36aa96&amp;type=3#PauseMenu" />
+    <ui:VisualElement name="root">
+        <ui:VisualElement name="menu-container">
+            <ui:VisualElement name="tabs-container">
+                <ui:Button text="Patient Records" parse-escape-sequences="true" display-tooltip-when-elided="true" name="log-book-tab" class="tab" />
+                <ui:Button text="Options" parse-escape-sequences="true" display-tooltip-when-elided="true" name="settings-tab" class="tab" />
+            </ui:VisualElement>
+            <ui:VisualElement name="tab-content-container" />
+            <ui:VisualElement name="close-button-container">
+                <ui:Button text="[ Close ]" parse-escape-sequences="true" display-tooltip-when-elided="true" name="close-button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -4,6 +4,7 @@ using System.Linq;
 using Characters.NPCs;
 using Characters.Player;
 using Ink.Runtime;
+using Managers;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -49,7 +50,7 @@ namespace UI.Dialogue
         public void HideDialogueText() =>_dialogueText.RemoveFromClassList(VisibleClass);
         public void ShowDialogueText() => _dialogueText.AddToClassList(VisibleClass);
         
-        public void SetParams(Npc npc)
+        public void SetNpc(Npc npc)
         {
             _npc = npc;
 
@@ -151,8 +152,6 @@ namespace UI.Dialogue
             }
         }
         
-        private static bool IsContinueKeyPress(KeyDownEvent evt) => evt.keyCode is KeyCode.Space or KeyCode.Return;
-        
         private static bool IsElementHidden(VisualElement element, float opacityThreshold)
         {
             return !element.ClassListContains(VisibleClass) &&
@@ -209,14 +208,14 @@ namespace UI.Dialogue
         
         private static void HandleOverlayKeyDown(KeyDownEvent evt)
         {
-            if (!IsContinueKeyPress(evt) || evt.target is Button) return;
+            if (!UiManager.IsSubmitKeyDown(evt) || evt.target is Button) return;
             
             Player.Instance.DialogueController.TryAdvanceDialogue();
         }
 
         private static void HandleAdvanceDialogueButtonKeyDown(KeyDownEvent evt)
         {
-            if (!IsContinueKeyPress(evt)) return;
+            if (!UiManager.IsSubmitKeyDown(evt)) return;
             
             Player.Instance.DialogueController.TryAdvanceDialogue();
         }
@@ -233,7 +232,7 @@ namespace UI.Dialogue
         
         private static void SelectDialogueChoice(KeyDownEvent evt, Choice choice)
         {
-            if (!IsContinueKeyPress(evt)) return;
+            if (!UiManager.IsSubmitKeyDown(evt)) return;
             
             Player.Instance.DialogueController.TrySelectDialogueChoice(choice);
         }

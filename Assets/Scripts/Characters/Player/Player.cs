@@ -35,6 +35,11 @@ namespace Characters.Player
             MovementController.SetCollisionMask(LayerMask.GetMask("Obstacles"));
             
             PlayerInput = GetComponent<PlayerInput>();
+            // HACK: Start with a secondary action map enabled
+            // and then quickly switch to the primary action map
+            // (otherwise, all action maps are enabled from the start--seems to be a Unity bug).
+            PlayerInput.defaultActionMap = "UI";
+            
             DialogueController = GetComponent<PlayerDialogueController>();
             InteractionController = GetComponent<PlayerInteractionController>();
             InventoryController = GetComponent<InventoryController>();  // Initialize reference

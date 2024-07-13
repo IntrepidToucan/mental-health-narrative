@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83a7ad7e489a7bd48b14a47e1c129e1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  persistAcrossScenes: 0
   dialogueOverlayPrefab: {fileID: 5978938078497168575, guid: 95f6881ccb8c20c40aa6ed26b7331f39, type: 3}
   hudPrefab: {fileID: 5999629207024168831, guid: 8a783d9592c2c6945a537bd83ad65a3f, type: 3}
-  pauseMenuPrefab: {fileID: 0}
+  pauseMenuPrefab: {fileID: 6486977473013285018, guid: bf2bda9ddae03214a89972862d6192fa, type: 3}
