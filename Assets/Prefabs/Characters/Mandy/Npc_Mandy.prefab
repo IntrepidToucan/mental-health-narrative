@@ -9,6 +9,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 31962501823028814, guid: 042065fecf7f05143ab2895a4a3b17ae, type: 3}
+      propertyPath: npcData
+      value: 
+      objectReference: {fileID: 11400000, guid: 24f34619d9652704795cfdde6c51de8c, type: 2}
+    - target: {fileID: 31962501823028814, guid: 042065fecf7f05143ab2895a4a3b17ae, type: 3}
       propertyPath: inkAsset
       value: 
       objectReference: {fileID: 4900000, guid: 6408be3aacc338a40a8714d85b330635, type: 3}
@@ -16,6 +20,10 @@ PrefabInstance:
       propertyPath: fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 0ae416ef363983e41849daa7572ede74, type: 2}
+    - target: {fileID: 31962501823028814, guid: 042065fecf7f05143ab2895a4a3b17ae, type: 3}
+      propertyPath: npcDataOriginal
+      value: 
+      objectReference: {fileID: 11400000, guid: 24f34619d9652704795cfdde6c51de8c, type: 2}
     - target: {fileID: 1440133943359870516, guid: 042065fecf7f05143ab2895a4a3b17ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

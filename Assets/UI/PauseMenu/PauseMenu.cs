@@ -9,12 +9,12 @@ namespace UI.PauseMenu
     public class PauseMenu : MonoBehaviour
     {
         [Header("UXML")]
-        [SerializeField] private VisualTreeAsset logBookMenuUxml;
         [SerializeField] private VisualTreeAsset settingsMenuUxml;
         
         private const string SelectedClass = "selected";
         private const string VisibleClass = "visible";
-        
+
+        private LogBookMenu _logBookMenu;
         private UIDocument _uiDoc;
         private UiManager.PauseMenuTab _activeTabId = UiManager.PauseMenuTab.Settings;
 
@@ -28,21 +28,21 @@ namespace UI.PauseMenu
         {
             if (_activeTabId == tabId && _tabContentContainer.Children().Any()) return;
 
-            _tabsContainer.Query<Button>(className: "tab").ForEach(tab =>
-                tab.RemoveFromClassList(SelectedClass));
+            _tabsContainer.Query<Button>(className: "tab")
+                .ForEach(tab => tab.RemoveFromClassList(SelectedClass));
             _tabContentContainer.Clear();
             
             _activeTabId = tabId;
-            Button button = null;
+            Button newActiveTab = null;
             
             switch (_activeTabId)
             {
                 case UiManager.PauseMenuTab.LogBook:
-                    button = _logBookTab;
-                    _tabContentContainer.Add(logBookMenuUxml.Instantiate());
+                    newActiveTab = _logBookTab;
+                    _logBookMenu.AddToContainer(_tabContentContainer);
                     break;
                 case UiManager.PauseMenuTab.Settings:
-                    button = _settingsTab;
+                    newActiveTab = _settingsTab;
                     _tabContentContainer.Add(settingsMenuUxml.Instantiate());
                     break;
                 default:
@@ -50,12 +50,13 @@ namespace UI.PauseMenu
                     break;
             }
 
-            button?.AddToClassList(SelectedClass);
-            button?.Focus();
+            newActiveTab?.AddToClassList(SelectedClass);
+            newActiveTab?.Focus();
         }
 
         private void Awake()
         {
+            _logBookMenu = GetComponent<LogBookMenu>();
             _uiDoc = GetComponent<UIDocument>();
         }
 
@@ -63,7 +64,7 @@ namespace UI.PauseMenu
         {
             _uiDoc.rootVisualElement.RegisterCallback<ClickEvent>(HandleOverlayClick);
 
-            _rootContainer = _uiDoc.rootVisualElement.Q("root");
+            _rootContainer = _uiDoc.rootVisualElement.Q("pause-menu");
             _tabsContainer = _uiDoc.rootVisualElement.Q("tabs-container");
             _tabContentContainer = _uiDoc.rootVisualElement.Q("tab-content-container");
             

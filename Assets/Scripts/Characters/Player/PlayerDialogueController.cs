@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Characters.NPCs;
 using Ink.Runtime;
 using Interaction;
@@ -102,7 +103,8 @@ namespace Characters.Player
                 yield break;
             }
             
-            UiManager.Instance.DialogueOverlay.SetDialogue(_inkScript.Story.Continue());
+            UiManager.Instance.DialogueOverlay.SetDialogue(_inkScript.Story.Continue(),
+                _npc.NpcData.PortraitMap.GetValueOrDefault(NpcData.Demeanor.Neutral, _npc.NpcData.DefaultPortrait));
             UiManager.Instance.DialogueOverlay.ShowDialogueText();
             UiManager.Instance.DialogueOverlay.SetDialogueChoices(_inkScript.Story.currentChoices);
 

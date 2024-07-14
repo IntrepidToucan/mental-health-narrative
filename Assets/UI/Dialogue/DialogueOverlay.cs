@@ -53,13 +53,24 @@ namespace UI.Dialogue
         public void SetNpc(Npc npc)
         {
             _npc = npc;
+            _dialogueImage.style.backgroundImage = new StyleBackground(_npc.NpcData.DefaultPortrait);
 
             TrySetDialogueFont();
         }
 
-        public void SetDialogue(string text)
+        public void SetDialogue(string text, Sprite portrait)
         {
             _dialogueText.text = text.Trim();
+
+            if (_dialogueImage.resolvedStyle.backgroundImage.sprite != portrait)
+            {
+                Debug.Log("create new portrait");
+                _dialogueImage.style.backgroundImage = new StyleBackground(portrait);
+            }
+            else
+            {
+                Debug.Log("keep the same portrait");
+            }
         }
 
         public void SetDialogueChoices(List<Choice> choices)
@@ -196,7 +207,8 @@ namespace UI.Dialogue
         {
             if (_npc == null || _dialogueText == null) return;
             
-            _dialogueText.style.unityFontDefinition = new StyleFontDefinition(FontDefinition.FromSDFFont(_npc.Font));
+            _dialogueText.style.unityFontDefinition =
+                new StyleFontDefinition(FontDefinition.FromSDFFont(_npc.NpcData.FontAsset));
         }
         
         private void HandleOverlayClick(ClickEvent evt)
