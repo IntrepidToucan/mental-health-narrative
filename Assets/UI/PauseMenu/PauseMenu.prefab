@@ -82,3 +82,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0383d3c5d28dfe144a4b4852f6923412, type: 2}
   - {fileID: 11400000, guid: 24f34619d9652704795cfdde6c51de8c, type: 2}
   - {fileID: 11400000, guid: 794dfbcd127f3794aa19afc97b8e35ea, type: 2}
+  colorGoalAchieved: {r: 0.13725491, g: 0.6431373, b: 0.21176471, a: 1}
+  colorGoalNotAchieved: {r: 0.7411765, g: 0.101960786, b: 0.101960786, a: 1}

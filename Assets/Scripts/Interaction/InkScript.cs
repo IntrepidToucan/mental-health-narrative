@@ -11,20 +11,20 @@ namespace Interaction
         {
             Story = new Story(inkAsset.text);
             
-            Story.BindExternalFunction("hasItem", (string id) =>
-                Inventory.Instance.HasItem(id), true);
+            Story.BindExternalFunction("hasItem", (string itemIdString) =>
+                Inventory.Instance.HasItem(Inventory.TryParseItemId(itemIdString)), true);
             
             Story.BindExternalFunction("updateAffinity", (int delta) =>
             {
                 Debug.Log($"updateAffinity: {delta}");
             });
             
-            Story.BindExternalFunction("updateInventory", (string itemId, int delta) =>
+            Story.BindExternalFunction("updateInventory", (string itemIdString, int delta) =>
             {
-                Debug.Log($"updateInventory: {itemId} {delta}");
+                Debug.Log($"updateInventory: {itemIdString} x{delta}");
 
                 var item = ScriptableObject.CreateInstance<Item>();
-                item.itemId = itemId;
+                item.itemId = Inventory.TryParseItemId(itemIdString);
                 
                 Inventory.Instance.AddItem(item);
             });

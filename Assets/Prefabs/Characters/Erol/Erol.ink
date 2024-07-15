@@ -2,16 +2,16 @@ EXTERNAL hasItem(id)
 EXTERNAL updateAffinity(delta)
 EXTERNAL updateInventory(itemId, delta)
 
-CONST ITEM_BLOOD_SAMPLE_EROL = "blood_sample_erol"
-CONST ITEM_SERVICEMANS_BADGE = "servicemans_badge"
+CONST ITEM_EROL_BLOOD_SAMPLE = "ErolBloodSample"
+CONST ITEM_EROL_SERVICEMANS_BADGE = "ErolServicemansBadge"
 
 -> main
 
 == main ==
 {
-    - hasItem(ITEM_BLOOD_SAMPLE_EROL):
+    - hasItem(ITEM_EROL_BLOOD_SAMPLE):
         -> has_blood_sample
-    - hasItem(ITEM_SERVICEMANS_BADGE):
+    - hasItem(ITEM_EROL_SERVICEMANS_BADGE):
         -> intro_breakthrough
     - else:
         -> intro_dead_end
@@ -62,7 +62,7 @@ Fink y’got ‘alf a chance a’this, Sunshine?
 -> END
 + [Don’t waste my time. Look, I’m here for a blood sample.]
 Y’gonna leave me to it after all that?
-Fine. Take what y’like, just leave me alone. {updateInventory(ITEM_BLOOD_SAMPLE_EROL, 1)}
+Fine. Take what y’like, just leave me alone. {updateInventory(ITEM_EROL_BLOOD_SAMPLE, 1)}
 -> END
 
 == has_blood_sample ==

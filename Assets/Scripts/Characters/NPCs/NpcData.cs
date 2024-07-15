@@ -14,6 +14,7 @@ namespace Characters.NPCs
             Neutral
         }
         
+        [field: SerializeField] public Npc.NpcId NpcId { get; private set; }
         [field: SerializeField] public string CharacterName { get; private set; }
         [field: SerializeField] public TextAsset InkAsset { get; private set; }
         [field: SerializeField, Tooltip("The compiled Ink JSON file!")] public FontAsset FontAsset { get; private set; }
@@ -23,8 +24,10 @@ namespace Characters.NPCs
         [SerializeField] private List<Sprite> portraits;
 
         [NonSerialized] private Sprite _defaultPortrait;
-        public Sprite DefaultPortrait => _defaultPortrait;
+        
         [field: NonSerialized] public Dictionary<Demeanor, Sprite> PortraitMap { get; private set; }
+        
+        public Sprite DefaultPortrait => _defaultPortrait;
         
         private void Awake()
         {

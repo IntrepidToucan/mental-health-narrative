@@ -9,6 +9,14 @@ namespace Characters.NPCs
     [RequireComponent(typeof(MovementController))]
     public class Npc : MonoBehaviour, IInteractable
     {
+        public enum NpcId
+        {
+            None,
+            Erol,
+            Mandy,
+            Janus
+        }
+        
         [Header("Data")]
         [SerializeField] private NpcData npcDataOriginal;
 

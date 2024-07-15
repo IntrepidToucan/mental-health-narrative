@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Characters.NPCs;
+using Characters.Player;
 using Managers;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -15,10 +16,24 @@ namespace UI.PauseMenu
 
         [Header("Data")]
         [SerializeField] private List<NpcData> npcDataOriginals;
+        
+        [Header("UI")]
+        [SerializeField] private Color colorGoalAchieved = new(35f, 164f, 54f, 255f);
+        // Alternatives:
+        //   - 189, 26, 26
+        //   - 170, 16, 16
+        [SerializeField] private Color colorGoalNotAchieved = new(189f, 26f, 26f, 255f);
+        
+        private const string FocusableClass = "focusable";
+        private const string GoalAchievedText = "Blood sample acquired";
+        private const string GoalNotAchievedText = "Blood sample needed";
+        private const string UnknownNpcLabel = "???";
 
         private PauseMenu _pauseMenu;
         private List<NpcData> _npcDataInstances;
         private VisualElement _rootContainer;
+        
+        public void HandleBackAction() => DisplayLogBookEntries();
         
         public void AddToContainer(VisualElement container)
         {
@@ -40,29 +55,56 @@ namespace UI.PauseMenu
 
         private void DisplayLogBookEntries()
         {
+            _pauseMenu.LogBookTab.Focus();
+            _pauseMenu.HideBackButton();
             _rootContainer.Clear();
             
             foreach (var npcData in _npcDataInstances)
             {
+                var hasMetNpc = Player.Instance.HistoryController.HasHistory(
+                    PlayerHistoryController.TryParseHistoryTag(
+                        PlayerHistoryController.GetEncounteredNpcHistoryTagString(npcData)));
+                var hasAchievedNpcGoal = Inventory.Instance.HasItem(
+                    Inventory.TryParseItemId(
+                        Inventory.GetNpcGoalItemIdString(npcData)));
+                
                 var logBookEntry = logBookEntryUxml.Instantiate();
                 logBookEntry.Q("log-book-entry-image").style.backgroundImage =
                     new StyleBackground(npcData.DefaultPortrait);
-                logBookEntry.Q<Label>("log-book-entry-label").text = npcData.CharacterName;
+                logBookEntry.Q<Label>("log-book-entry-label").text =
+                    hasMetNpc ? npcData.CharacterName : UnknownNpcLabel;
 
-                logBookEntry.RegisterCallback<ClickEvent>(evt => DisplayPatientRecord(npcData));
-                logBookEntry.RegisterCallback<KeyDownEvent>(evt =>
+                var goalText = logBookEntry.Q<Label>("log-book-entry-goal-text");
+                goalText.text = hasAchievedNpcGoal ? GoalAchievedText : GoalNotAchievedText;
+                goalText.style.color = new StyleColor(hasAchievedNpcGoal ? colorGoalAchieved : colorGoalNotAchieved);
+
+                var logBookEntryRoot = logBookEntry.Q("log-book-entry");
+
+                if (hasMetNpc)
                 {
-                    if (UiManager.IsSubmitKeyDown(evt)) DisplayPatientRecord(npcData);
-                });
-                
+                    logBookEntryRoot.AddToClassList(FocusableClass);
+                    
+                    logBookEntry.RegisterCallback<ClickEvent>(evt => DisplayPatientRecord(npcData));
+                    logBookEntry.RegisterCallback<KeyDownEvent>(evt =>
+                    {
+                        if (UiManager.IsSubmitKeyDown(evt)) DisplayPatientRecord(npcData);
+                    });
+                }
+                else
+                {
+                    logBookEntryRoot.focusable = false;
+                }
+
                 _rootContainer.Add(logBookEntry);
             }
         }
 
         private void DisplayPatientRecord(NpcData npcData)
         {
+            _pauseMenu.LogBookTab.Focus();
+            _pauseMenu.ShowBackButton();
             _rootContainer.Clear();
-            
+
             var patientRecord = patientRecordUxml.Instantiate();
             patientRecord.Q("patient-image").style.backgroundImage = new StyleBackground(npcData.DefaultPortrait);
             patientRecord.Q<Label>("patient-name").text = npcData.CharacterName;

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbfd4ca5e76616440841a2f74fbb021b, type: 3}
   m_Name: NpcData_Janus
   m_EditorClassIdentifier: 
+  <NpcId>k__BackingField: 3
   <CharacterName>k__BackingField: Janus
   <InkAsset>k__BackingField: {fileID: 0}
   <FontAsset>k__BackingField: {fileID: 0}
