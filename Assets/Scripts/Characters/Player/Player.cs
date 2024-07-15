@@ -10,6 +10,7 @@ namespace Characters.Player
     [RequireComponent(typeof(PlayerInput))]
     [RequireComponent(typeof(MovementController))]
     [RequireComponent(typeof(PlayerDialogueController))]
+    [RequireComponent(typeof(PlayerHistoryController))]
     [RequireComponent(typeof(PlayerInputController))]
     [RequireComponent(typeof(PlayerInteractionController))]
     [RequireComponent(typeof(InventoryController))]
@@ -19,6 +20,7 @@ namespace Characters.Player
         
         public MovementController MovementController { get; private set; }
         public PlayerDialogueController DialogueController { get; private set; }
+        public PlayerHistoryController HistoryController { get; private set; }
         public PlayerInteractionController InteractionController { get; private set; }
         public InventoryController InventoryController { get; private set; }  // Added reference
 
@@ -35,7 +37,13 @@ namespace Characters.Player
             MovementController.SetCollisionMask(LayerMask.GetMask("Obstacles"));
             
             PlayerInput = GetComponent<PlayerInput>();
+            // HACK: Start with a secondary action map enabled
+            // and then quickly switch to the primary action map
+            // (otherwise, all action maps are enabled from the start--seems to be a Unity bug).
+            PlayerInput.defaultActionMap = "UI";
+            
             DialogueController = GetComponent<PlayerDialogueController>();
+            HistoryController = GetComponent<PlayerHistoryController>();
             InteractionController = GetComponent<PlayerInteractionController>();
             InventoryController = GetComponent<InventoryController>();  // Initialize reference
         }

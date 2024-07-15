@@ -1,4 +1,4 @@
-#root {
+#scene-fader {
     background-color: #000;
     opacity: 1;
     transition-duration: 0.75s;
@@ -6,6 +6,6 @@
     transition-timing-function: ease-in-out;
 }
 
-#root.hidden {
+#scene-fader.hidden {
     opacity: 0;
 }

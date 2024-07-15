@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6486977473013285018
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6805894090069931338}
+  - component: {fileID: 5305211363457553369}
+  - component: {fileID: -3803919481236404289}
+  - component: {fileID: -3460312076875831878}
+  m_Layer: 5
+  m_Name: PauseMenu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6805894090069931338
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6486977473013285018}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5305211363457553369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6486977473013285018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: fe0ac41edaff6e64685cd23f8ad9bf02, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 8e92d4a9162496d468bd9cc83c8763c9, type: 3}
+  m_SortingOrder: 0
+--- !u!114 &-3803919481236404289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6486977473013285018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07ce54671e852014d98c9fd740b50171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settingsMenuUxml: {fileID: 9197481963319205126, guid: 229426ff73c186740b16de1d1f45e76e, type: 3}
+--- !u!114 &-3460312076875831878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6486977473013285018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99c56bd47e79a88428b60e15b206cc26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  logBookMenuUxml: {fileID: 9197481963319205126, guid: c61c4454405a128418c876f61f1ed85d, type: 3}
+  logBookEntryUxml: {fileID: 9197481963319205126, guid: 698cf0067868ac544acf8374fdfe7730, type: 3}
+  patientRecordUxml: {fileID: 9197481963319205126, guid: df1d85cf1e3d2624d89b9e58ac66877d, type: 3}
+  npcDataOriginals:
+  - {fileID: 11400000, guid: 0383d3c5d28dfe144a4b4852f6923412, type: 2}
+  - {fileID: 11400000, guid: 24f34619d9652704795cfdde6c51de8c, type: 2}
+  - {fileID: 11400000, guid: 794dfbcd127f3794aa19afc97b8e35ea, type: 2}
+  colorGoalAchieved: {r: 0.13725491, g: 0.6431373, b: 0.21176471, a: 1}
+  colorGoalNotAchieved: {r: 0.7411765, g: 0.101960786, b: 0.101960786, a: 1}

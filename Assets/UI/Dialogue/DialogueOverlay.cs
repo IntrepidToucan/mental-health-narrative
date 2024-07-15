@@ -4,6 +4,7 @@ using System.Linq;
 using Characters.NPCs;
 using Characters.Player;
 using Ink.Runtime;
+using Managers;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -49,16 +50,27 @@ namespace UI.Dialogue
         public void HideDialogueText() =>_dialogueText.RemoveFromClassList(VisibleClass);
         public void ShowDialogueText() => _dialogueText.AddToClassList(VisibleClass);
         
-        public void SetParams(Npc npc)
+        public void SetNpc(Npc npc)
         {
             _npc = npc;
+            _dialogueImage.style.backgroundImage = new StyleBackground(_npc.NpcData.DefaultPortrait);
 
             TrySetDialogueFont();
         }
 
-        public void SetDialogue(string text)
+        public void SetDialogue(string text, Sprite portrait)
         {
             _dialogueText.text = text.Trim();
+
+            if (_dialogueImage.resolvedStyle.backgroundImage.sprite != portrait)
+            {
+                Debug.Log("create new portrait");
+                _dialogueImage.style.backgroundImage = new StyleBackground(portrait);
+            }
+            else
+            {
+                Debug.Log("keep the same portrait");
+            }
         }
 
         public void SetDialogueChoices(List<Choice> choices)
@@ -151,8 +163,6 @@ namespace UI.Dialogue
             }
         }
         
-        private static bool IsContinueKeyPress(KeyDownEvent evt) => evt.keyCode is KeyCode.Space or KeyCode.Return;
-        
         private static bool IsElementHidden(VisualElement element, float opacityThreshold)
         {
             return !element.ClassListContains(VisibleClass) &&
@@ -197,7 +207,8 @@ namespace UI.Dialogue
         {
             if (_npc == null || _dialogueText == null) return;
             
-            _dialogueText.style.unityFontDefinition = new StyleFontDefinition(FontDefinition.FromSDFFont(_npc.Font));
+            _dialogueText.style.unityFontDefinition =
+                new StyleFontDefinition(FontDefinition.FromSDFFont(_npc.NpcData.FontAsset));
         }
         
         private void HandleOverlayClick(ClickEvent evt)
@@ -209,14 +220,14 @@ namespace UI.Dialogue
         
         private static void HandleOverlayKeyDown(KeyDownEvent evt)
         {
-            if (!IsContinueKeyPress(evt) || evt.target is Button) return;
+            if (!UiManager.IsSubmitKeyDown(evt) || evt.target is Button) return;
             
             Player.Instance.DialogueController.TryAdvanceDialogue();
         }
 
         private static void HandleAdvanceDialogueButtonKeyDown(KeyDownEvent evt)
         {
-            if (!IsContinueKeyPress(evt)) return;
+            if (!UiManager.IsSubmitKeyDown(evt)) return;
             
             Player.Instance.DialogueController.TryAdvanceDialogue();
         }
@@ -233,7 +244,7 @@ namespace UI.Dialogue
         
         private static void SelectDialogueChoice(KeyDownEvent evt, Choice choice)
         {
-            if (!IsContinueKeyPress(evt)) return;
+            if (!UiManager.IsSubmitKeyDown(evt)) return;
             
             Player.Instance.DialogueController.TrySelectDialogueChoice(choice);
         }

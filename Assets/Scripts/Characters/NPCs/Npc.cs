@@ -1,8 +1,5 @@
-using Ink.Runtime;
 using Interaction;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
-using TextAsset = UnityEngine.TextAsset;
 
 namespace Characters.NPCs
 {
@@ -12,12 +9,18 @@ namespace Characters.NPCs
     [RequireComponent(typeof(MovementController))]
     public class Npc : MonoBehaviour, IInteractable
     {
-        [Header("Assets")]
-        [SerializeField] private FontAsset fontAsset;
-        [SerializeField, Tooltip("The compiled Ink JSON file")] private TextAsset inkAsset;
-
-        public FontAsset Font => fontAsset;
+        public enum NpcId
+        {
+            None,
+            Erol,
+            Mandy,
+            Janus
+        }
         
+        [Header("Data")]
+        [SerializeField] private NpcData npcDataOriginal;
+
+        public NpcData NpcData { get; private set; }
         public MovementController MovementController { get; private set; }
         
         public bool CanInteract()
@@ -36,7 +39,7 @@ namespace Characters.NPCs
         {
             if (!CanInteract()) return;
             
-            Player.Player.Instance.DialogueController.StartDialogue(this, new InkScript(inkAsset));
+            Player.Player.Instance.DialogueController.StartDialogue(this, new InkScript(NpcData.InkAsset));
         }
         
         private void Awake()
@@ -47,6 +50,8 @@ namespace Characters.NPCs
 
             MovementController = GetComponent<MovementController>();
             MovementController.SetCollisionMask(LayerMask.GetMask("Obstacles"));
+
+            NpcData = Instantiate(npcDataOriginal);
         }
 
         private void Update()

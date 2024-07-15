@@ -1265,6 +1265,10 @@ PrefabInstance:
       value: Scenes/Rooms/ErolRoom
       objectReference: {fileID: 0}
     - target: {fileID: 6137098519082692533, guid: 889ecd9296393004d8f8b201be0fae31, type: 3}
+      propertyPath: grantedHistoryTag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6137098519082692533, guid: 889ecd9296393004d8f8b201be0fae31, type: 3}
       propertyPath: sceneConnectionId
       value: HallwayToErolRoom
       objectReference: {fileID: 0}
@@ -1340,6 +1344,10 @@ PrefabInstance:
     - target: {fileID: 6137098519082692533, guid: 889ecd9296393004d8f8b201be0fae31, type: 3}
       propertyPath: targetSceneName
       value: Scenes/Rooms/MandyRoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 6137098519082692533, guid: 889ecd9296393004d8f8b201be0fae31, type: 3}
+      propertyPath: grantedHistoryTag
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6137098519082692533, guid: 889ecd9296393004d8f8b201be0fae31, type: 3}
       propertyPath: sceneConnectionId

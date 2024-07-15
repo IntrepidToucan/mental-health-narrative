@@ -1,0 +1,97 @@
+#pause-menu {
+    background-color: rgba(0, 0, 0, 0.8);
+    flex-grow: 1;
+    opacity: 0;
+    transition-duration: 0.5s;
+    transition-property: opacity;
+    transition-timing-function: ease-in-out;
+}
+
+#pause-menu.visible {
+    opacity: 1;
+}
+
+#menu-container {
+    flex-grow: 0;
+    height: 1000px;
+    margin: auto;
+    width: 1400px;
+}
+
+#tabs-container {
+    flex-direction: row;
+    flex-grow: 0;
+}
+
+.tab {
+    background-color: rgb(198, 198, 198);
+    border-radius: 12px 12px 0 0;
+    border-width: 0;
+    font-size: 36px;
+    height: 72px;
+    margin: 0;
+    min-width: 320px;
+    padding: 0 64px;
+    transition-duration: 0.2s;
+    transition-property: background-color;
+    transition-timing-function: linear;
+    -unity-font-style: bold;
+}
+
+.tab:focus {
+    background-color: rgb(218, 218, 218);
+}
+
+.tab:hover {
+    background-color: rgb(218, 218, 218);
+}
+
+.tab:active {
+    background-color: rgb(248, 248, 248);
+    transition-property: none;
+}
+
+.tab.selected:active {
+    background-color: rgb(248, 248, 248);
+    transition-property: none;
+}
+
+.tab.selected {
+    background-color: rgb(238, 238, 238);
+}
+
+#tab-content-container {
+    background-color: rgb(238, 238, 238);
+    border-radius: 0 6px 0 0;
+    flex-grow: 1;
+}
+
+#navigation-buttons-container {
+    background-color: rgb(238, 238, 238);
+    border-radius: 0 0 6px 6px;
+    flex-direction: row;
+    flex-grow: 0;
+    justify-content: space-between;
+}
+
+.navigation-button {
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 4px;
+    border-width: 0;
+    font-size: 32px;
+    margin: 12px;
+    padding: 12px 16px;
+    -unity-font-style: bold;
+}
+
+.navigation-button:focus {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.navigation-button:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.navigation-button:active {
+    background-color: rgba(0, 0, 0, 0.2);
+}
