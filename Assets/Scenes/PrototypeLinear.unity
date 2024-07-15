@@ -1648,7 +1648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96aefdcc1ee2df14e9ac5c73a1ebfc66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredItem: Spirits
+  requiredItem: SpiritsKey
   pairedDoor: {fileID: 1364446022}
   requiresItem: 1
 --- !u!61 &137322836
@@ -2449,7 +2449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a113c0e4cef46348a4a93ecf14b6f24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredItem: Photo
+  requiredItem: PhotoKey
   platformPrefab: {fileID: 4675446958372177428, guid: 1abb7dc81bbc90648a9c565991a33011, type: 3}
   spawnLocation: {fileID: 8096490536494048787, guid: 1abb7dc81bbc90648a9c565991a33011, type: 3}
   requiresItem: 1
@@ -2998,7 +2998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96aefdcc1ee2df14e9ac5c73a1ebfc66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredItem: Spirits
+  requiredItem: SpiritsKey
   pairedDoor: {fileID: 1386430418}
   requiresItem: 1
 --- !u!61 &334377184
@@ -5710,6 +5710,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPickup: {fileID: 763462332}
   wallToDisappear: {fileID: 1112055222}
+--- !u!1 &769376541 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4269978062361902834, guid: d74e57842d3e33241bfef83d1df01413, type: 3}
+  m_PrefabInstance: {fileID: 769489391}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &769376543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 769376541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae54612431b3b1b4f82c38ab9de0138c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemA: {fileID: 11400000, guid: 03a0dcd0198defe40aa5f0e3366b2ea5, type: 2}
+  itemB: {fileID: 11400000, guid: 3de55a7cb55938a4fb69c0d9f4e61038, type: 2}
+  itemC: {fileID: 11400000, guid: 68ab57090b4ffa5428bedbe74099f3be, type: 2}
+  itemD: {fileID: 11400000, guid: 3625d193d7bfb774d8b36b6810e27a5c, type: 2}
+  itemE: {fileID: 11400000, guid: 9a9a70247650da44cadbcc6417a8fec6, type: 2}
+  itemF: {fileID: 11400000, guid: d5cb577dac97ddc489038c36a800efc5, type: 2}
+  itemG: {fileID: 11400000, guid: 981d87440ab70d3448f7827998beaf1d, type: 2}
+  itemH: {fileID: 11400000, guid: 2b8cd3b697bb85a49bf8894019185695, type: 2}
+  wall: {fileID: 1897850595}
 --- !u!1001 &769489391
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5765,7 +5791,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4269978062361902834, guid: d74e57842d3e33241bfef83d1df01413, type: 3}
+      insertIndex: 5
+      addedObject: {fileID: 769376543}
   m_SourcePrefab: {fileID: 100100000, guid: d74e57842d3e33241bfef83d1df01413, type: 3}
 --- !u!1 &929901200
 GameObject:
@@ -8189,7 +8218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96aefdcc1ee2df14e9ac5c73a1ebfc66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredItem: Spirits
+  requiredItem: SpiritsKey
   pairedDoor: {fileID: 137322835}
   requiresItem: 1
 --- !u!61 &1364446023
@@ -8356,7 +8385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96aefdcc1ee2df14e9ac5c73a1ebfc66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredItem: Spirits
+  requiredItem: SpiritsKey
   pairedDoor: {fileID: 334377183}
   requiresItem: 1
 --- !u!61 &1386430419
@@ -9068,7 +9097,7 @@ Transform:
   m_GameObject: {fileID: 1590723841}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.2, y: 0.1, z: 0}
+  m_LocalPosition: {x: -3.52, y: 0.26, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
