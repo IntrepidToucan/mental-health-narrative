@@ -78,6 +78,7 @@ MonoBehaviour:
   logBookMenuUxml: {fileID: 9197481963319205126, guid: c61c4454405a128418c876f61f1ed85d, type: 3}
   logBookEntryUxml: {fileID: 9197481963319205126, guid: 698cf0067868ac544acf8374fdfe7730, type: 3}
   patientRecordUxml: {fileID: 9197481963319205126, guid: df1d85cf1e3d2624d89b9e58ac66877d, type: 3}
+  patientRecordItemButtonUxml: {fileID: 9197481963319205126, guid: 8df9df789c210f44c9ebb86315d5a990, type: 3}
   npcDataOriginals:
   - {fileID: 11400000, guid: 0383d3c5d28dfe144a4b4852f6923412, type: 2}
   - {fileID: 11400000, guid: 24f34619d9652704795cfdde6c51de8c, type: 2}

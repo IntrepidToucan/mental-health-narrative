@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Linq;
 using Managers;
+using UI.PauseMenu.LogBook;
 using UnityEngine;
 using UnityEngine.UIElements;
 

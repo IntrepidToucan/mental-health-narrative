@@ -1,0 +1,6 @@
+#log-book-menu {
+    align-items: center;
+    flex-direction: row;
+    flex-grow: 1;
+    justify-content: center;
+}

@@ -1,7 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/PauseMenu/PatientRecord.uss?fileID=7433441132597879392&amp;guid=7fd961f5efbd4f64f85bf10301e7d9ce&amp;type=3#PatientRecord" />
-    <ui:VisualElement name="patient-record" style="-unity-font-definition: resource(&apos;Fonts &amp; Materials/EBGaramond/EBGaramondFont&apos;);">
-        <ui:VisualElement name="patient-image" />
-        <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="patient-name" />
-    </ui:VisualElement>
-</ui:UXML>
