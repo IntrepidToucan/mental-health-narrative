@@ -20,21 +20,20 @@ namespace UI.PauseMenu.LogBook
         [Header("Data")]
         [SerializeField] private List<NpcData> npcDataOriginals;
         
-        [Header("UI")]
-        [SerializeField] private Color colorGoalAchieved = new(35f, 164f, 54f, 255f);
-        // Alternatives:
-        //   - 189, 26, 26
-        //   - 170, 16, 16
-        [SerializeField] private Color colorGoalNotAchieved = new(189f, 26f, 26f, 255f);
-        
+        private const string ActiveClass = "active";
         private const string FocusableClass = "focusable";
+        private const string SuccessClass = "success";
+        
         private const string GoalAchievedText = "Blood sample acquired";
         private const string GoalNotAchievedText = "Blood sample needed";
         private const string UnknownNpcLabel = "???";
 
         private PauseMenu _pauseMenu;
         private List<NpcData> _npcDataInstances;
+        
         private VisualElement _rootContainer;
+        private VisualElement _patientImageContainer;
+        private VisualElement _itemsContainer;
         
         public void HandleBackAction() => DisplayLogBookEntries();
         
@@ -55,7 +54,7 @@ namespace UI.PauseMenu.LogBook
             _npcDataInstances = new List<NpcData>();
             foreach (var npcData in npcDataOriginals) _npcDataInstances.Add(Instantiate(npcData));
         }
-
+        
         private void DisplayLogBookEntries()
         {
             _pauseMenu.LogBookTab.Focus();
@@ -79,7 +78,8 @@ namespace UI.PauseMenu.LogBook
 
                 var goalText = logBookEntry.Q<Label>("log-book-entry-goal-text");
                 goalText.text = hasAchievedNpcGoal ? GoalAchievedText : GoalNotAchievedText;
-                goalText.style.color = new StyleColor(hasAchievedNpcGoal ? colorGoalAchieved : colorGoalNotAchieved);
+                
+                if (hasAchievedNpcGoal) goalText.AddToClassList(SuccessClass);
 
                 var logBookEntryRoot = logBookEntry.Q("log-book-entry");
 
@@ -104,14 +104,18 @@ namespace UI.PauseMenu.LogBook
 
         private void DisplayPatientRecord(NpcData npcData)
         {
-            _pauseMenu.LogBookTab.Focus();
             _pauseMenu.ShowBackButton();
             _rootContainer.Clear();
 
             var patientRecord = patientRecordUxml.Instantiate();
             patientRecord.style.flexGrow = 1;
-            patientRecord.Q("patient-image").style.backgroundImage = new StyleBackground(npcData.DefaultPortrait);
             patientRecord.Q<Label>("patient-name").text = npcData.CharacterName;
+            patientRecord.Q("patient-image").style.backgroundImage = new StyleBackground(npcData.DefaultPortrait);
+
+            _patientImageContainer = patientRecord.Q("patient-image-container");
+            _patientImageContainer.AddToClassList(ActiveClass);
+            _patientImageContainer.RegisterCallback<ClickEvent>(SelectPatient);
+            _patientImageContainer.RegisterCallback<KeyDownEvent>(SelectPatient);
 
             var npcIdString = Enum.GetName(typeof(Npc.NpcId), npcData.NpcId);
             var npcItems = string.IsNullOrEmpty(npcIdString) ?
@@ -123,24 +127,67 @@ namespace UI.PauseMenu.LogBook
                     return !string.IsNullOrEmpty(itemIdString) && itemIdString.StartsWith(npcIdString);
                 }).ToArray();
             
-            var itemsContainer = patientRecord.Q("patient-items-container");
+            _itemsContainer = patientRecord.Q("patient-items-container");
 
             if (npcItems.Length > 0)
             {
                 // Remove the default empty message element.
-                itemsContainer.Clear();
+                _itemsContainer.Clear();
                 
                 foreach (var item in npcItems)
                 {
                     var itemButton = patientRecordItemButtonUxml.Instantiate();
-                    itemButton.Q<Button>("patient-record-item-button").style.backgroundImage =
-                        new StyleBackground(item.itemIcon);
+                    itemButton.Q("item-button-image").style.backgroundImage = new StyleBackground(item.itemIcon);
+                    itemButton.Q("patient-record-item-button")
+                        .RegisterCallback<ClickEvent, Item>(SelectItem, item);
+                    itemButton.Q("patient-record-item-button")
+                        .RegisterCallback<KeyDownEvent, Item>(SelectItem, item);
                     
-                    itemsContainer.Add(itemButton);
+                    _itemsContainer.Add(itemButton);
                 }
             }
 
             _rootContainer.Add(patientRecord);
+            _patientImageContainer.Focus();
+        }
+        
+        private void ClearActiveClass()
+        {
+            _patientImageContainer.RemoveFromClassList(ActiveClass);
+            _itemsContainer.Query(className: "item-button")
+                .ForEach(element => element.RemoveFromClassList(ActiveClass));
+        }
+
+        private void SelectElement(IEventHandler target)
+        {
+            if (target is not VisualElement element) return;
+            
+            ClearActiveClass();
+            element.AddToClassList(ActiveClass);
+        }
+        
+        private void SelectPatient(ClickEvent evt)
+        {
+            SelectElement(evt.target);
+        }
+        
+        private void SelectPatient(KeyDownEvent evt)
+        {
+            if (!UiManager.IsSubmitKeyDown(evt)) return;
+            
+            SelectElement(evt.target);
+        }
+
+        private void SelectItem(ClickEvent evt, Item item)
+        {
+            SelectElement(evt.target);
+        }
+        
+        private void SelectItem(KeyDownEvent evt, Item item)
+        {
+            if (!UiManager.IsSubmitKeyDown(evt)) return;
+            
+            SelectElement(evt.target);
         }
     }
 }

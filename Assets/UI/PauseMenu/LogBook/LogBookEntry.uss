@@ -30,9 +30,19 @@
 }
 
 #log-book-entry-goal-text {
+    /**
+     * Alternatives:
+     *   - 189, 26, 26
+     *   - 170, 16, 16
+     */
+    color: rgb(189, 26, 26);
     font-size: 40px;
     margin: 20px 0 0 0;
     padding: 0;
     white-space: normal;
     -unity-text-align: middle-center;
+}
+
+#log-book-entry-goal-text.success {
+    color: rgb(35, 164, 54);
 }

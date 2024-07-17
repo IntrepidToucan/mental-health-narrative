@@ -1,4 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/PauseMenu/LogBook/PatientRecordItemButton.uss?fileID=7433441132597879392&amp;guid=ca5addba99b0b824ca1f43b1bfe3499d&amp;type=3#PatientRecordItemButton" />
-    <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="patient-record-item-button" />
+    <ui:VisualElement name="patient-record-item-button" focusable="true" class="item-button">
+        <ui:VisualElement name="item-button-image" picking-mode="Ignore" />
+    </ui:VisualElement>
 </ui:UXML>

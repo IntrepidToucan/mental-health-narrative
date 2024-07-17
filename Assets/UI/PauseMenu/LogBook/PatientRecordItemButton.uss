@@ -1,7 +1,30 @@
 #patient-record-item-button {
+    background-color: rgba(62, 112, 255, 0);
+    flex-grow: 0;
+    margin: 0 10px 10px 0;
+    padding: 10px;
+    transition-duration: 0.2s;
+    transition-property: background-color;
+    transition-timing-function: linear;
+}
+
+#patient-record-item-button:focus,
+#patient-record-item-button:hover {
+    background-color: rgba(62, 112, 255, 0.5);
+}
+
+#patient-record-item-button.active:focus,
+#patient-record-item-button.active:hover,
+#patient-record-item-button.active {
+    background-color: rgba(62, 112, 255, 1);
+    transition-property: none;
+}
+
+#item-button-image {
     background-color: #000;
-    height: 100px;
-    margin: 0 16px 16px 0;
+    flex-grow: 0;
+    height: 84px;
+    margin: 0;
     padding: 0;
-    width: 100px;
+    width: 84px;
 }
