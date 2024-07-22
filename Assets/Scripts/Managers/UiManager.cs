@@ -11,12 +11,6 @@ namespace Managers
 {
     public class UiManager : PersistedSingleton<UiManager>
     {
-        public enum PauseMenuTab
-        {
-            Settings,
-            LogBook
-        }
-        
         [Header("Prefabs")]
         [SerializeField] private GameObject dialogueOverlayPrefab;
         [SerializeField] private GameObject hudPrefab;
@@ -27,7 +21,6 @@ namespace Managers
         private Hud _hud;
         private PauseMenu _pauseMenu;
         
-        public static bool IsCancelKeyDown(KeyDownEvent evt) => evt.keyCode is KeyCode.Escape;
         public static bool IsSubmitKeyDown(KeyDownEvent evt) => evt.keyCode is KeyCode.Space or KeyCode.Return;
 
         public void OpenPauseMenu(PauseMenuTab tabId = PauseMenuTab.Settings)

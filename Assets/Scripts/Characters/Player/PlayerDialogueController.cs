@@ -5,6 +5,7 @@ using Ink.Runtime;
 using Interaction;
 using Managers;
 using UnityEngine;
+using Utilities;
 
 namespace Characters.Player
 {
@@ -104,7 +105,7 @@ namespace Characters.Player
             }
             
             UiManager.Instance.DialogueOverlay.SetDialogue(_inkScript.Story.Continue(),
-                _npc.NpcData.PortraitMap.GetValueOrDefault(NpcData.Demeanor.Neutral, _npc.NpcData.DefaultPortrait));
+                _npc.NpcData.PortraitMap.GetValueOrDefault(Demeanor.Neutral, _npc.NpcData.DefaultPortrait));
             UiManager.Instance.DialogueOverlay.ShowDialogueText();
             UiManager.Instance.DialogueOverlay.SetDialogueChoices(_inkScript.Story.currentChoices);
 

@@ -16,6 +16,8 @@ namespace UI.PauseMenu.LogBook
         [SerializeField] private VisualTreeAsset logBookEntryUxml;
         [SerializeField] private VisualTreeAsset patientRecordUxml;
         [SerializeField] private VisualTreeAsset patientRecordItemButtonUxml;
+        [SerializeField] private VisualTreeAsset patientPageUxml;
+        [SerializeField] private VisualTreeAsset itemPageUxml;
 
         [Header("Data")]
         [SerializeField] private List<NpcData> npcDataOriginals;
@@ -34,6 +36,7 @@ namespace UI.PauseMenu.LogBook
         private VisualElement _rootContainer;
         private VisualElement _patientImageContainer;
         private VisualElement _itemsContainer;
+        private VisualElement _patientRecordContentContainer;
         
         public void HandleBackAction() => DisplayLogBookEntries();
         
@@ -114,41 +117,33 @@ namespace UI.PauseMenu.LogBook
 
             _patientImageContainer = patientRecord.Q("patient-image-container");
             _patientImageContainer.AddToClassList(ActiveClass);
-            _patientImageContainer.RegisterCallback<ClickEvent>(SelectPatient);
-            _patientImageContainer.RegisterCallback<KeyDownEvent>(SelectPatient);
+            _patientImageContainer.RegisterCallback<ClickEvent, NpcData>(SelectPatient, npcData);
+            _patientImageContainer.RegisterCallback<KeyDownEvent, NpcData>(SelectPatient, npcData);
 
-            var npcIdString = Enum.GetName(typeof(Npc.NpcId), npcData.NpcId);
-            var npcItems = string.IsNullOrEmpty(npcIdString) ?
-                Array.Empty<Item>() :
-                Inventory.Instance.items.Where(item =>
-                {
-                    var itemIdString = Enum.GetName(typeof(Inventory.ItemId), item.itemId);
-
-                    return !string.IsNullOrEmpty(itemIdString) && itemIdString.StartsWith(npcIdString);
-                }).ToArray();
-            
             _itemsContainer = patientRecord.Q("patient-items-container");
+            _patientRecordContentContainer = patientRecord.Q("patient-record-content-container");
 
-            if (npcItems.Length > 0)
+            foreach (var item in npcData.items)
             {
-                // Remove the default empty message element.
-                _itemsContainer.Clear();
-                
-                foreach (var item in npcItems)
+                var itemButton = patientRecordItemButtonUxml.Instantiate();
+
+                if (Inventory.Instance.HasItem(item.itemId))
                 {
-                    var itemButton = patientRecordItemButtonUxml.Instantiate();
                     itemButton.Q("item-button-image").style.backgroundImage = new StyleBackground(item.itemIcon);
+                    itemButton.Q("patient-record-item-button").AddToClassList(FocusableClass);
+                    
                     itemButton.Q("patient-record-item-button")
                         .RegisterCallback<ClickEvent, Item>(SelectItem, item);
                     itemButton.Q("patient-record-item-button")
                         .RegisterCallback<KeyDownEvent, Item>(SelectItem, item);
-                    
-                    _itemsContainer.Add(itemButton);
                 }
+
+                _itemsContainer.Add(itemButton);
             }
 
             _rootContainer.Add(patientRecord);
             _patientImageContainer.Focus();
+            PopulatePatientPage(npcData);
         }
         
         private void ClearActiveClass()
@@ -165,22 +160,55 @@ namespace UI.PauseMenu.LogBook
             ClearActiveClass();
             element.AddToClassList(ActiveClass);
         }
-        
-        private void SelectPatient(ClickEvent evt)
+
+        private void PopulatePatientPage(NpcData npcData)
         {
-            SelectElement(evt.target);
+            var page = patientPageUxml.Instantiate();
+            page.Q<Label>("patient-page-title").text = npcData.CharacterName;
+            
+            var contentContainer = page.Q("patient-page-text-container");
+            
+            _patientRecordContentContainer.Clear();
+            _patientRecordContentContainer.Add(page);
         }
         
-        private void SelectPatient(KeyDownEvent evt)
+        private void PopulateItemPage(Item item)
+        {
+            var page = itemPageUxml.Instantiate();
+            page.Q<Label>("item-page-title").text = item.itemName;
+            page.Q("item-page-image").style.backgroundImage = new StyleBackground(item.itemIcon);
+            
+            var contentContainer = page.Q("item-page-text-container");
+
+            foreach (var str in item.descriptionLines)
+            {
+                var text = new Label(str);
+                text.AddToClassList("item-page-text");
+                contentContainer.Add(text);
+            }
+            
+            _patientRecordContentContainer.Clear();
+            _patientRecordContentContainer.Add(page);
+        }
+        
+        private void SelectPatient(ClickEvent evt, NpcData npcData)
+        {
+            SelectElement(evt.target);
+            PopulatePatientPage(npcData);
+        }
+        
+        private void SelectPatient(KeyDownEvent evt, NpcData npcData)
         {
             if (!UiManager.IsSubmitKeyDown(evt)) return;
             
             SelectElement(evt.target);
+            PopulatePatientPage(npcData);
         }
 
         private void SelectItem(ClickEvent evt, Item item)
         {
             SelectElement(evt.target);
+            PopulateItemPage(item);
         }
         
         private void SelectItem(KeyDownEvent evt, Item item)
@@ -188,6 +216,7 @@ namespace UI.PauseMenu.LogBook
             if (!UiManager.IsSubmitKeyDown(evt)) return;
             
             SelectElement(evt.target);
+            PopulateItemPage(item);
         }
     }
 }

@@ -1,5 +1,5 @@
 #patient-record-item-button {
-    background-color: rgba(62, 112, 255, 0);
+    background-color: rgba(130, 130, 130, 0);
     flex-grow: 0;
     margin: 0 10px 10px 0;
     padding: 10px;
@@ -10,12 +10,21 @@
 
 #patient-record-item-button:focus,
 #patient-record-item-button:hover {
+    background-color: rgba(130, 130, 130, 0.5);
+}
+
+#patient-record-item-button.focusable {
+    background-color: rgba(62, 112, 255, 0);
+}
+
+#patient-record-item-button.focusable:focus,
+#patient-record-item-button.focusable:hover {
     background-color: rgba(62, 112, 255, 0.5);
 }
 
-#patient-record-item-button.active:focus,
-#patient-record-item-button.active:hover,
-#patient-record-item-button.active {
+#patient-record-item-button.focusable.active:focus,
+#patient-record-item-button.focusable.active:hover,
+#patient-record-item-button.focusable.active {
     background-color: rgba(62, 112, 255, 1);
     transition-property: none;
 }
@@ -25,6 +34,11 @@
     flex-grow: 0;
     height: 84px;
     margin: 0;
+    opacity: 0.5;
     padding: 0;
     width: 84px;
+}
+
+#patient-record-item-button.focusable #item-button-image {
+    opacity: 1;
 }

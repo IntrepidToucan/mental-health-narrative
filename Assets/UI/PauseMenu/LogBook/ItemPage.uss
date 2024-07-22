@@ -1,0 +1,19 @@
+#item-page-title {
+    font-size: 48px;
+    margin: 0 0 16px 0;
+}
+
+#item-page-image {
+    background-color: rgb(0, 0, 0);
+    flex-grow: 0;
+    height: 328px;
+    margin: 0 auto 36px auto;
+    width: 784px;
+}
+
+.item-page-text {
+    font-size: 36px;
+    margin: 0 0 36px 0;
+    padding: 0;
+    white-space: normal;
+}

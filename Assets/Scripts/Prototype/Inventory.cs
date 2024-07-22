@@ -1,23 +1,16 @@
 using System;
 using System.Collections.Generic;
 using Characters.NPCs;
+using Managers;
+using Unity.VisualScripting;
 using UnityEngine;
 using Utilities;
 
 public class Inventory : PersistedSingleton<Inventory>
 {
-    public enum ItemId
-    {
-        None,
-        ErolServicemansBadge,
-        ErolBloodSample,
-        MandyBloodSample,
-        JanusBloodSample
-    }
-
     public static bool IsDefaultItemId(ItemId itemId) => itemId == ItemId.None;
     public static string GetNpcGoalItemIdString(NpcData npcData) =>
-        $"{Enum.GetName(typeof(Npc.NpcId), npcData.NpcId)}BloodSample";
+        $"{Enum.GetName(typeof(NpcId), npcData.NpcId)}BloodSample";
     
     public static ItemId TryParseItemId(string idString)
     {
@@ -41,6 +34,10 @@ public class Inventory : PersistedSingleton<Inventory>
         items.Add(item);
         OnInventoryUpdated?.Invoke();  // Trigger the event
         Debug.Log($"Added {item.itemName} to inventory");
+
+        var notificationData = Instantiate(SceneManager.Instance.NotificationData_ItemAcquired);
+        notificationData.text = string.Format(notificationData.text, item.itemName);
+        EventManager.TriggerNotification(notificationData);
     }
     
     public bool HasItem(ItemId itemId) => items.Exists(item => item.itemId == itemId);

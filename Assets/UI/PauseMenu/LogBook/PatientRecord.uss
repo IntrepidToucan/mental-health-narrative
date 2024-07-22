@@ -55,7 +55,7 @@
 
 #patient-items-header {
     font-size: 42px;
-    margin: 100px 0 16px 0;
+    margin: 100px 0 12px 0;
     padding: 0;
 }
 
@@ -66,14 +66,7 @@
     justify-content: flex-start;
 }
 
-#items-empty-message {
-    flex-grow: 1;
-    font-size: 36px;
-    margin: 0;
-    padding: 16px 0 0 0;
-    -unity-text-align: middle-center;
-}
-
 #patient-record-content-container {
     flex-grow: 1;
+    padding: 36px 36px 24px 36px;
 }

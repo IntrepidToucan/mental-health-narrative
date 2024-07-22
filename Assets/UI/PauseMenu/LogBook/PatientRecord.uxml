@@ -7,9 +7,7 @@
             </ui:VisualElement>
             <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="patient-name" />
             <ui:Label tabindex="-1" text="Items of Note" parse-escape-sequences="true" display-tooltip-when-elided="true" name="patient-items-header" />
-            <ui:VisualElement name="patient-items-container">
-                <ui:Label tabindex="-1" text="None found" parse-escape-sequences="true" display-tooltip-when-elided="true" name="items-empty-message" />
-            </ui:VisualElement>
+            <ui:VisualElement name="patient-items-container" />
         </ui:VisualElement>
         <ui:VisualElement name="patient-record-content-container" />
     </ui:VisualElement>

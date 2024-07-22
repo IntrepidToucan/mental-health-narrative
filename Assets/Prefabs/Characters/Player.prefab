@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 8594436747763545775}
   - component: {fileID: 685587087327234745}
   - component: {fileID: 4455506731364587947}
+  - component: {fileID: 7208853158265286633}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -276,7 +277,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: d069c676-d70f-44c3-8dfa-560a92ac3598
+  m_DefaultActionMap: UI
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &4455506731364587947
@@ -293,3 +294,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryUI: {fileID: 0}
   inventorySize: 10
+--- !u!114 &7208853158265286633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8989679898361094672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d47d48c40edff1a478f78f4552c6492a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  historyTags_Countable: 
+  historyTags_LogBookUpdate: 010000000200000003000000

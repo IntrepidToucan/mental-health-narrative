@@ -4,6 +4,7 @@ using Managers;
 using UI.PauseMenu.LogBook;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Utilities;
 
 namespace UI.PauseMenu
 {
@@ -18,7 +19,7 @@ namespace UI.PauseMenu
 
         private LogBookMenu _logBookMenu;
         private UIDocument _uiDoc;
-        private UiManager.PauseMenuTab _activeTabId = UiManager.PauseMenuTab.Settings;
+        private PauseMenuTab _activeTabId = PauseMenuTab.Settings;
 
         private VisualElement _rootContainer;
         private VisualElement _tabsContainer;
@@ -28,7 +29,7 @@ namespace UI.PauseMenu
 
         public Button LogBookTab { get; private set; }
 
-        public void SetActiveTab(UiManager.PauseMenuTab tabId)
+        public void SetActiveTab(PauseMenuTab tabId)
         {
             if (_activeTabId == tabId && _tabContentContainer.Children().Any()) return;
 
@@ -42,11 +43,11 @@ namespace UI.PauseMenu
             
             switch (_activeTabId)
             {
-                case UiManager.PauseMenuTab.LogBook:
+                case PauseMenuTab.LogBook:
                     newActiveTab = LogBookTab;
                     _logBookMenu.AddToContainer(_tabContentContainer);
                     break;
-                case UiManager.PauseMenuTab.Settings:
+                case PauseMenuTab.Settings:
                     newActiveTab = _settingsTab;
                     _tabContentContainer.Add(settingsMenuUxml.Instantiate());
                     break;
@@ -135,10 +136,10 @@ namespace UI.PauseMenu
         {
             switch (_activeTabId)
             {
-                case UiManager.PauseMenuTab.LogBook:
+                case PauseMenuTab.LogBook:
                     _logBookMenu.HandleBackAction();
                     break;
-                case UiManager.PauseMenuTab.Settings:
+                case PauseMenuTab.Settings:
                     break;
                 default:
                     Debug.LogError($"Invalid pause menu tab ID: {_activeTabId}");
@@ -146,17 +147,17 @@ namespace UI.PauseMenu
             }
         }
         
-        private void SelectLogBookTab(ClickEvent evt) => SetActiveTab(UiManager.PauseMenuTab.LogBook);
-        private void SelectSettingsTab(ClickEvent evt) => SetActiveTab(UiManager.PauseMenuTab.Settings);
+        private void SelectLogBookTab(ClickEvent evt) => SetActiveTab(PauseMenuTab.LogBook);
+        private void SelectSettingsTab(ClickEvent evt) => SetActiveTab(PauseMenuTab.Settings);
 
         private void SelectLogBookTab(KeyDownEvent evt)
         {
-            if (UiManager.IsSubmitKeyDown(evt)) SetActiveTab(UiManager.PauseMenuTab.LogBook);
+            if (UiManager.IsSubmitKeyDown(evt)) SetActiveTab(PauseMenuTab.LogBook);
         }
         
         private void SelectSettingsTab(KeyDownEvent evt)
         {
-            if (UiManager.IsSubmitKeyDown(evt)) SetActiveTab(UiManager.PauseMenuTab.Settings);
+            if (UiManager.IsSubmitKeyDown(evt)) SetActiveTab(PauseMenuTab.Settings);
         }
     }
 }

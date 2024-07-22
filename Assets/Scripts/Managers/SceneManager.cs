@@ -11,6 +11,10 @@ namespace Managers
 {
     public class SceneManager : PersistedSingleton<SceneManager>
     {
+        [Header("Data")]
+        [SerializeField] private NotificationData notificationData_ItemAcquired;
+        [SerializeField] private NotificationData notificationData_LogBookUpdated;
+        
         [Header("Params")]
         [SerializeField] private float loadSceneFadeInDelay = 0.1f;
         
@@ -24,6 +28,9 @@ namespace Managers
 
         private SceneFader _sceneFader;
         private string _activeSceneConnectionId;
+
+        public NotificationData NotificationData_ItemAcquired => notificationData_ItemAcquired;
+        public NotificationData NotificationData_LogBookUpdated => notificationData_LogBookUpdated;
 
         public void SwitchToScene(string sceneName, ISceneConnectable sceneConnectable)
         {

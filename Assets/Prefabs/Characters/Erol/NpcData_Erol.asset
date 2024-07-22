@@ -16,6 +16,9 @@ MonoBehaviour:
   <CharacterName>k__BackingField: Erol
   <InkAsset>k__BackingField: {fileID: 4900000, guid: f20bfdad0c828bf4c84785e01140af9f, type: 3}
   <FontAsset>k__BackingField: {fileID: 11400000, guid: 74f3019c52de7f6429f77aff03b9742a, type: 2}
+  <items>k__BackingField:
+  - {fileID: 11400000, guid: 3a5b276fd94b61a44bb69958ed50f622, type: 2}
+  - {fileID: 11400000, guid: 685e238dc255ea64b9e39147469f6626, type: 2}
   demeanors: 00000000
   portraits:
   - {fileID: 21300000, guid: dc44b17fecc98a5438d4aaaab8aa9582, type: 3}

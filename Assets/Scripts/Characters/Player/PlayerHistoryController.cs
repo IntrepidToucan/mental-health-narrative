@@ -1,25 +1,23 @@
 using System;
 using System.Collections.Generic;
 using Characters.NPCs;
+using Managers;
 using UnityEngine;
+using Utilities;
 
 namespace Characters.Player
 {
     public class PlayerHistoryController : MonoBehaviour
     {
-        public enum HistoryTag
-        {
-            None,
-            EncounteredErol,
-            EncounteredMandy,
-            EncounteredJanus
-        }
+        [Header("Data")]
+        [SerializeField] private List<HistoryTag> historyTags_Countable;
+        [SerializeField] private List<HistoryTag> historyTags_LogBookUpdate;
         
         private Dictionary<HistoryTag, int> _historyMap;
 
         public static bool IsDefaultHistoryTag(HistoryTag historyTag) => historyTag == HistoryTag.None;
         public static string GetEncounteredNpcHistoryTagString(NpcData npcData) =>
-            $"Encountered{Enum.GetName(typeof(Npc.NpcId), npcData.NpcId)}";
+            $"Encountered{Enum.GetName(typeof(NpcId), npcData.NpcId)}";
 
         public static HistoryTag TryParseHistoryTag(string tagString)
         {
@@ -38,12 +36,24 @@ namespace Characters.Player
                 Debug.LogError($"History tag {historyTag} should never be updated");
                 return;
             }
-            
-            if (delta < 1) Debug.LogError($"Unexpected delta for AddHistory: {delta}");
 
-            if (!_historyMap.TryAdd(historyTag, delta))
+            var hasKey = _historyMap.TryGetValue(historyTag, out var oldCount);
+            var newCount = oldCount + delta;
+
+            if (!historyTags_Countable.Contains(historyTag) && newCount > 1) return;
+
+            if (hasKey)
             {
-                _historyMap[historyTag] += delta;
+                _historyMap[historyTag] = newCount;
+            }
+            else
+            {
+                _historyMap.Add(historyTag, newCount);
+            }
+
+            if (historyTags_LogBookUpdate.Contains(historyTag))
+            {
+                EventManager.TriggerNotification(SceneManager.Instance.NotificationData_LogBookUpdated);
             }
         }
 
@@ -54,8 +64,6 @@ namespace Characters.Player
             Debug.LogError($"Tag not found in history map: {historyTag}");
             return 0;
         }
-        
-        public bool HasHistory(HistoryTag historyTag) => GetHistoryCount(historyTag) > 0;
 
         private void Awake()
         {
@@ -66,5 +74,7 @@ namespace Characters.Player
                 _historyMap.Add(historyTag, 0);
             }
         }
+        
+        public bool HasHistory(HistoryTag historyTag) => GetHistoryCount(historyTag) > 0;
     }
 }

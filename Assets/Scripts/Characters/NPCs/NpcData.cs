@@ -2,22 +2,19 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
+using Utilities;
 using TextAsset = UnityEngine.TextAsset;
 
 namespace Characters.NPCs
 {
-    [CreateAssetMenu(fileName = "NpcData", menuName = "ScriptableObjects/NpcData", order = 1)]
+    [CreateAssetMenu(fileName = "NpcData", menuName = "ScriptableObjects/NpcData")]
     public class NpcData : ScriptableObject
     {
-        public enum Demeanor
-        {
-            Neutral
-        }
-        
-        [field: SerializeField] public Npc.NpcId NpcId { get; private set; }
+        [field: SerializeField] public NpcId NpcId { get; private set; }
         [field: SerializeField] public string CharacterName { get; private set; }
         [field: SerializeField] public TextAsset InkAsset { get; private set; }
         [field: SerializeField, Tooltip("The compiled Ink JSON file!")] public FontAsset FontAsset { get; private set; }
+        [field: SerializeField] public List<Item> items { get; private set;  }
         
         [Header("Mappings")]
         [SerializeField] private List<Demeanor> demeanors;

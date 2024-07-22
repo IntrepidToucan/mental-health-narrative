@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Utilities
 {
-    public class PersistedSingleton<T> : MonoBehaviour where T : PersistedSingleton<T>
+    public abstract class PersistedSingleton<T> : MonoBehaviour where T : PersistedSingleton<T>
     {
         private static bool _isSingletonInitialized;
         

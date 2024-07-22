@@ -1,0 +1,21 @@
+#hud-notification {
+    background-color: rgba(0, 0, 0, 0.9);
+    flex-grow: 0;
+    opacity: 0;
+    margin: 0 0 24px 0;
+    padding: 24px 36px;
+    transition-duration: 0.75s;
+    transition-property: opacity;
+    transition-timing-function: ease-in-out;
+}
+
+#hud-notification.visible {
+    opacity: 1;
+}
+
+#hud-notification-text {
+    color: #fff;
+    font-size: 42px;
+    margin: 0;
+    padding: 0;
+}

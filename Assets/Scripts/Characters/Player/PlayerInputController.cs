@@ -2,6 +2,7 @@ using System.Collections;
 using Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Utilities;
 
 namespace Characters.Player
 {
@@ -61,11 +62,11 @@ namespace Characters.Player
         private static void OnInventoryPerformed(InputAction.CallbackContext context) =>
             Player.Instance.InventoryController.ToggleInventory(context);
         private static void OnOpenLogBookPerformed(InputAction.CallbackContext context) =>
-            UiManager.Instance.OpenPauseMenu(UiManager.PauseMenuTab.LogBook);
+            UiManager.Instance.OpenPauseMenu(PauseMenuTab.LogBook);
         private static void OnPauseGamePerformed(InputAction.CallbackContext context) =>
             UiManager.Instance.OpenPauseMenu();
         private static void OnSelectLogBookTabPerformed(InputAction.CallbackContext context) =>
-            UiManager.Instance.OpenPauseMenu(UiManager.PauseMenuTab.LogBook);
+            UiManager.Instance.OpenPauseMenu(PauseMenuTab.LogBook);
         private static void OnSelectSettingsTabPerformed(InputAction.CallbackContext context) =>
             UiManager.Instance.OpenPauseMenu();
         private static void OnUnpauseGamePerformed(InputAction.CallbackContext context) =>

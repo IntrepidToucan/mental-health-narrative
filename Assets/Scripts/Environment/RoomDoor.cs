@@ -12,10 +12,6 @@ namespace Environment
         [Header("Params")]
         [SerializeField] private string sceneConnectionId;
         [SerializeField] private string targetSceneName;
-        
-        [Header("Interaction")]
-        [SerializeField] private PlayerHistoryController.HistoryTag grantedHistoryTag =
-            PlayerHistoryController.HistoryTag.None;
 
         private BoxCollider2D _collider;
         
@@ -33,11 +29,6 @@ namespace Environment
         {
             if (!CanInteract()) return;
 
-            if (!PlayerHistoryController.IsDefaultHistoryTag(grantedHistoryTag))
-            {
-                Player.Instance.HistoryController.AddHistory(grantedHistoryTag);
-            }
-            
             SceneManager.Instance.SwitchToScene(targetSceneName, this);
         }
 

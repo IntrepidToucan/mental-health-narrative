@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50214e518b93c3445a6c90abe15ac74b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  notificationData_ItemAcquired: {fileID: 11400000, guid: e9bcd74c044a2894b932fcc26bd95b15, type: 2}
+  notificationData_LogBookUpdated: {fileID: 11400000, guid: 0605820e0f0057540a59d5161b68abef, type: 2}
   loadSceneFadeInDelay: 0.1
   eventSystemPrefab: {fileID: 8359068410635134939, guid: 6fe3f9ba14cc9f14fa171a082a208c3b, type: 3}
   inventoryPrefab: {fileID: 3758256124082410167, guid: ef6245117822671459336554fc1458a7, type: 3}
