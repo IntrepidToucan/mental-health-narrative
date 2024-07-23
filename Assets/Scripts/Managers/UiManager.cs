@@ -11,17 +11,24 @@ namespace Managers
 {
     public class UiManager : PersistedSingleton<UiManager>
     {
+        [Header("Data/Notifications")]
+        [SerializeField] private NotificationData notificationData_ItemAcquired;
+        [SerializeField] private NotificationData notificationData_LogBookUpdated;
+        
         [Header("Prefabs")]
         [SerializeField] private GameObject dialogueOverlayPrefab;
         [SerializeField] private GameObject hudPrefab;
         [SerializeField] private GameObject pauseMenuPrefab;
 
-        public DialogueOverlay DialogueOverlay { get; private set; }
-
         private Hud _hud;
         private PauseMenu _pauseMenu;
         
         public static bool IsSubmitKeyDown(KeyDownEvent evt) => evt.keyCode is KeyCode.Space or KeyCode.Return;
+        
+        public DialogueOverlay DialogueOverlay { get; private set; }
+        
+        public NotificationData NotificationData_ItemAcquired => notificationData_ItemAcquired;
+        public NotificationData NotificationData_LogBookUpdated => notificationData_LogBookUpdated;
 
         public void OpenPauseMenu(PauseMenuTab tabId = PauseMenuTab.Settings)
         {
@@ -68,8 +75,8 @@ namespace Managers
             _hud = Instantiate(hudPrefab, gameObject.transform).GetComponent<Hud>();
         }
 
-        private void HideHud() => _hud.gameObject.SetActive(false);
-        private void ShowHud() => _hud.gameObject.SetActive(true);
+        private void HideHud() => _hud.Hide();
+        private void ShowHud() => _hud.Show();
         
         private void TryDestroyPauseMenu()
         {

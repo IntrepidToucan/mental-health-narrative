@@ -1,6 +1,8 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Cameras;
+using Characters.NPCs;
 using Characters.Player;
 using Environment;
 using UnityEngine;
@@ -12,8 +14,7 @@ namespace Managers
     public class SceneManager : PersistedSingleton<SceneManager>
     {
         [Header("Data")]
-        [SerializeField] private NotificationData notificationData_ItemAcquired;
-        [SerializeField] private NotificationData notificationData_LogBookUpdated;
+        [SerializeField] private List<NpcData> npcDataOriginals;
         
         [Header("Params")]
         [SerializeField] private float loadSceneFadeInDelay = 0.1f;
@@ -25,12 +26,11 @@ namespace Managers
         [SerializeField] private GameObject playerPrefab;
         [SerializeField] private GameObject sceneFaderPrefab;
         [SerializeField] private GameObject uiManagerPrefab;
-
+        
         private SceneFader _sceneFader;
         private string _activeSceneConnectionId;
-
-        public NotificationData NotificationData_ItemAcquired => notificationData_ItemAcquired;
-        public NotificationData NotificationData_LogBookUpdated => notificationData_LogBookUpdated;
+        
+        public List<NpcData> NpcDataInstances { get; private set; }
 
         public void SwitchToScene(string sceneName, ISceneConnectable sceneConnectable)
         {
@@ -60,6 +60,14 @@ namespace Managers
             // We need a delay before updating the UI element classes,
             // or else the transition animation won't work.
             StartCoroutine(FadeInAfterDelay());
+        }
+
+        protected override void Awake()
+        {
+            base.Awake();
+            
+            NpcDataInstances = new List<NpcData>();
+            foreach (var npcData in npcDataOriginals) NpcDataInstances.Add(Instantiate(npcData));
         }
 
         private void OnEnable()

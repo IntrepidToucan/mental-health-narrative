@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56659d773ca3c8a47abbedfe802c8761, type: 3}
   m_Name: Notification_ItemAcquired
   m_EditorClassIdentifier: 
-  text: Got  <b>{0}</b>
+  text: Got {0}
   ttl: 5

@@ -20,6 +20,16 @@ namespace UI.HUD
         private Button _pauseMenuButton;
         private VisualElement _notificationsContainer;
 
+        public void Hide()
+        {
+            _uiDoc.rootVisualElement.style.opacity = 0;
+        }
+
+        public void Show()
+        {
+            _uiDoc.rootVisualElement.style.opacity = 1;
+        }
+
         private void Awake()
         {
             _uiDoc = GetComponent<UIDocument>();

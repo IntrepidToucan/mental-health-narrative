@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Characters.NPCs;
 using Characters.Player;
 using Managers;
@@ -18,9 +15,6 @@ namespace UI.PauseMenu.LogBook
         [SerializeField] private VisualTreeAsset patientRecordItemButtonUxml;
         [SerializeField] private VisualTreeAsset patientPageUxml;
         [SerializeField] private VisualTreeAsset itemPageUxml;
-
-        [Header("Data")]
-        [SerializeField] private List<NpcData> npcDataOriginals;
         
         private const string ActiveClass = "active";
         private const string FocusableClass = "focusable";
@@ -31,7 +25,6 @@ namespace UI.PauseMenu.LogBook
         private const string UnknownNpcLabel = "???";
 
         private PauseMenu _pauseMenu;
-        private List<NpcData> _npcDataInstances;
         
         private VisualElement _rootContainer;
         private VisualElement _patientImageContainer;
@@ -53,9 +46,6 @@ namespace UI.PauseMenu.LogBook
         private void Awake()
         {
             _pauseMenu = GetComponent<PauseMenu>();
-            
-            _npcDataInstances = new List<NpcData>();
-            foreach (var npcData in npcDataOriginals) _npcDataInstances.Add(Instantiate(npcData));
         }
         
         private void DisplayLogBookEntries()
@@ -64,7 +54,7 @@ namespace UI.PauseMenu.LogBook
             _pauseMenu.HideBackButton();
             _rootContainer.Clear();
             
-            foreach (var npcData in _npcDataInstances)
+            foreach (var npcData in SceneManager.Instance.NpcDataInstances)
             {
                 var hasMetNpc = Player.Instance.HistoryController.HasHistory(
                     PlayerHistoryController.TryParseHistoryTag(
@@ -164,9 +154,16 @@ namespace UI.PauseMenu.LogBook
         private void PopulatePatientPage(NpcData npcData)
         {
             var page = patientPageUxml.Instantiate();
-            page.Q<Label>("patient-page-title").text = npcData.CharacterName;
-            
             var contentContainer = page.Q("patient-page-text-container");
+            
+            foreach (var historyTag in Player.Instance.HistoryController.GetAcquiredHistoryTags())
+            {
+                if (!npcData.LogBookEntryMap.TryGetValue(historyTag, out var entry)) continue;
+                
+                var text = new Label(entry);
+                text.AddToClassList("patient-page-text");
+                contentContainer.Add(text);
+            }
             
             _patientRecordContentContainer.Clear();
             _patientRecordContentContainer.Add(page);

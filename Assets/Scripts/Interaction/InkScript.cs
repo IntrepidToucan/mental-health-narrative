@@ -21,12 +21,14 @@ namespace Interaction
             
             Story.BindExternalFunction("updateInventory", (string itemIdString, int delta) =>
             {
-                Debug.Log($"updateInventory: {itemIdString} x{delta}");
-
-                var item = ScriptableObject.CreateInstance<Item>();
-                item.itemId = Inventory.TryParseItemId(itemIdString);
-                
-                Inventory.Instance.AddItem(item);
+                if (Inventory.Instance.ItemMap.TryGetValue(Inventory.TryParseItemId(itemIdString), out var item))
+                {
+                    Inventory.Instance.AddItem(item);
+                }
+                else
+                {
+                    Debug.LogError($"No item data for {itemIdString}");
+                }
             });
         }
     }

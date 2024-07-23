@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Characters.NPCs;
 using Managers;
 using UnityEngine;
@@ -11,7 +12,6 @@ namespace Characters.Player
     {
         [Header("Data")]
         [SerializeField] private List<HistoryTag> historyTags_Countable;
-        [SerializeField] private List<HistoryTag> historyTags_LogBookUpdate;
         
         private Dictionary<HistoryTag, int> _historyMap;
 
@@ -28,6 +28,9 @@ namespace Characters.Player
 
             return result;
         }
+        
+        public List<HistoryTag> GetAcquiredHistoryTags() =>
+            _historyMap.Keys.Where(key => _historyMap[key] > 0).ToList();
 
         public void AddHistory(HistoryTag historyTag, int delta = 1)
         {
@@ -51,9 +54,9 @@ namespace Characters.Player
                 _historyMap.Add(historyTag, newCount);
             }
 
-            if (historyTags_LogBookUpdate.Contains(historyTag))
+            if (SceneManager.Instance.NpcDataInstances.Any(npcData => npcData.LogBookEntryMap.ContainsKey(historyTag)))
             {
-                EventManager.TriggerNotification(SceneManager.Instance.NotificationData_LogBookUpdated);
+                EventManager.TriggerNotification(UiManager.Instance.NotificationData_LogBookUpdated);
             }
         }
 
@@ -64,7 +67,7 @@ namespace Characters.Player
             Debug.LogError($"Tag not found in history map: {historyTag}");
             return 0;
         }
-
+        
         private void Awake()
         {
             _historyMap = new Dictionary<HistoryTag, int>();

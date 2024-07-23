@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using Characters.NPCs;
 using Managers;
-using Unity.VisualScripting;
 using UnityEngine;
 using Utilities;
 
 public class Inventory : PersistedSingleton<Inventory>
 {
+    [Header("Data/Items")]
+    [SerializeField] private List<ItemId> itemIds;
+    [SerializeField] private List<Item> itemData;
+        
     public static bool IsDefaultItemId(ItemId itemId) => itemId == ItemId.None;
     public static string GetNpcGoalItemIdString(NpcData npcData) =>
         $"{Enum.GetName(typeof(NpcId), npcData.NpcId)}BloodSample";
@@ -22,6 +25,7 @@ public class Inventory : PersistedSingleton<Inventory>
         return result;
     }
     
+    public Dictionary<ItemId, Item> ItemMap { get; private set; }
     public List<Item> items = new(); // Holds the inventory items
 
     // Delegate and event for notifying when the inventory is updated
@@ -35,7 +39,7 @@ public class Inventory : PersistedSingleton<Inventory>
         OnInventoryUpdated?.Invoke();  // Trigger the event
         Debug.Log($"Added {item.itemName} to inventory");
 
-        var notificationData = Instantiate(SceneManager.Instance.NotificationData_ItemAcquired);
+        var notificationData = Instantiate(UiManager.Instance.NotificationData_ItemAcquired);
         notificationData.text = string.Format(notificationData.text, item.itemName);
         EventManager.TriggerNotification(notificationData);
     }
@@ -63,5 +67,13 @@ public class Inventory : PersistedSingleton<Inventory>
         {
             Debug.LogError($"Item {itemName} not found in inventory");
         }
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        
+        ItemMap = new Dictionary<ItemId, Item>();
+        for (var i = 0; i < itemIds.Count; i++) ItemMap.Add(itemIds[i], itemData[i]);
     }
 }

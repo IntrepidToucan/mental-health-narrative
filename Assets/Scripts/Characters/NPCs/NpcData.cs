@@ -16,18 +16,29 @@ namespace Characters.NPCs
         [field: SerializeField, Tooltip("The compiled Ink JSON file!")] public FontAsset FontAsset { get; private set; }
         [field: SerializeField] public List<Item> items { get; private set;  }
         
-        [Header("Mappings")]
+        [Header("Mappings/Demeanors")]
         [SerializeField] private List<Demeanor> demeanors;
         [SerializeField] private List<Sprite> portraits;
+        
+        [Header("Mappings/Log Book Entries")]
+        [SerializeField] private List<HistoryTag> logBookHistoryTags;
+        [SerializeField] private List<string> logBookEntries;
 
         [NonSerialized] private Sprite _defaultPortrait;
         
+        [field: NonSerialized] public Dictionary<HistoryTag, string> LogBookEntryMap { get; private set; }
         [field: NonSerialized] public Dictionary<Demeanor, Sprite> PortraitMap { get; private set; }
         
         public Sprite DefaultPortrait => _defaultPortrait;
         
         private void Awake()
         {
+            LogBookEntryMap = new Dictionary<HistoryTag, string>();
+            for (var i = 0; i < logBookHistoryTags.Count; i++)
+            {
+                LogBookEntryMap.Add(logBookHistoryTags[i], logBookEntries[i]);
+            }
+            
             PortraitMap = new Dictionary<Demeanor, Sprite>();
             for (var i = 0; i < demeanors.Count; i++) PortraitMap.Add(demeanors[i], portraits[i]);
             
