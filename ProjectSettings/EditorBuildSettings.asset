@@ -21,10 +21,10 @@ EditorBuildSettings:
     path: Assets/Scenes/AnnaScene.unity
     guid: 7592af84f683c294faf0559938a0f8df
   - enabled: 1
-    path: Assets/Scenes/PrototypeLinear.unity
+    path: Assets/Scenes/PrototypeErol.unity
     guid: 531291075c0791e448e9c194566ec1a1
   - enabled: 1
-    path: Assets/Scenes/PrototypeFreeform.unity
+    path: Assets/Scenes/PrototypeMandy.unity
     guid: 59fa645aa3b5c8146ab5b5c69664cb9d
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 587ad5d956e30a2498bc1b11f19c3cdd, type: 2}
