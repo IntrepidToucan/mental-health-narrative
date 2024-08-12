@@ -1,123 +1,65 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class BreakablePlatform : MonoBehaviour
 {
-    [Header("General Settings")]
-    public bool isJumpBreakable = false;   // Enable if the platform breaks from jumps
-    public bool isImpactBreakable = true;  // Enable if the platform breaks from impacts
-    public float platDespawn = 2f;         // Time before platform despawns
-    public bool shouldDespawn = true;      // Bool to control despawn logic
+    [Header("Platform Settings")]
+    [SerializeField] private bool isBreakableByPlayer = true; // Toggle for player-breakable platforms
+    [SerializeField] private int maxJumpsBeforeBreak = 3;
+    [SerializeField] private float breakForce = 10f;
+    [SerializeField] private float despawnTime = 2f; // Time before platform despawns after breaking
 
-    [Header("Jump Break Settings")]
-    public int maxJumps = 2; // Number of jumps before breaking
-    private int jumpCount = 0; // Counter for jumps
-
-    [Header("Impact Break Settings")]
-    public string[] breakableTags = { "OrangePlatform" }; // Tags of objects that can break this platform
-    public float breakVelocityThreshold = 5f; // Minimum velocity needed to break the platform
-    public Vector2 breakDirection = new Vector2(0, -1); // Direction to check for impact
-
-    [Header("Events")]
-    public UnityEvent OnBreak; // Unity Event for additional actions when breaking
-
-    private Rigidbody2D rb;
-    private Collider2D platformCollider;
+    private int currentJumps = 0;
     private bool isBroken = false;
+    private Rigidbody2D rb;
+    private BoxCollider2D col;
 
-    void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        platformCollider = GetComponent<Collider2D>();
-
-        // Start as kinematic if you want manual control
-        rb.bodyType = RigidbodyType2D.Dynamic;
-
-        // Freeze Y position to prevent initial falling
-        rb.constraints = RigidbodyConstraints2D.FreezePositionY;
+        col = GetComponent<BoxCollider2D>();
+        rb.isKinematic = true; // Initially, the platform should not be affected by physics
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!isBroken)
+        if (collision.gameObject.CompareTag("Player") && isBreakableByPlayer)
         {
-            if (isJumpBreakable)
+            RegisterJump();
+        }
+        else if (collision.gameObject.CompareTag("BreakablePlatform") && isBroken)
+        {
+            BreakablePlatform otherPlatform = collision.gameObject.GetComponent<BreakablePlatform>();
+            if (otherPlatform != null && !otherPlatform.isBreakableByPlayer) // Ensure only non-player-breakable platforms break
             {
-                HandleJumpBreak(collision);
-            }
-
-            if (isImpactBreakable)
-            {
-                HandleImpactBreak(collision);
+                otherPlatform.Break();
             }
         }
     }
 
-    private void HandleJumpBreak(Collision2D collision)
+    private void RegisterJump()
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            jumpCount++;
-            Debug.Log("Jumped " + jumpCount + " times");
+        if (isBroken) return;
 
-            if (jumpCount >= maxJumps)
-            {
-                BreakPlatform();
-            }
+        currentJumps++;
+
+        if (currentJumps >= maxJumpsBeforeBreak)
+        {
+            Break();
         }
     }
 
-    private void HandleImpactBreak(Collision2D collision)
+    private void Break()
     {
-        foreach (var tag in breakableTags)
-        {
-            if (collision.gameObject.CompareTag(tag))
-            {
-                Rigidbody2D otherRb = collision.gameObject.GetComponent<Rigidbody2D>();
-                if (otherRb != null && CanBreak(otherRb.velocity))
-                {
-                    BreakPlatform();
-                }
-                break;
-            }
-        }
-    }
-
-    private bool CanBreak(Vector2 velocity)
-    {
-        float impactVelocity = Vector2.Dot(velocity, breakDirection.normalized);
-        Debug.Log($"Impact Velocity: {impactVelocity}, Threshold: {breakVelocityThreshold}");
-        return impactVelocity >= breakVelocityThreshold;
-    }
-
-    void BreakPlatform()
-    {
-        Debug.Log("Platform breaking");
-
         isBroken = true;
+        rb.isKinematic = false; // Enable physics so the platform can fall
+        rb.AddForce(Vector2.down * breakForce, ForceMode2D.Impulse); // Apply an initial force downward
+        Invoke(nameof(Despawn), despawnTime); // Start the despawn timer
+    }
 
-        // Trigger break event for additional actions
-        OnBreak?.Invoke();
-
-        // Disable the platform's collider
-        if (platformCollider != null)
-        {
-            platformCollider.enabled = false;
-        }
-
-        // Release Y position constraint to allow falling
-        rb.constraints = RigidbodyConstraints2D.None;
-
-        // Change the Rigidbody2D to dynamic to simulate falling if not already dynamic
-        if (rb != null)
-        {
-            rb.bodyType = RigidbodyType2D.Dynamic;
-        }
-
-        // Optionally despawn the platform after a certain time
-        if (shouldDespawn)
-        {
-            Destroy(gameObject, platDespawn);
-        }
+    private void Despawn()
+    {
+        Destroy(gameObject); // Despawn (destroy) the platform
     }
 }
