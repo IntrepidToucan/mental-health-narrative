@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1335956676188752966}
   - component: {fileID: 7205215056214894475}
   - component: {fileID: 8294190247511324876}
-  - component: {fileID: 8755512395957495014}
+  - component: {fileID: -6612539038768266272}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -73,7 +73,7 @@ MonoBehaviour:
   m_BiasX: 0
   m_BiasY: 0
   m_CenterOnActivate: 1
---- !u!114 &8755512395957495014
+--- !u!114 &-6612539038768266272
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -86,7 +86,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 3.6, z: -10}
+  m_FollowOffset: {x: 0, y: 2, z: -10}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 34
-    OrthographicSize: 5.4
+    OrthographicSize: 5.2
     NearClipPlane: 0
     FarClipPlane: 50
     Dutch: 0
@@ -180,4 +180,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baf819f6438bcf441b51be1d2bc17075, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  persistAcrossScenes: 0
+  desiredYOffset: 2

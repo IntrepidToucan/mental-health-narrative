@@ -9,6 +9,9 @@ TagManager:
   - BreakablePlatform
   - Box
   - Water
+  - BlackWall
+  - YellowPillar
+  - RedPlatform
   layers:
   - Default
   - TransparentFX

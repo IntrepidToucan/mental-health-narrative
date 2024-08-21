@@ -1,19 +1,22 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(PlatformExplosion))]
-public class PlatformExplosionEditor : Editor
+[CustomEditor(typeof(RedPlatformMovement))]
+public class PlatformEditor : Editor
 {
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
-        PlatformExplosion platformExplosion = (PlatformExplosion)target;
+        RedPlatformMovement redPlatformMovement = (RedPlatformMovement)target;
 
-        if (GUILayout.Button("Capture Target Transforms"))
+        // Removed the buttons for capturing target transforms and resetting position
+        // as those methods are no longer part of the RedPlatformMovement script.
+
+        // Example of adding a button for a different function, if needed
+        if (GUILayout.Button("Release Platform"))
         {
-            platformExplosion.CaptureTargetTransforms();
-            platformExplosion.ResetToInitialPositions();
+            redPlatformMovement.ReleasePlatform();
         }
     }
 }
