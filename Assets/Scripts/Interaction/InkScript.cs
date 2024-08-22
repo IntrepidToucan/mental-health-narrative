@@ -11,6 +11,11 @@ namespace Interaction
         {
             Story = new Story(inkAsset.text);
             
+            Story.BindExternalFunction("displayPlayerThought", (string text) =>
+            {
+                Debug.Log($"Player thought: {text}");
+            }, true);
+            
             Story.BindExternalFunction("hasItem", (string itemIdString) =>
                 Inventory.Instance.HasItem(Inventory.TryParseItemId(itemIdString)), true);
             
