@@ -5,13 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
-  - Boulder
   - BreakablePlatform
   - Box
   - Water
   - BlackWall
   - YellowPillar
   - RedPlatform
+  - BigBad
   layers:
   - Default
   - TransparentFX
