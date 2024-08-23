@@ -6,9 +6,14 @@ using Utilities;
 namespace Cameras
 {
     [RequireComponent(typeof(CinemachineVirtualCamera))]
+    [RequireComponent(typeof(CinemachineConfiner2D))]
     public class PlayerFollowCamera : PersistedSingleton<PlayerFollowCamera>
     {
+        public CinemachineConfiner2D CineConfiner { get; private set; }
         public CinemachineVirtualCamera CineVirtualCamera { get; private set; }
+
+        public const float OrthoSizeNarrative = 4.2f;
+        public const float OrthoSizePlatforming = 6.2f;
 
         [SerializeField]
         private float desiredYOffset = 2f; // Exposed to the editor
@@ -18,9 +23,11 @@ namespace Cameras
         protected override void InitializeSingleton()
         {
             base.InitializeSingleton();
+            
+            CineConfiner = GetComponent<CinemachineConfiner2D>();
 
             CineVirtualCamera = GetComponent<CinemachineVirtualCamera>();
-            CineVirtualCamera.m_Lens.OrthographicSize = 6.2f;
+            CineVirtualCamera.m_Lens.OrthographicSize = OrthoSizeNarrative;
             CineVirtualCamera.m_Lens.NearClipPlane = 0f;
             CineVirtualCamera.m_Lens.FarClipPlane = 50f;
         }

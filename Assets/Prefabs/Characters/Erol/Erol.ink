@@ -1,3 +1,4 @@
+EXTERNAL displayPlayerThought(text)
 EXTERNAL hasItem(id)
 EXTERNAL updateAffinity(delta)
 EXTERNAL updateInventory(itemId, delta)
@@ -24,7 +25,7 @@ CONST ITEM_EROL_SERVICEMANS_BADGE = "ErolServicemansBadge"
 + [I need something from you.]
 + [I’m here to help.]
 
-- ...
+- ... {displayPlayerThought("He doesn’t seem to want to talk.")}
 -> END
 
 == intro_breakthrough ==
@@ -38,10 +39,20 @@ An’ e’s a bloody doctor, too. Anyfing ‘e can’t do?
 - (choices)
 + (maze) {maze < 2} [{Can’t figure my way around this building, to be honest!|About this maze...}]
 {Heh... Ain’t that th’truth. Bloody maze...|Hrm, wot about it?}
-    ** [Do you want to get out of here?]
+    ++ [Do you want to get out of here?]
     Ain’t no way out for me. Leave if y’like.
-    -> choices
-    ++ [I think mazes are fun.]
+        +++ I would, but I can’t until I take a blood sample...
+        Took y’long enuff t’get there!
+        Always afta somefink, you lot...
+        Take wotcher want and get out! {updateInventory(ITEM_EROL_BLOOD_SAMPLE, 1)}
+        -> END
+        +++ Well, if you’re gonna be stuck there, is there anything I can do?
+        ...
+        Y’can bring me my post.
+        Ain’t’ad anyfink t’read since I been stuck here...
+        But be quick about it, an’ quiet!
+        -> END
+    ++ [It’s more like a nightmare. Mazes are fun, at least.]
     You an’ me got diff’rent ideas of “fun.”
         *** [What do you do for fun?]
         Mind my own business. Y’startin’ t’get on my nerves...
@@ -60,7 +71,7 @@ An’ e’s a bloody doctor, too. Anyfing ‘e can’t do?
 + [Can’t watch you holding all that up. Let me show you how it’s done.]
 Fink y’got ‘alf a chance a’this, Sunshine?
 -> END
-+ [Don’t waste my time. Look, I’m here for a blood sample.]
++ [I can’t afford to waste time. I’m here for a blood sample.]
 Y’gonna leave me to it after all that?
 Fine. Take what y’like, just leave me alone. {updateInventory(ITEM_EROL_BLOOD_SAMPLE, 1)}
 -> END

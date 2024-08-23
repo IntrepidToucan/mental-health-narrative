@@ -387,7 +387,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6137098519082692533, guid: 889ecd9296393004d8f8b201be0fae31, type: 3}
       propertyPath: targetSceneName
-      value: Scenes/Prototype/ProtoHallway
+      value: Scenes/Narrative/Narrative_Hallway
       objectReference: {fileID: 0}
     - target: {fileID: 6137098519082692533, guid: 889ecd9296393004d8f8b201be0fae31, type: 3}
       propertyPath: sceneConnectionId

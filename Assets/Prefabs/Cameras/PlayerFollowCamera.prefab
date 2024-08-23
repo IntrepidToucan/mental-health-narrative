@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 7646646013047835293}
   - component: {fileID: 1181439371813345851}
   - component: {fileID: 8673537270833970885}
+  - component: {fileID: 2331209229716575987}
   m_Layer: 0
   m_Name: PlayerFollowCamera
   m_TagString: Untagged
@@ -151,7 +152,7 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 34
-    OrthographicSize: 5.2
+    OrthographicSize: 6.2
     NearClipPlane: 0
     FarClipPlane: 50
     Dutch: 0
@@ -181,3 +182,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   desiredYOffset: 2
+--- !u!114 &2331209229716575987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7998281809796451835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BoundingShape2D: {fileID: 0}
+  m_Damping: 0.5
+  m_MaxWindowSize: -1

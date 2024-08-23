@@ -112,6 +112,15 @@ namespace Managers
                     playerTransform, targetPosition - playerTransform.position);
                 playerTransform.position = targetPosition;
             }
+
+            PlayerFollowCamera.Instance.CineVirtualCamera.m_Lens.OrthographicSize = scene.name.StartsWith("Narrative_") ?
+                PlayerFollowCamera.OrthoSizeNarrative : PlayerFollowCamera.OrthoSizePlatforming;
+
+            var cameraConfiner = GameObject.Find("/CameraConfiner");
+
+            PlayerFollowCamera.Instance.CineConfiner.m_BoundingShape2D = cameraConfiner != null ?
+                cameraConfiner.GetComponent<PolygonCollider2D>() : null;
+            PlayerFollowCamera.Instance.CineConfiner.InvalidateCache();
             
             Player.Instance.PlayerInput.currentActionMap.Enable();
                 
