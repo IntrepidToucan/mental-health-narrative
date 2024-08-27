@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3893088842958468697}
   - component: {fileID: 8868609611457209081}
   - component: {fileID: 2478374887248405177}
+  - component: {fileID: -5161259673311529860}
   - component: {fileID: 3544413452192981855}
   - component: {fileID: 5396734240857921147}
   - component: {fileID: 1146774265698121033}
@@ -166,6 +167,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-5161259673311529860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8989679898361094672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e2da7ff55cf87f4f8872cd6de6dce39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waterSpeedMultiplier: 0.5
+  waterJumpMultiplier: 1.5
+  maxBreathTime: 10
+  breathDrainRate: 1
+  breathRegenRate: 2
 --- !u!114 &3544413452192981855
 MonoBehaviour:
   m_ObjectHideFlags: 0

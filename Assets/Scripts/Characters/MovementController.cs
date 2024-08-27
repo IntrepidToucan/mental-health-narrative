@@ -44,12 +44,12 @@ namespace Characters
         [SerializeField, Min(MinRayCount)] private int verticalRayCount = 4;
         
         [Header("Movement")]
-        [SerializeField] private float moveSpeed = 4f;
+        [SerializeField] public float moveSpeed = 4f;
         [SerializeField] private float accelerationTimeGrounded = 0.1f;
         [SerializeField] private float accelerationTimeAirborne = 0.2f;
     
         [Header("Jumping")]
-        [SerializeField] private float jumpHeight = 1f;
+        [SerializeField] public float jumpHeight = 1f;
         [SerializeField] private float distanceToJumpApex = 1.8f;
         [SerializeField] private float fallingGravityScale = 2f;
     
