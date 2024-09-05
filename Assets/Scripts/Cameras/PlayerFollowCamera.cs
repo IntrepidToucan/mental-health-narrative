@@ -13,7 +13,7 @@ namespace Cameras
         public CinemachineVirtualCamera CineVirtualCamera { get; private set; }
 
         public const float OrthoSizeNarrative = 4.2f;
-        public const float OrthoSizePlatforming = 6.2f;
+        public const float OrthoSizePlatforming = 5.75f;
 
         [SerializeField]
         private float desiredYOffset = 2f; // Exposed to the editor
