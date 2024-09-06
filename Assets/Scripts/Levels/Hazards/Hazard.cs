@@ -1,4 +1,5 @@
 using UnityEngine;
+using Characters.Player;
 
 public class Hazard : MonoBehaviour
 {
