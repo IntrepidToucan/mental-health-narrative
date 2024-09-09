@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class MirrorInteraction : MonoBehaviour
 {
-    [SerializeField] private GameObject mirror;  // Reference to the mirror
-    [SerializeField] private GameObject monsterReflection;  // The monster reflection object
-    [SerializeField] private GameObject playerReflection;  // The player's reflection object
-    [SerializeField] private float detectionRange = 2f;  // Distance from the mirror to trigger reflection change
+    [SerializeField] private GameObject monsterReflection;  // The monster that represents the player's reflection
+    [SerializeField] private GameObject playerReflection;  // The player's normal reflection (if needed)
+    [SerializeField] private float detectionRange = 2f;  // How close the player needs to be to trigger the reflection change
+    [SerializeField] private GameObject mirror;  // The mirror object
 
     private bool playerInRange = false;
 
@@ -17,7 +17,7 @@ public class MirrorInteraction : MonoBehaviour
 
     private void DetectPlayerInFrontOfMirror()
     {
-        // Check if the player is within range of the mirror
+        // Check the distance between the player and the mirror
         float distanceToPlayer = Vector2.Distance(Player.Instance.transform.position, mirror.transform.position);
 
         if (distanceToPlayer <= detectionRange)
@@ -38,28 +38,46 @@ public class MirrorInteraction : MonoBehaviour
         }
     }
 
+    // Show the monster reflection instead of the player
     private void ShowMonsterReflection()
     {
-        // Show the monster reflection and hide the player's reflection
-        monsterReflection.SetActive(true);
-        playerReflection.SetActive(false);
+        // Hide the player reflection (if there's one)
+        if (playerReflection != null)
+        {
+            playerReflection.SetActive(false);
+        }
 
-        // Disable enemies' ability to see or harm the player
-        SetEnemiesInvisible(true);
+        // Show the monster reflection
+        if (monsterReflection != null)
+        {
+            monsterReflection.SetActive(true);
+        }
+
+        // Disable enemies' ability to detect the player
+        SetPlayerInvisibleToEnemies(true);
     }
 
+    // Switch back to showing the player's reflection when the player leaves the mirror's range
     private void ShowPlayerReflection()
     {
-        // Show the player's reflection and hide the monster
-        monsterReflection.SetActive(false);
-        playerReflection.SetActive(true);
+        // Show the player's reflection (if needed)
+        if (playerReflection != null)
+        {
+            playerReflection.SetActive(true);
+        }
 
-        // Re-enable enemies' ability to see or harm the player
-        SetEnemiesInvisible(false);
+        // Hide the monster reflection
+        if (monsterReflection != null)
+        {
+            monsterReflection.SetActive(false);
+        }
+
+        // Re-enable enemies' ability to detect the player
+        SetPlayerInvisibleToEnemies(false);
     }
 
-    // This method will loop through all enemies in the scene and toggle their visibility
-    private void SetEnemiesInvisible(bool isInvisible)
+    // Disable/Enable enemies' detection of the player
+    private void SetPlayerInvisibleToEnemies(bool isInvisible)
     {
         var enemies = FindObjectsOfType<EnemyBehavior>();  // Find all enemies with the EnemyBehavior script
         foreach (var enemy in enemies)
