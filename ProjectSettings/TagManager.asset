@@ -26,7 +26,7 @@ TagManager:
   - Interaction
   - Platform
   - Hazard
-  - 
+  - PassThroughPlatform
   - 
   - 
   - 
@@ -70,7 +70,4 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 122915569
-    locked: 0
-  - name: 
-    uniqueID: 294598381
     locked: 0

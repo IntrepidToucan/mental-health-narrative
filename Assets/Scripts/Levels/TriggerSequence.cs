@@ -4,7 +4,7 @@ using System.Collections;
 
 public class TriggerSequence : MonoBehaviour
 {
-    private PlayerMovement playerMovement;
+    //private PlayerMovement playerMovement;
     private PlayerFollowCamera playerCamera;
 
     public Transform enemy;
@@ -25,16 +25,16 @@ public class TriggerSequence : MonoBehaviour
     private void AssignComponents()
     {
         // Find the player clone
-        GameObject playerObject = GameObject.Find("Player(Clone)");
-        if (playerObject != null)
-        {
-            playerMovement = playerObject.GetComponent<PlayerMovement>();
-            Debug.Log("PlayerMovement component found: " + (playerMovement != null));
-        }
-        else
-        {
-            Debug.LogError("Player object not found! Ensure the Player prefab is correctly instantiated.");
-        }
+        //GameObject playerObject = GameObject.Find("Player(Clone)");
+        //if (playerObject != null)
+        //{
+        //    playerMovement = playerObject.GetComponent<PlayerMovement>();
+        //    Debug.Log("PlayerMovement component found: " + (playerMovement != null));
+        //}
+        //else
+        //{
+        //    Debug.LogError("Player object not found! Ensure the Player prefab is correctly instantiated.");
+        //}
 
         // Find the camera clone
         GameObject cameraObject = GameObject.Find("PlayerFollowCamera(Clone)");
@@ -60,10 +60,10 @@ public class TriggerSequence : MonoBehaviour
 
     private IEnumerator SequenceCoroutine(Transform player)
     {
-        if (playerMovement != null)
-        {
-            playerMovement.enabled = false;
-        }
+       // if (playerMovement != null)
+       // {
+            //playerMovement.enabled = false;
+        //}
 
         player.position = playerLookPosition.position;
 
@@ -114,10 +114,10 @@ public class TriggerSequence : MonoBehaviour
             enemyAnimator.SetTrigger("Chase");
         }
 
-        if (playerMovement != null)
-        {
-            playerMovement.enabled = true;
-        }
+        //if (playerMovement != null)
+        //{
+        //    playerMovement.enabled = true;
+        //}
 
         if (playerCamera != null)
         {

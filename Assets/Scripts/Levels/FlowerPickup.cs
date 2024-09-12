@@ -3,15 +3,17 @@ using Interaction;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+
 public class FlowerPickup : MonoBehaviour, IInteractable
 {
     [SerializeField] private GameObject aliveLeaf;  // Reference to the green (alive) leaf platform
     [SerializeField] private Sprite deadLeafSprite;  // Sprite to show when the leaf wilts
-    [SerializeField] private Vector3 targetRotation = new Vector3(0, 0, 45);  // Final rotation (e.g., tilt to form a ramp)
+    [SerializeField] private Vector3 targetPosition;  // Desired target position to move to
+    [SerializeField] private Vector3 targetRotation;  // Desired target rotation (Euler angles) for final orientation
     [SerializeField] private float transformationDuration = 2f;  // Time it takes for the leaf to fully transform (wilt)
 
-    // Item reference instead of string for the flower
-    [SerializeField] private Item flowerItem;  // Reference to the flower Item (adjust according to your project)
+    // Item reference for the flower (make sure to assign this in the Inspector)
+    [SerializeField] private Item flowerItem;
 
     private bool isCollected = false;
 
@@ -20,7 +22,6 @@ public class FlowerPickup : MonoBehaviour, IInteractable
 
     private void Start()
     {
-        // Find the player's inventory (adapt this to match your project)
         playerInventory = Player.Instance.GetComponent<Inventory>();
     }
 
@@ -40,52 +41,40 @@ public class FlowerPickup : MonoBehaviour, IInteractable
         {
             isCollected = true;
             CollectFlower();
+            WiltLeaf();  // Directly apply the transformation
         }
     }
 
     private void CollectFlower()
     {
-        // Add the flower to the player's inventory using the Item reference
-        if (playerInventory != null)
+        // Add the flower to the player's inventory
+        if (playerInventory != null && flowerItem != null)
         {
-            playerInventory.AddItem(flowerItem);  // Add the Item object to the inventory
-        }
-        else
-        {
-            Debug.LogWarning("Player inventory not found.");
-        }
-
-        // Trigger the leaf transformation (wilt) process
-        if (aliveLeaf != null)
-        {
-            StartCoroutine(WiltLeaf());
+            playerInventory.AddItem(flowerItem);
         }
 
         // Disable or destroy the flower object after collecting
         Destroy(gameObject);
     }
-
-    private IEnumerator WiltLeaf()
+    private void WiltLeaf()
     {
         // Change the sprite of the leaf to the dead leaf sprite
         SpriteRenderer leafRenderer = aliveLeaf.GetComponent<SpriteRenderer>();
         if (leafRenderer != null)
         {
             leafRenderer.sprite = deadLeafSprite;
+            Debug.Log("Leaf sprite changed to dead sprite.");
         }
 
-        // Gradually rotate or move the leaf to form a ramp or other shape
-        Quaternion initialRotation = aliveLeaf.transform.rotation;
-        Quaternion finalRotation = Quaternion.Euler(targetRotation);
-        float elapsedTime = 0f;
+        // Log initial local position and rotation
+        Debug.Log($"Initial Local Position: {aliveLeaf.transform.localPosition}, Initial Local Rotation: {aliveLeaf.transform.localRotation.eulerAngles}");
 
-        while (elapsedTime < transformationDuration)
-        {
-            aliveLeaf.transform.rotation = Quaternion.Slerp(initialRotation, finalRotation, elapsedTime / transformationDuration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
+        // Set the target local position and rotation
+        aliveLeaf.transform.localPosition = targetPosition;
+        aliveLeaf.transform.localRotation = Quaternion.Euler(targetRotation);
 
-        aliveLeaf.transform.rotation = finalRotation;  // Ensure the final rotation is exact
+        // Log final local position and rotation
+        Debug.Log($"New Local Position: {aliveLeaf.transform.localPosition}, New Local Rotation: {aliveLeaf.transform.localRotation.eulerAngles}");
     }
 }
+
