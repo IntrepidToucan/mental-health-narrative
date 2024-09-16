@@ -5,29 +5,37 @@ public class ShovelInteraction : MonoBehaviour, IInteractable
 {
     [SerializeField] private GameObject dirtPile;  // Reference to the dirt pile
     [SerializeField] private GameObject hiddenFlower;  // The flower hidden under the dirt pile
+    [SerializeField] private string shovelItemName = "Shovel";  // The name of the shovel item in the inventory
 
     private bool isUsed = false;
 
     public bool CanInteract()
     {
-        return !isUsed;  // Can only interact if the shovel hasn't been used yet
+        // Check if the player has the shovel in the inventory and the dirt hasn't been dug up yet
+        return !isUsed && Inventory.Instance.HasItem(shovelItemName);
     }
 
     public IInteractable.InteractionData? GetInteractionData()
     {
-        return new IInteractable.InteractionData("Press 'E' to use the shovel");
+        // Show interaction prompt only if the shovel is in the inventory
+        if (Inventory.Instance.HasItem(shovelItemName))
+        {
+            return new IInteractable.InteractionData("Press 'E' to use the shovel");
+        }
+        return null;  // No interaction prompt if shovel is not in inventory
     }
 
     public void Interact()
     {
-        if (!isUsed)
+        if (!isUsed && Inventory.Instance.HasItem(shovelItemName))
         {
             isUsed = true;
-            RevealFlower();
+            RemoveDirtPile();
+            RemoveShovelFromInventory();  // Remove the shovel after using it
         }
     }
 
-    private void RevealFlower()
+    private void RemoveDirtPile()
     {
         // Remove or disable the dirt pile
         if (dirtPile != null)
@@ -40,5 +48,14 @@ public class ShovelInteraction : MonoBehaviour, IInteractable
         {
             hiddenFlower.SetActive(true);
         }
+
+        Debug.Log("Dirt pile removed, hidden flower revealed.");
+    }
+
+    private void RemoveShovelFromInventory()
+    {
+        // Remove the shovel from the inventory
+        Inventory.Instance.RemoveItem(shovelItemName);
+        Debug.Log("Shovel removed from inventory.");
     }
 }
